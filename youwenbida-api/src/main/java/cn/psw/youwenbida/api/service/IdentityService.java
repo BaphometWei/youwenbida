@@ -10,4 +10,6 @@ public interface IdentityService {
     public ResponseBo doSignup(User user);
 
     public ResponseBo validateSignup(User user);
+
+    public User getUser(String id);
 }

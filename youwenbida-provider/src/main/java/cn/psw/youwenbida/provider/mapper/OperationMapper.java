@@ -9,7 +9,7 @@ public interface OperationMapper {
 
     int insert(Operation record);
 
-    Operation selectByPrimaryKey(String oid);
+    Operation selectByPrimaryKey(Operation record);
 
     List<Operation> selectAll();
 

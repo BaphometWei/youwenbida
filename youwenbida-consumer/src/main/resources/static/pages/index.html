@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/js/jquery-3.3.1.min.js"></script>
     <style>
-
         .main{
             width: 1000px;
             margin:0 auto;
@@ -95,6 +94,7 @@
             font-size: 15px;
             color: #1A1A1A;
             -webkit-tap-highlight-color: rgba(26, 26, 26, 0);
+            padding-top:15px;
         }
         .problem-fold p{
             padding-bottom: 15px;
@@ -113,6 +113,7 @@
             border: 1px solid #EBEBEB;
             box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
             border-radius: 2px;
+            display: none;
         }
         .pinglun .plsl,.hfsl{
             border-bottom: 1px solid #F6F6F6;
@@ -231,34 +232,6 @@
                     </div>
                 </div>
             </div>
-            <div class="problem">
-                <h2 class="problem-title">你班主任说过最让你难忘的一句话是什么？</h2>
-                <div class="problem-answer">
-                    <a>
-                        <img class="Avatar AuthorInfo-avatar" width="24" height="24" src="/img/touxiang.jpg" />
-                        <span class="answername">  夏木</span>
-                        <span class="answerqm">断剑重铸之日，骑士归来之时</span>
-                    </a>
-                </div>
-                <div class="problem-zan">
-                    <span>0</span>人赞同了该回答
-                </div>
-                <div class="problem-fold">
-                    <p>aghifjgi还记得高i家啊看个JOIA挂机看到股价几个</p>
-                    <p>根据奥克斯宫颈癌及哦啊接的骨灰级按估计回家机构</p>
-                </div>
-                <div class="controlfold">
-
-                </div>
-                <div class="answer-time">
-                    发布于  <span>2018-01-10</span>
-                </div>
-                <div class="problem-footer">
-                    <button class="problem-dianzan" style="background: #FCC9C9;color:#ffffff;padding: 0 12px;" isdz="true" onclick="zantong(this)"><i class="layui-icon layui-icon-praise"></i> <span>34</span></button>
-                    <button class="problem-pinglun"><i class="layui-icon layui-icon-reply-fill"></i> <span>34条评论</span></button>
-                    <button class="problem-shoucang" style="margin-left: 0px;" onclick="shoucang(this)" issc="false"><i class="layui-icon layui-icon-rate-solid"></i> <span>收藏</span></button>
-                </div>
-            </div>
         </div>
     </div>
     <div class="main-right">
@@ -274,7 +247,6 @@
     function chakanhuifu(){
         layui.use('layer', function(){
             var layer = layui.layer;
-
             layer.open({
                 title: '查看对话',
                 area: ['710px'],
@@ -286,6 +258,22 @@
     }
     $(function () {
         $("header").load("/pages/common/header.html");
+        $.ajax({
+            type: "GET",
+            url: "/getHotAnswer",
+            async: false,
+            success: function (data) {
+                var showhtml = "";
+                showhtml += "<div class='problem'><h2 class='problem-title'>"+data[0].title+"</h2>";
+                showhtml += "<div class='problem-answer'><a><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  "+data[0].ahdzname+"</span>";
+                showhtml += "<span class='answerqm'> "+data[0].ahdzgxqm+"</span></a></div><div class='problem-zan'><span>"+data[0].aztsl+"</span>人赞同了该回答</div><div class='problem-fold'>"+data[0].ahd;
+                showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>"+data[0].ahdrq+"</span></div><div class='problem-footer'>";
+                showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='"+data[0].dz+"' onclick='zantong(this)'><i class='layui-icon layui-icon-praise'></i> <span>"+data[0].aztsl+"</span></button>";
+                showhtml += "<button class='problem-pinglun' onclick='pinglun()'><i class='layui-icon layui-icon-reply-fill'></i> <span>"+data[0].aplsl+"条评论</span></button>";
+                showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='"+data[0].sc+"'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button></div><div class='pinglun'></div></div>";
+                $(".main-problem").append(showhtml);
+            }
+        })
         $(".problem-dianzan").each(function (i,val) {
             if($(this).attr("isdz")=="true"){
                 $(this).find("span").text("已赞同"+$(this).find("span").text());

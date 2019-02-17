@@ -24,6 +24,16 @@ public class Answer implements Serializable {
 
     private String ahdwt;
 
+    private Boolean dz;
+
+    private Boolean sc;
+
+    private String title;
+
+    private String ahdzname;
+
+    private String ahdzgxqm;
+
     public String getAid() {
         return aid;
     }
@@ -78,5 +88,45 @@ public class Answer implements Serializable {
 
     public void setAhdwt(String ahdwt) {
         this.ahdwt = ahdwt == null ? null : ahdwt.trim();
+    }
+
+    public Boolean getDz() {
+        return dz;
+    }
+
+    public void setDz(Boolean dz) {
+        this.dz = dz;
+    }
+
+    public Boolean getSc() {
+        return sc;
+    }
+
+    public void setSc(Boolean sc) {
+        this.sc = sc;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAhdzname() {
+        return ahdzname;
+    }
+
+    public void setAhdzname(String ahdzname) {
+        this.ahdzname = ahdzname;
+    }
+
+    public String getAhdzgxqm() {
+        return ahdzgxqm;
+    }
+
+    public void setAhdzgxqm(String ahdzgxqm) {
+        this.ahdzgxqm = ahdzgxqm;
     }
 }

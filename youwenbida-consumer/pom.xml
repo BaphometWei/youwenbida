@@ -28,10 +28,10 @@
             <artifactId>youwenbida-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 

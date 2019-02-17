@@ -34,7 +34,8 @@ public class LoginController {
         user.setPassword(AesUtil.encrypt(user.getPassword()));
         if(identityService.doLogin(user)!=null) {
             //把用户数据保存在session域对象中
-            session.setAttribute("user", identityService.doLogin(user).getName());
+            session.setAttribute("username", identityService.doLogin(user).getName());
+            session.setAttribute("userid", identityService.doLogin(user).getId());
             return ResponseBo.ok();
         }
         else {

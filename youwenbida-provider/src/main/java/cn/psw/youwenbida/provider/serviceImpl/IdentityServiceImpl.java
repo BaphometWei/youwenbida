@@ -43,5 +43,10 @@ public class IdentityServiceImpl implements IdentityService {
         return  userMapper.validateByColumn(user);
     }
 
+    @Override
+    public User getUser(String id){
+        return userMapper.selectByPrimaryKey(id);
+    }
+
 
 }
