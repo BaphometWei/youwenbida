@@ -47,12 +47,7 @@
         <property name="enableSubPackages" value="false" />
     </javaClientGenerator>
     <!-- 指定数据库表 -->
-    <table tableName="problem" enableSelectByExample="false"
-           enableDeleteByExample="false" enableCountByExample="false"
-           selectByExampleQueryId="true" enableUpdateByExample="false">
-        <property name="useActualColumnNames" value="true"/>
-    </table>
-    <table tableName="answer" enableSelectByExample="false"
+    <table tableName="operation" enableSelectByExample="false"
            enableDeleteByExample="false" enableCountByExample="false"
            selectByExampleQueryId="true" enableUpdateByExample="false">
         <property name="useActualColumnNames" value="true"/>
