@@ -69,7 +69,7 @@
 				<div class="col-md-4 col-md-offset-4">
 
 					<!-- Start Sign In Form -->
-					<form action="/doLogin" class="fh5co-form animate-box" data-animate-effect="fadeIn" method="post">
+					<form class="fh5co-form animate-box" data-animate-effect="fadeIn" method="post">
 						<div class="header-logo">
 							<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="120px" height="40px" viewBox="0 0 6000 2000" preserveAspectRatio="xMidYMid meet">
 								<g id="layer101" fill="#eb7087" stroke="none">
@@ -93,8 +93,8 @@
 						</div>
 						<h2>登 录</h2>
 						<div class="form-group">
-							<label for="username" class="sr-only">用户名</label>
-							<input type="text" class="form-control" id="username" name="name" placeholder="用户名" autocomplete="off">
+							<label for="email" class="sr-only">邮箱</label>
+							<input type="text" class="form-control" id="email" name="emil" placeholder="邮箱" autocomplete="off">
 						</div>
 						<div class="form-group">
 							<label for="password" class="sr-only">密码</label>
@@ -107,7 +107,7 @@
 							<p>没有账号? <a href="/signup">注册</a> | <a href="forgot.html">忘记密码?</a></p>
 						</div>
 						<div class="form-group">
-							<input type="submit" value="登录" class="btn btn-primary">
+							<input type="button" value="登录" class="btn btn-primary">
 						</div>
 					</form>
 					<!-- END Sign In Form -->
@@ -131,19 +131,49 @@
 
 	<script src="/js/common.js"></script>
 
-	<script type="text/javascript">
-		$(function () {
-			var signup = getQueryString("signup");
-			if(signup==0)
-				layui.use('layer', function(){
-					var layer = layui.layer;
+	<script src="/js/validate.js"></script>
 
-					layer.open({
-						title: '提示',
-						offset: '30%',
-						content: "注册成功！请登录"
-					});
-				});
+	<script src="/js/localstorage.js"></script>
+
+	<script type="text/javascript">
+		$("input[type='button']").click(function () {
+			$.ajax({
+				type: "GET",
+				url: "/doLogin",
+				data: {email: $("#email").val(),password:$("#password").val()},
+				success: function (data) {
+					if(data.code==0) {
+						if($("#remember").is(':checked')){
+							setCookie('user',$("#email").val(),7); //保存帐号到cookie，有效期7天
+							setCookie('pswd',$("#password").val(),7); //保存密码到cookie，有效期7天
+						}
+						window.location.href = "/index";
+					}
+					else{
+						layui.use('layer', function(){
+							var layer = layui.layer;
+							layer.open({
+								title: '提示',
+								offset: '30%',
+								content: data.msg
+							});
+						});
+					}
+				}
+			});
+		})
+		$(function () {
+			$("#remember").change (function(){
+				if(!this.checked){
+					delCookie('user');
+					delCookie('pswd');
+				}
+			});
+			if(getCookie('user') && getCookie('pswd')){
+				$("#email").val(getCookie('user'));
+				$("#password").val(getCookie('pswd'));
+				$("#remember").attr("checked", 'checked');
+			}
 		})
 	</script>
 

@@ -29,13 +29,19 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
-    public ResponseBo doLogin(User user) {
-        logger.info("执行登录操作");
-        if(userMapper.validateByNameAndPassword(user)==null){
-            return ResponseBo.ok().put("code","1").put("msg","登录失败");
+    public ResponseBo validateSignup(User user) {
+        logger.info("注册校验");
+        if(userMapper.validateByColumn(user)==null){
+            return ResponseBo.ok().put("code","0").put("msg","账号不存在，可以注册");
         }
-
-        return ResponseBo.ok().put("code","0").put("msg","登录成功");
-
+        return ResponseBo.ok().put("code","1").put("msg","账号已存在");
     }
+
+    @Override
+    public User doLogin(User user) {
+        logger.info("执行登录操作");
+        return  userMapper.validateByColumn(user);
+    }
+
+
 }

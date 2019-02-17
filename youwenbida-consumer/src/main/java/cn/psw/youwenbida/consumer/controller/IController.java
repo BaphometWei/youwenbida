@@ -23,4 +23,9 @@ public class IController {
     public String shouye(){
         return "/pages/index.html";
     }
+
+    @RequestMapping("/zhuye")
+    public String zhuye(){
+        return "/pages/user/zhuye.html";
+    }
 }

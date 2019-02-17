@@ -133,3 +133,11 @@ a,button{
 ::-ms-clear,::-ms-reveal{
     display:none;
 }
+.hide{
+    display: none;
+}
+.show a{
+    padding:5px 5px;
+    color: #FCC9C9;
+    border:1px solid #FCC9C9;
+}

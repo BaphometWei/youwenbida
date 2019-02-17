@@ -5,7 +5,9 @@ import cn.psw.youwenbida.api.utils.ResponseBo;
 
 public interface IdentityService {
 
-    public ResponseBo doLogin(User user);
+    public User doLogin(User user);
 
     public ResponseBo doSignup(User user);
+
+    public ResponseBo validateSignup(User user);
 }

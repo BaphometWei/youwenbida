@@ -3,11 +3,13 @@ package cn.psw.youwenbida.consumer.controller;
 import cn.psw.youwenbida.api.model.User;
 import cn.psw.youwenbida.api.service.IdentityService;
 import cn.psw.youwenbida.api.utils.AesUtil;
+import cn.psw.youwenbida.api.utils.ResponseBo;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.UUID;
 
@@ -17,7 +19,7 @@ public class SignupController {
     @Reference
     IdentityService identityService;
 
-    private final static Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private final static Logger logger = LoggerFactory.getLogger(SignupController.class);
 
     @RequestMapping("/signup")
     public String login(){
@@ -25,12 +27,20 @@ public class SignupController {
     }
 
     @RequestMapping("/doSignup")
-    public String doSignup(User user){
+    @ResponseBody
+    public ResponseBo doSignup(User user){
         user.setPassword(AesUtil.encrypt(user.getPassword()));
         user.setId(UUID.randomUUID().toString().replaceAll("-",""));
         if(identityService.doSignup(user).get("code").toString().equals("0"))
-            return "redirect:/login?signup=0";
+            return ResponseBo.ok();
         else
-            return "redirect:/signup";
+            return new ResponseBo().put("code","1").put("msg","系统发生错误");
+    }
+
+    @RequestMapping("/validateSignup")
+    @ResponseBody
+    public ResponseBo validateSignup(User user){
+        logger.info("邮箱验证");
+        return identityService.validateSignup(user);
     }
 }

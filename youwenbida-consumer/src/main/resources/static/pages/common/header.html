@@ -79,15 +79,27 @@
 
         </div>
         <div class="header-right">
-            <ul class="header-nav">
-                <li class="nav-item" style="position: relative;">
-                    <a href=""><i class="layui-icon layui-icon-notice"></i><span class="layui-badge" id="xiaoxi" style="border-radius: 50%;background: #f7c2c2;">9</span></a>
-                </li>
-                <li class="nav-item" style="position: relative;">
-                    <a href=""><i class="layui-icon layui-icon-dialogue"></i><span class="layui-badge" id="sixin" style="border-radius: 50%;background: #f7c2c2;">9</span></a>
-                </li>
-            </ul>
-            <img style="margin-left:40px;border-radius: 50%;width: 40px; height: 40px;" src="//t.cn/RCzsdCq" />
+            <div class="show">
+                <ul class="header-nav">
+                    <li class="nav-item" style="position: relative;">
+                        <a href="">登录</a>
+                    </li>
+                    <li class="nav-item" style="position: relative;">
+                        <a href="">注册</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="hide">
+                <ul class="header-nav">
+                    <li class="nav-item" style="position: relative;">
+                        <a href=""><i class="layui-icon layui-icon-notice"></i><span class="layui-badge" id="xiaoxi" style="border-radius: 50%;background: #f7c2c2;">9</span></a>
+                    </li>
+                    <li class="nav-item" style="position: relative;">
+                        <a href=""><i class="layui-icon layui-icon-dialogue"></i><span class="layui-badge" id="sixin" style="border-radius: 50%;background: #f7c2c2;">9</span></a>
+                    </li>
+                </ul>
+                <img class="Avatar AuthorInfo-avatar" style="margin-left: 40px;cursor: pointer;" width="40" height="40" src="/img/touxiang.jpg" />
+            </div>
         </div>
     </div>
 </div>
@@ -99,8 +111,10 @@
             type: "GET",
             url: "/dlzt",
             success: function(data){
-                if(data=="false")
-                    $(".header-right").css("display","none");
+                if(data=="true") {
+                    $(".hide").css("display", "block");
+                    $(".show").css("display", "none");
+                }
             }
         });
     })

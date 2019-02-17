@@ -3,6 +3,7 @@ package cn.psw.youwenbida.consumer.controller;
 import cn.psw.youwenbida.api.model.User;
 import cn.psw.youwenbida.api.service.IdentityService;
 import cn.psw.youwenbida.api.utils.AesUtil;
+import cn.psw.youwenbida.api.utils.ResponseBo;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,16 +28,18 @@ public class LoginController {
     }
 
     @RequestMapping("/doLogin")
-    public String doLogin(HttpServletRequest request, User user){
+    @ResponseBody
+    public ResponseBo doLogin(HttpServletRequest request, User user) throws Exception{
         HttpSession session = request.getSession();
         user.setPassword(AesUtil.encrypt(user.getPassword()));
-        if(identityService.doLogin(user).get("code").toString().equals("0")) {
+        if(identityService.doLogin(user)!=null) {
             //把用户数据保存在session域对象中
-            session.setAttribute("user", user.getName());
-            return "redirect:index";
+            session.setAttribute("user", identityService.doLogin(user).getName());
+            return ResponseBo.ok();
         }
-        else
-            return "redirect:login";
+        else {
+            return new ResponseBo().put("code","1").put("msg","用户名或密码错误");
+        }
     }
 
     @RequestMapping("/dlzt")

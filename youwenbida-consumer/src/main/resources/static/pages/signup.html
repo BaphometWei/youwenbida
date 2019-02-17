@@ -12,9 +12,6 @@
 	<meta name="description" content="Free HTML5 Template by FreeHTML5.co" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 
-
-
-
 	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>
@@ -25,6 +22,7 @@
 	<meta name="twitter:image" content="" />
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
+	<link rel="stylesheet" href="/layui/css/layui.css">
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
@@ -60,6 +58,11 @@
 			width:360px;
 			min-width: 360px;
 		}
+		.alert-fail {
+			color: #ff7465;
+			background-color: #FCC9C9;
+			border-color: #FCC9C9;
+		}
 	</style>
 
 </head>
@@ -71,7 +74,7 @@
 
 
 			<!-- Start Sign In Form -->
-			<form action="/doSignup" class="fh5co-form animate-box" data-animate-effect="fadeIn" method="post">
+			<form class="fh5co-form animate-box" data-animate-effect="fadeIn" method="post">
 				<div class="header-logo">
 					<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="120px" height="40px" viewBox="0 0 6000 2000" preserveAspectRatio="xMidYMid meet">
 						<g id="layer101" fill="#eb7087" stroke="none">
@@ -94,30 +97,30 @@
 					</svg>
 				</div>
 				<h2>注册</h2>
-				<div class="form-group" style="display: none;">
-					<div class="alert alert-success" role="alert">用户名已存在.</div>
+				<div class="form-group">
+					<div class="alert" id="validate" style="display: none;" role="alert"></div>
 				</div>
 				<div class="form-group">
-					<label for="name" class="sr-only">用户名</label>
-					<input type="text" class="form-control" id="name" name="name" placeholder="用户名" autocomplete="off">
+					<label for="signupemail" class="sr-only">邮箱</label>
+					<input type="email" class="form-control" id="signupemail" name="email" placeholder="邮箱" autocomplete="off">
 				</div>
 				<div class="form-group">
-					<label for="email" class="sr-only">邮箱</label>
-					<input type="email" class="form-control" id="email" placeholder="邮箱" autocomplete="off">
+					<label for="signupname" class="sr-only">用户名</label>
+					<input type="text" class="form-control" id="signupname" name="name" placeholder="用户名" autocomplete="off">
 				</div>
 				<div class="form-group">
-					<label for="password" class="sr-only">密码</label>
-					<input type="password" class="form-control" id="password" name="password" placeholder="密码" autocomplete="off">
+					<label for="signuppassword" class="sr-only">密码</label>
+					<input type="password" class="form-control" id="signuppassword" name="password" placeholder="密码" autocomplete="off">
 				</div>
 				<div class="form-group">
-					<label for="re-password" class="sr-only">确认密码</label>
-					<input type="password" class="form-control" id="re-password" placeholder="确认密码" autocomplete="off">
+					<label for="signupre-password" class="sr-only">确认密码</label>
+					<input type="password" class="form-control" id="signupre-password" placeholder="确认密码" autocomplete="off">
 				</div>
 				<div class="form-group">
 					<p>已有账号? <a href="login">登录</a></p>
 				</div>
 				<div class="form-group">
-					<input type="submit" value="注册" class="btn btn-primary">
+					<input type="button" value="注册" class="btn btn-primary">
 				</div>
 			</form>
 			<!-- END Sign In Form -->
@@ -125,6 +128,8 @@
 		</div>
 	</div>
 </div>
+
+<script src="/layui/layui.js"></script>
 
 <!-- jQuery -->
 <script src="/js/jquery.min.js"></script>
@@ -136,6 +141,48 @@
 <script src="/js/jquery.waypoints.min.js"></script>
 <!-- Main JS -->
 <script src="/js/main.js"></script>
+
+<script src="/js/validate.js"></script>
+
+<script type="text/javascript">
+	$("input[type='button']").click(function () {
+		if(customBeforesignup()==true) {
+			$.ajax({
+				type: "GET",
+				url: "/doSignup",
+				data: {email: $("#signupemail").val(),name: $("#signupname").val(), password: $("#signuppassword").val()},
+				success: function (data) {
+					if (data.code == 0){
+						layui.use('layer', function () {
+							var layer = layui.layer;
+							layer.open({
+								title: '提示',
+								offset: '30%',
+								content: '注册成功！是否跳转登录界面？',
+								yes: function(index, layero){
+									window.location.href="/login";
+									layer.close(index); //如果设定了yes回调，需进行手工关闭
+								}
+							});
+						});
+					}
+					else {
+						layui.use('layer', function () {
+							var layer = layui.layer;
+							layer.open({
+								title: '提示',
+								offset: '30%',
+								content: data.msg
+							});
+						});
+					}
+				}
+			});
+		}
+	})
+	$(function () {
+	})
+</script>
 
 </body>
 </html>
