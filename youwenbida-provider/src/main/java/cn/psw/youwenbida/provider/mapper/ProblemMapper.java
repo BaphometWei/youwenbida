@@ -1,6 +1,7 @@
 package cn.psw.youwenbida.provider.mapper;
 
-import cn.psw.youwenbida.provider.Model.Problem;
+import cn.psw.youwenbida.api.model.Problem;
+
 import java.util.List;
 
 public interface ProblemMapper {

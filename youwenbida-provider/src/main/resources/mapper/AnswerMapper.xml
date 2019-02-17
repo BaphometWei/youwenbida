@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.psw.youwenbida.provider.mapper.AnswerMapper">
-  <resultMap id="BaseResultMap" type="cn.psw.youwenbida.provider.Model.Answer">
+  <resultMap id="BaseResultMap" type="cn.psw.youwenbida.api.model.Answer">
     <id column="aid" jdbcType="VARCHAR" property="aid" />
     <result column="ahdz" jdbcType="VARCHAR" property="ahdz" />
     <result column="ahd" jdbcType="VARCHAR" property="ahd" />
@@ -14,7 +14,7 @@
     delete from answer
     where aid = #{aid,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="cn.psw.youwenbida.provider.Model.Answer">
+  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Answer">
     insert into answer (aid, ahdz, ahd, 
       aztsl, aplsl, ahdrq, ahdwt
       )
@@ -22,7 +22,7 @@
       #{aztsl,jdbcType=INTEGER}, #{aplsl,jdbcType=INTEGER}, #{ahdrq,jdbcType=DATE}, #{ahdwt,jdbcType=VARCHAR}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.provider.Model.Answer">
+  <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer">
     update answer
     set ahdz = #{ahdz,jdbcType=VARCHAR},
       ahd = #{ahd,jdbcType=VARCHAR},
