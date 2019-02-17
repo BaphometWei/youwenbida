@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.psw.youwenbida.provider.mapper.ProblemMapper">
+  <resultMap id="BaseResultMap" type="cn.psw.youwenbida.provider.Model.Problem">
+    <id column="pid" jdbcType="VARCHAR" property="pid" />
+    <result column="ptitle" jdbcType="VARCHAR" property="ptitle" />
+    <result column="pms" jdbcType="VARCHAR" property="pms" />
+    <result column="ptcz" jdbcType="VARCHAR" property="ptcz" />
+    <result column="pgzzsl" jdbcType="INTEGER" property="pgzzsl" />
+    <result column="phdsl" jdbcType="INTEGER" property="phdsl" />
+    <result column="ptcrq" jdbcType="DATE" property="ptcrq" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from problem
+    where pid = #{pid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.psw.youwenbida.provider.Model.Problem">
+    insert into problem (pid, ptitle, pms, 
+      ptcz, pgzzsl, phdsl, 
+      ptcrq)
+    values (#{pid,jdbcType=VARCHAR}, #{ptitle,jdbcType=VARCHAR}, #{pms,jdbcType=VARCHAR}, 
+      #{ptcz,jdbcType=VARCHAR}, #{pgzzsl,jdbcType=INTEGER}, #{phdsl,jdbcType=INTEGER}, 
+      #{ptcrq,jdbcType=DATE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.provider.Model.Problem">
+    update problem
+    set ptitle = #{ptitle,jdbcType=VARCHAR},
+      pms = #{pms,jdbcType=VARCHAR},
+      ptcz = #{ptcz,jdbcType=VARCHAR},
+      pgzzsl = #{pgzzsl,jdbcType=INTEGER},
+      phdsl = #{phdsl,jdbcType=INTEGER},
+      ptcrq = #{ptcrq,jdbcType=DATE}
+    where pid = #{pid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select pid, ptitle, pms, ptcz, pgzzsl, phdsl, ptcrq
+    from problem
+    where pid = #{pid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select pid, ptitle, pms, ptcz, pgzzsl, phdsl, ptcrq
+    from problem
+  </select>
+</mapper>

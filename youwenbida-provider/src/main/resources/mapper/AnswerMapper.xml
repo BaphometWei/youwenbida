@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.psw.youwenbida.provider.mapper.AnswerMapper">
+  <resultMap id="BaseResultMap" type="cn.psw.youwenbida.provider.Model.Answer">
+    <id column="aid" jdbcType="VARCHAR" property="aid" />
+    <result column="ahdz" jdbcType="VARCHAR" property="ahdz" />
+    <result column="ahd" jdbcType="VARCHAR" property="ahd" />
+    <result column="aztsl" jdbcType="INTEGER" property="aztsl" />
+    <result column="aplsl" jdbcType="INTEGER" property="aplsl" />
+    <result column="ahdrq" jdbcType="DATE" property="ahdrq" />
+    <result column="ahdwt" jdbcType="VARCHAR" property="ahdwt" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from answer
+    where aid = #{aid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.psw.youwenbida.provider.Model.Answer">
+    insert into answer (aid, ahdz, ahd, 
+      aztsl, aplsl, ahdrq, ahdwt
+      )
+    values (#{aid,jdbcType=VARCHAR}, #{ahdz,jdbcType=VARCHAR}, #{ahd,jdbcType=VARCHAR}, 
+      #{aztsl,jdbcType=INTEGER}, #{aplsl,jdbcType=INTEGER}, #{ahdrq,jdbcType=DATE}, #{ahdwt,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.provider.Model.Answer">
+    update answer
+    set ahdz = #{ahdz,jdbcType=VARCHAR},
+      ahd = #{ahd,jdbcType=VARCHAR},
+      aztsl = #{aztsl,jdbcType=INTEGER},
+      aplsl = #{aplsl,jdbcType=INTEGER},
+      ahdrq = #{ahdrq,jdbcType=DATE},
+      ahdwt = #{ahdwt,jdbcType=VARCHAR}
+    where aid = #{aid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select aid, ahdz, ahd, aztsl, aplsl, ahdrq, ahdwt
+    from answer
+    where aid = #{aid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select aid, ahdz, ahd, aztsl, aplsl, ahdrq, ahdwt
+    from answer
+  </select>
+</mapper>

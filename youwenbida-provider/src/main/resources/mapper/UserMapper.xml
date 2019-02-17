@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.psw.youwenbida.provider.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="cn.psw.youwenbida.api.model.User">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="gxqm" jdbcType="VARCHAR" property="gxqm" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="gs" jdbcType="VARCHAR" property="gs" />
+    <result column=" education" jdbcType="VARCHAR" property=" education" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.User">
+    insert into user (id, name, password, 
+      gxqm, sex, location, 
+      industry, gs, education,
+      email, introduction, img
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{gxqm,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{industry,jdbcType=VARCHAR}, #{gs,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR},
+      #{email,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.User">
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      gxqm = #{gxqm,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      gs = #{gs,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, name, password, gxqm, sex, location, industry, gs, education, email,
+    introduction, img
+    from user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, password, gxqm, sex, location, industry, gs, education, email,
+    introduction, img
+    from user
+  </select>
+  <select id="validateByColumn" parameterType="cn.psw.youwenbida.api.model.User" resultMap="BaseResultMap">
+    select id,name
+    from user
+    <where>
+      <if test="name!=null">
+          and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="password!=null">
+          and password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="email!=null">
+          and email = #{email,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>
