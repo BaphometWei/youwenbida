@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>狼外婆-有问必答</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <style>
+        .main {
+            width: 1000px;
+            margin: 0 auto;
+            margin-top: 15px;
+        }
+        .main-top{
+            background: #ffffff;
+            box-shadow: 0 1px 1px rgba(26, 26, 26, 0.1);
+            background-clip: content-box;
+        }
+        .top-img{
+
+        }
+        .touxiang{
+            height: 164px;
+            padding:3px 3px 0px 3px;
+            border-radius: 3%;
+            background: #ffffff;
+        }
+        .userxx{
+            padding: 10px 10px;
+            margin-left: 200px;
+        }
+        .userxx-header{
+            margin-bottom: 16px;
+        }
+        .userxx-header .username{
+            font-size: 26px;
+            font-weight: 600;
+            font-synthesis: style;
+            line-height: 30px;
+        }
+        .userxx-body2{
+            display: none;
+        }
+        .userxx-header .qm{
+            font-size: 18px;
+            white-space: nowrap;
+        }
+        .userxx-body2 .label{
+            width: 60px;
+            margin-right: 37px;
+            font-weight: 600;
+        }
+        .userxx-body1 .item,.userxx-body2 .item{
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .userxx-body1 .item i{
+            color: #8590A6;
+            vertical-align: middle;
+        }
+        .userxx-body1 .item span{
+            margin-left: 20px;
+        }
+        .userxx-footer{
+            padding-bottom:15px;
+        }
+        .userxx-footer a{
+            color: #8590A6;
+        }
+        .main-left,.main-right{
+            margin-top: 15px;
+        }
+        .main-left{
+            background: #ffffff;
+            float: left;
+            width:740px;
+            box-shadow: 0 1px 1px rgba(26, 26, 26, 0.1);
+            background-clip: content-box;
+        }
+        .main-left .title{
+            border-bottom: 1px solid #F6F6F6;
+        }
+        .main-left .title li{
+            height: 58px;
+            line-height: 58px;
+            display: inline-block;
+            padding: 0 20px;
+            font-size: 16px;
+            color: #1A1A1A;
+        }
+        .main-left .title li a{
+            padding: 19px 0;
+        }
+        .main-left .bankuai{
+            border-bottom: 1px solid #F6F6F6;
+        }
+        .main-left .bankuai h4{
+            font-weight: 600;
+            padding:10px 20px;
+        }
+        .problem{
+            padding:20px 15px;
+            border-bottom: 1px solid #e7e9ee;
+        }
+        .problem-title{
+            font-size: 18px;
+            font-weight: 600;
+            font-synthesis: style;
+            line-height: 1.6;
+            color: #1A1A1A;
+            margin-top: -4px;
+            margin-bottom: -4px;
+            padding:10px 0;
+        }
+        .problem-footer{
+            padding:10px 0;
+        }
+        .problem-footer button{
+            line-height: 20px;
+            margin-right: 12px;
+            border: none;
+            border-radius: 5%;
+            background: #ffffff;
+            height: 25px;
+            color: #8590A6;
+        }
+        .problem-footer i{
+            vertical-align: middle;
+        }
+        .problem-footer span{
+            vertical-align: middle;
+        }
+        .answerqm{
+            vertical-align: middle;
+            color: #5a6271;
+        }
+        .answername{
+            color: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            vertical-align: middle;
+        }
+        .problem-fold{
+            width:700px;
+            word-wrap:break-word;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+            font-size: 15px;
+            color: #1A1A1A;
+            -webkit-tap-highlight-color: rgba(26, 26, 26, 0);
+        }
+        .problem-fold p{
+            padding-bottom: 15px;
+        }
+        .problem-answer,.problem-zan,.answer-time{
+            padding:4px 0;
+        }
+        .zantong,.problem-zan,.answer-time{
+            color: #8590A6;
+        }
+        .fold-button{
+            cursor:pointer;
+            color: #175199;
+        }
+        .main-right{
+            float:right;
+            width:246px;
+        }
+        .gzxx{
+            background: #ffffff;
+            box-shadow: 0 1px 1px #c6d5ec;
+            background-clip: content-box;
+        }
+        .gzxx button{
+            width:121px;
+            border: none;
+            color:#8590A6;
+            background: #ffffff;
+            height:74px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<header style="background: #ffffff"></header>
+<div class="main">
+    <div class="main-top">
+        <div class="top-img" style="position:relative">
+            <img class="Avatar AuthorInfo-avatar" width="1000" height="200" src="/img/zhuye.jpg" />
+            <div class="touxiang" style="position:absolute;top:180px;left:20px">
+                <img style="border-radius: 3%;" class="Avatar AuthorInfo-avatar" width="160" height="160" src="/img/touxiang.jpg" />
+            </div>
+        </div>
+        <div class="userxx">
+            <div class="userxx-header">
+                <h1>
+                    <span class="username">MRZOYO</span>
+                    <span class="qm">So ist das Leben.</span>
+                    <span class="userxx-sex"><i class="layui-icon layui-icon-male" style="color: #8590A6;"></i></span>
+                </h1>
+            </div>
+            <div class="userxx-body1">
+                <div class="item suozaihangye">
+                    <i class="layui-icon layui-icon-tabs"></i>
+                    <span>计算机软件</span>
+                </div>
+                <div class="item jiaoyujingli">
+                    <i class="layui-icon layui-icon-template-1"></i>
+                    <span>波恩大学</span>
+                </div>
+            </div>
+            <div class="userxx-body2">
+                <div class="item juzhudi">
+                    <div class="label">居住地</div>
+                    <div class="value">现居德国，曾在青岛住过</div>
+                </div>
+                <div class="item suozaihangye">
+                    <div class="label">所在行业</div>
+                    <div class="value">计算机软件</div>
+                </div>
+                <div class="item jiaoyujingli">
+                    <div class="label">毕业学校</div>
+                    <div class="value">波恩大学</div>
+                </div>
+                <div class="item xueli">
+                    <div class="label">学历</div>
+                    <div class="value">研究生</div>
+                </div>
+                <div class="item gerenjingli">
+                    <div class="label">个人简介</div>
+                    <div class="value"><p>学生 steam收藏家 电子产品发烧友</p>
+                        <p>本人文章随意转载 禁止注明出处 No.01707</p></div>
+                </div>
+            </div>
+            <div class="userxx-footer">
+                <a onclick="zhanshi()"><i class="layui-icon layui-icon-down"></i> <span id='chakan'> 查看详细资料</span></a>
+                <a id="guanzhu" style="margin-left:450px;padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #0084FF;color:#ffffff;" onclick="guanzhu()"><i class="layui-icon layui-icon-add-1"></i>关 注</a>
+                <a style="padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;"><i class="layui-icon layui-icon-dialogue"></i>发私信</a>
+            </div>
+        </div>
+    </div>
+    <div class="main-left">
+        <div class="title">
+            <ul class="nav">
+                <li class="item"><a style="border-bottom: 3px solid #FCC9C9;font-weight: 600;" href="/index">动态</a></li>
+                <li class="item"><a href="/index">回答</a></li>
+                <li class="item"><a href="/index">提问</a></li>
+                <li class="item"><a href="/index">收藏</a></li>
+                <li class="item"><a href="/index">关注</a></li>
+            </ul>
+        </div>
+        <div class="bankuai">
+            <h4>我的动态</h4>
+        </div>
+        <div class="main-problem">
+            <div class="problem">
+                <h2 class="problem-title">你班主任说过最让你难忘的一句话是什么？</h2>
+                <div class="problem-answer">
+                    <a>
+                        <img class="Avatar AuthorInfo-avatar" width="24" height="24" src="/img/touxiang.jpg" />
+                        <span class="answername">  夏木</span>
+                        <span class="answerqm">断剑重铸之日，骑士归来之时</span>
+                    </a>
+                </div>
+                <div class="problem-zan">
+                    <span>0</span>人赞同了该回答
+                </div>
+                <div class="problem-fold">
+                    <p>jgijgijgkajdojhiodjgkdjakjgkdjaksjhkejfaijgjgjksjgijdfiohajdksjgaidsjijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjagiajfksjgggggggggkdfjgggggggggggggggggglskjg</p>
+                    <p>jgijgj啊啊啊啊啊啊啊啊啊啊啊7gugyfgfg啊啊啊ijgijgij以及高级挤公交四大金刚卡萨就赶快啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+                </div>
+                <div class="controlfold">
+
+                </div>
+                <div class="answer-time">
+                    发布于  <span>2018-01-10</span>
+                </div>
+                <div class="problem-footer">
+                    <button class="problem-dianzan" style="background: #FCC9C9;color:#ffffff;padding: 0 12px;" isdz="false" onclick="zantong(this)"><i class="layui-icon layui-icon-praise"></i> <span>34</span></button>
+                    <button class="problem-pinglun"><i class="layui-icon layui-icon-reply-fill"></i> <span>34条评论</span></button>
+                    <button class="problem-shoucang" style="margin-left: 0px;" onclick="shoucang(this)" issc="true"><i class="layui-icon layui-icon-rate-solid"></i> <span>收藏</span></button>
+                </div>
+            </div>
+            <div class="problem">
+                <h2 class="problem-title">你班主任说过最让你难忘的一句话是什么？</h2>
+                <div class="problem-answer">
+                    <a>
+                        <img class="Avatar AuthorInfo-avatar" width="24" height="24" src="/img/touxiang.jpg" />
+                        <span class="answername">  夏木</span>
+                        <span class="answerqm">断剑重铸之日，骑士归来之时</span>
+                    </a>
+                </div>
+                <div class="problem-zan">
+                    <span>0</span>人赞同了该回答
+                </div>
+                <div class="problem-fold">
+                    <p>aghifjgi还记得高i家啊看个JOIA挂机看到股价几个</p>
+                    <p>根据奥克斯宫颈癌及哦啊接的骨灰级按估计回家机构</p>
+                </div>
+                <div class="controlfold">
+
+                </div>
+                <div class="answer-time">
+                    发布于  <span>2018-01-10</span>
+                </div>
+                <div class="problem-footer">
+                    <button class="problem-dianzan" style="background: #FCC9C9;color:#ffffff;padding: 0 12px;" isdz="true" onclick="zantong(this)"><i class="layui-icon layui-icon-praise"></i> <span>34</span></button>
+                    <button class="problem-pinglun"><i class="layui-icon layui-icon-reply-fill"></i> <span>34条评论</span></button>
+                    <button class="problem-shoucang" style="margin-left: 0px;" onclick="shoucang(this)" issc="false"><i class="layui-icon layui-icon-rate-solid"></i> <span>收藏</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-right">
+        <div class="gzxx">
+            <button style="border-right: 1px solid #c6d5ec;">关注了</br><span class="gzsl">0</span></button>
+            <button>关注者</br><span class="bgzsl">0</span></button>
+        </div>
+    </div>
+</div>
+<script src="/layui/layui.js"></script>
+<script src="/js/common.js"></script>
+<script type="text/javascript">
+    function guanzhu() {
+        if($("#guanzhu").html()=="取消关注"){
+            $("#guanzhu").css("background","#0084FF");
+            $("#guanzhu").html("<i class='layui-icon layui-icon-add-1'></i>关 注")
+        }else{
+            $("#guanzhu").css("background","#8590A6");
+            $("#guanzhu").html("取消关注")
+        }
+    }
+    function zhanshi(){
+        if($("#chakan").html()==' 查看详细资料'){
+            $(".userxx-body1").css('display','none');
+            $(".userxx-body2").css('display','block');
+            $(".layui-icon-down").addClass("layui-icon-up");
+            $(".layui-icon-down").removeClass("layui-icon-down");
+            $("#chakan").html(" 收起详细资料")
+        }else{
+            $(".userxx-body2").css('display','none');
+            $(".userxx-body1").css('display','block');
+            $(".layui-icon-up").addClass("layui-icon-down");
+            $(".layui-icon-up").removeClass("layui-icon-up");
+            $("#chakan").html(" 查看详细资料")
+        }
+    };
+
+    $(function () {
+        $("header").load("/pages/common/header.html");
+        $(".problem-dianzan").each(function (i,val) {
+            if($(this).attr("isdz")=="true"){
+                $(this).find("span").text("已赞同"+$(this).find("span").text());
+            }else{
+                $(this).find("span").text("赞同"+$(this).find("span").text());
+            }
+        });
+        $(".problem-shoucang").each(function (i,val) {
+            if($(this).attr("issc")=="true"){
+                $(this).find("i").css('color','yellow');
+            }else{
+                $(this).find("i").css('color','#8590A6');
+            }
+        });
+
+        show();
+    })
+</script>
+</body>
+</html>

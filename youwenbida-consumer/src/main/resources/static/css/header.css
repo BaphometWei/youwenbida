@@ -1,0 +1,135 @@
+body{
+    background: #f3f3f3;
+}
+a,button{
+    cursor: pointer;
+}
+.header{
+    padding:6px 0;
+    box-shadow: 0 1px 1px rgba(26, 26, 26, 0.1);
+    background-clip: content-box;
+}
+.header-logo{
+    float:left;
+    height:40px;
+    padding:0 10px;
+}
+.header-row{
+    height:40px;
+    width:1000px;
+    margin:0 auto;
+}
+.header-left{
+
+    float: left;
+}
+.header-right{
+
+    float: right;
+}
+.clearfix{
+    clear:both;
+    height:0;
+    overflow:hidden;
+}
+.header-nav{
+    height: 40px;
+    float: left;
+}
+.nav-item{
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding:0 10px;
+    margin-left:20px;
+}
+/*搜索框*/
+.header-search{
+    float: left;
+    padding:4px 0;
+    position: relative;
+    margin-left: 20px;
+}
+.header-search input {
+    width: 250px;
+    border-radius: 42px;
+    border: 1px solid #EBEBEB;
+    background: #F6F6F6;
+    transition: .3s linear;
+    float: right;
+    outline: none;
+    height: 30px;
+    padding-left: 13px;
+}
+.header-search button {
+    background: none;
+    top: -2px;
+    right: 0;
+    border: none;
+    outline: none;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+    position: absolute;
+}
+.header-search button:before{
+    content: "\f002";
+    font-family: FontAwesome;
+    color: #324b4e;
+}
+.header-search form {
+    position: relative;
+    width: 270px;
+    margin: 0 auto;
+    height: 32px;
+}
+.header-tiwen{
+    float:left;
+}
+.header-tiwen button{
+    color: #FFFFFF;
+    background: #FCC9C9;
+    z-index: 103;
+    padding: 4px 14px 4px;
+    margin-left: 16px;
+    border: 1px solid #FCC9C9;
+    border-radius: 3px;
+    line-height: 30px;
+}
+.header-nav i{
+    font-size:22px;
+}
+.header-nav span{
+    position: absolute;
+    left:20px;
+    line-height: 14px;
+    height:14px;
+}
+.layui-nav-child{
+    position: absolute;
+    top:46px;
+    min-width:258px;
+    margin-left: 8px;
+    border-radius: 3px;
+    font-size: 16px;
+    line-height: 26px;
+}
+.layui-nav-child ul li a{
+    width:258px;
+}
+.layui-nav-child .title {
+    font-size: 14px;
+    color: #a4b6bf;
+    border-bottom: 1px solid #e8e7e3;
+}
+.layui-nav-child ul li{
+    padding: 0 15px;
+    font-size:14px;
+}
+
+.layui-nav-child ul li:hover{
+    background: #f4f3ef;
+}
+::-ms-clear,::-ms-reveal{
+    display:none;
+}

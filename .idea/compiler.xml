@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="youwenbida-api" />
+        <module name="youwenbida-consumer" />
+        <module name="youwenbida-provider" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="youwenbida" target="1.8" />
+      <module name="youwenbida-api" target="1.8" />
+      <module name="youwenbida-consumer" target="1.8" />
+      <module name="youwenbida-provider" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="youwenbida" options="-parameters" />
+      <module name="youwenbida-api" options="-parameters" />
+      <module name="youwenbida-consumer" options="-parameters" />
+      <module name="youwenbida-provider" options="-parameters" />
+    </option>
+  </component>
+</project>

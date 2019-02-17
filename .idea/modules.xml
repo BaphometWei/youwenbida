@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/youwenbida.iml" filepath="$PROJECT_DIR$/youwenbida.iml" />
+      <module fileurl="file://$PROJECT_DIR$/youwenbida-api/youwenbida-api.iml" filepath="$PROJECT_DIR$/youwenbida-api/youwenbida-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/youwenbida-consumer/youwenbida-consumer.iml" filepath="$PROJECT_DIR$/youwenbida-consumer/youwenbida-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/youwenbida-provider/youwenbida-provider.iml" filepath="$PROJECT_DIR$/youwenbida-provider/youwenbida-provider.iml" />
+    </modules>
+  </component>
+</project>
