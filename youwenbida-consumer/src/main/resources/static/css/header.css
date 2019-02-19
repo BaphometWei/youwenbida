@@ -141,3 +141,18 @@ a,button{
     color: #FCC9C9;
     border:1px solid #FCC9C9;
 }
+.layui-layer-dialog .layui-layer-content {
+    padding: 0 10px;
+}
+.tiwen-header{
+    padding:10px 0;
+}
+.tiwen-header input{
+    line-height: 38px;
+    margin-left: 10px;
+    height: 40px;
+    width: 440px;
+    border: 1px solid #FCC9C9;
+    border-radius: 10px;
+    padding: 0 10px;
+}

@@ -8,9 +8,9 @@ function show()
         var btn = document.createElement("a");
         btn.className += "fold-button";
         btn.innerHTML = "";
-        if($(".problem-fold")[i].clientHeight > 50){
+        if($(".problem-fold")[i].clientHeight > 70){
             btn.innerHTML = "...显示全部";
-            $(".problem-fold")[i].style.height = 50 + "px";
+            $(".problem-fold")[i].style.height = 70 + "px";
         }
         btn.onclick = function(){
             if(btn.innerHTML == "...显示全部")
@@ -21,7 +21,7 @@ function show()
             else
             {
                 btn.innerHTML = "...显示全部";
-                $(".problem-fold")[i].style.height = 50 + "px";
+                $(".problem-fold")[i].style.height = 70 + "px";
             }
         }
         $(".controlfold")[i].appendChild(btn);
