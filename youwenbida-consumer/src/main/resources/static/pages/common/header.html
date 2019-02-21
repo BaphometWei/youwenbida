@@ -104,19 +104,11 @@
     </div>
 </div>
 <div class="clearfix"></div>
+<script src="/js/common.js"></script>
 <script src="/js/header.js"></script>
 <script type="text/javascript">
     $(function () {
-        $.ajax({
-            type: "GET",
-            url: "/dlzt",
-            success: function(data){
-                if(data=="true") {
-                    $(".hide").css("display", "block");
-                    $(".show").css("display", "none");
-                }
-            }
-        });
+        validateDlzt();
     })
 </script>
 </body>

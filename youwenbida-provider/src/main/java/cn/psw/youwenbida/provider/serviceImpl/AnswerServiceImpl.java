@@ -18,4 +18,9 @@ public class AnswerServiceImpl implements AnswerService {
     public List<Answer> getHotAnswer() {
         return answerMapper.selectAll();
     }
+
+    @Override
+    public Integer getCountAns(Integer pid) {
+        return answerMapper.selectCountByPrimaryKey(pid);
+    }
 }

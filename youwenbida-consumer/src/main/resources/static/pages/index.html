@@ -149,6 +149,18 @@
         .pler-footer i{
             vertical-align: middle;
         }
+        .layui-layedit{
+            margin-top: 10px;
+        }
+        .plfh-footer{
+            margin-top: 15px;
+            color: #FFFFFF;
+            background: #FCC9C9;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            float: right;
+        }
     </style>
 </head>
 <body>
@@ -187,7 +199,7 @@
                 </div>
                 <div class="problem-footer">
                     <button class="problem-dianzan" style="background: #FCC9C9;color:#ffffff;padding: 0 12px;" isdz="false" onclick="zantong(this)"><i class="layui-icon layui-icon-praise"></i> <span>34</span></button>
-                    <button class="problem-pinglun" onclick="pinglun()"><i class="layui-icon layui-icon-reply-fill"></i> <span>34条评论</span></button>
+                    <button class="problem-pinglun"><i class="layui-icon layui-icon-reply-fill"></i> <span>34条评论</span></button>
                     <button class="problem-shoucang" style="margin-left: 0px;" onclick="shoucang(this)" issc="true"><i class="layui-icon layui-icon-rate-solid"></i> <span>收藏</span></button>
                 </div>
                 <div class="pinglun">
@@ -250,7 +262,7 @@
             layer.open({
                 title: '查看对话',
                 area: ['710px'],
-                offset: '80px',
+                offset: '50px',
                 btn: [],
                 content: "<div class='pler'><div class='pler-header'><a><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  夏木</span></span></a></div><div class='pler-body'><p>jgijgijgkajdojhiodjgkdjakjgkdjaksjhkejfaijgjgjksjgijdfiohajdksjgaidsjijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjagiajfksjgggggggggkdfjgggggggggggggggggglskjg</p><p>jgijgj啊啊啊啊啊啊啊啊啊啊啊7gugyfgfg啊啊啊ijgijgij以及高级挤公交四大金刚卡萨就赶快啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p></div><div class='pler-footer'><a class='pler-huifu'><i class='layui-icon layui-icon-chat'> </i>回复</a></div></div><div class='hfsl'><h3><span>834</span> 条回复</h3></div><div class='pler'><div class='pler-header'><a><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  夏木</span></a> 回复 <span class='hfanswer'>夏木</span></div><div class='pler-body'><p>jgijgijgkajdojhiodjgkdjakjgkdjaksjhkejfaijgjgjksjgijdfiohajdksjgaidsjijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjagiajfksjgggggggggkdfjgggggggggggggggggglskjg</p><p>jgijgj啊啊啊啊啊啊啊啊啊啊啊7gugyfgfg啊啊啊ijgijgij以及高级挤公交四大金刚卡萨就赶快啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p></div><div class='pler-footer'><a class='pler-huifu'><i class='layui-icon layui-icon-chat'> </i>回复</a></div></div>"
             });
@@ -269,7 +281,7 @@
                 showhtml += "<span class='answerqm'> "+data[0].ahdzgxqm+"</span></a></div><div class='problem-zan'><span>"+data[0].aztsl+"</span>人赞同了该回答</div><div class='problem-fold'>"+data[0].ahd;
                 showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>"+data[0].ahdrq+"</span></div><div class='problem-footer'>";
                 showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='"+data[0].dz+"' onclick='zantong(this)'><i class='layui-icon layui-icon-praise'></i> <span>"+data[0].aztsl+"</span></button>";
-                showhtml += "<button class='problem-pinglun' onclick='pinglun()'><i class='layui-icon layui-icon-reply-fill'></i> <span>"+data[0].aplsl+"条评论</span></button>";
+                showhtml += "<button class='problem-pinglun' alt='"+data[0].aid+"'><i class='layui-icon layui-icon-reply-fill'></i> <span>"+data[0].aplsl+"</span>条评论</button>";
                 showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='"+data[0].sc+"'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button></div><div class='pinglun'></div></div>";
                 $(".main-problem").append(showhtml);
             }
@@ -296,6 +308,75 @@
             }
         });
         show();
+        $(".problem-pinglun").each(function (i,val) {
+            // alert($(".pinglun:eq("+i+")").attr("class"));
+            $(this).click(function () {
+                var dom = $(this);
+                if($(".pinglun:eq("+i+")").css("display")=="none") {
+                    $(".pinglun:eq(" + i + ")").html("");
+                    $.ajax({
+                        type: "GET",
+                        url: "/getAnsCom",
+                        data: {aid:dom.attr('alt')},
+                        async: false,
+                        success: function (data) {
+                            var showhtml = "<div class='plsl'><h3><span>"+dom.find("span").html()+"</span> 条评论</h3></div><div class='pinglun-body'></div>";
+                            showhtml += "";
+                            $(".pinglun:eq(" + i + ")").append(showhtml);
+                            for(var j=0;j<data.length;j++){
+                                showhtml = "";
+                                showhtml += "<div class='pler'><div class='pler-header'><a><img class='Avatar AuthorInfo-avatar' width='24' height='24' ";
+                                showhtml += "src='/img/touxiang.jpg' /><span class='answername'>  "+data[j].cplzname+"</span></a></div><div class='pler-body'>";
+                                showhtml += data[j].cpl+"</div><div class='pler-footer'><a class='pler-dianzan' isdz='false' onclick='dianzan(this)'><i class='layui-icon layui-icon-praise'> </i> ";
+                                showhtml += "<span>"+data[j].cdzsl+"</span></a><a class='pler-chakan' onclick='chakanhuifu()'><i class='layui-icon layui-icon-dialogue'>";
+                                showhtml += "</i>查看回复</a><a class='pler-huifu'><i class='layui-icon layui-icon-chat'> </i>回复</a></div></div>";
+                                $(".pinglun:eq(" + i + ")").find(".pinglun-body").append(showhtml);
+                            }
+                            var aid1 = "ans1"+dom.attr('alt');
+                            var aid2 = "ans2"+dom.attr('alt');
+                            $(".pinglun:eq(" + i + ")").after("<div class='plhf' id='"+aid1+"'><div class='plhf-body' id='"+aid2+"'></div></div>")
+                            layui.use('layedit', function(){
+                                var layedit = layui.layedit;
+                                var getText = layedit.build(aid2, {
+                                    height: 42,  //设置编辑器高度
+                                });
+                                $("#"+aid1+"").append("<button class='plfh-footer' id='"+dom.attr("alt")+"'>发表评论</button><div class='clearfix'></div>");
+                                $("#"+dom.attr("alt")+"").on("click",function () {
+                                    if(dlzt=="false")
+                                        dlts();
+                                    else{
+                                        var text = layedit.getContent(getText);
+                                        if(text.substring(0,3)!="<p>")
+                                            text = "<p>" + text + "</p>";
+                                        $.ajax({
+                                            type: "GET",
+                                            url: "/insertAnsCom",
+                                            data: {cbpl:dom.attr('alt'),cpl:text},
+                                            async: false,
+                                            success: function (data) {
+                                                var layer = layui.layer;
+                                                layer.open({
+                                                    title: '提示',
+                                                    offset: '100px',
+                                                    btn: [],
+                                                    content: data.msg
+                                                });
+                                                layedit.setContent(getText,"");
+                                            }
+                                        })
+                                    }
+                                })
+                            });
+                        }
+                    })
+                    $(".pinglun:eq(" + i + ")").css("display", "block");
+                }
+                else {
+                    $(".plhf").remove();
+                    $(".pinglun:eq(" + i + ")").css("display", "none");
+                }
+            })
+        })
     })
 
 </script>

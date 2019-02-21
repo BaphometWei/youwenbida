@@ -10,7 +10,7 @@ public class Answer implements Serializable {
      */
     private static final long serialVersionUID = -5809782578272943999L;
 
-    private String aid;
+    private Integer aid;
 
     private String ahdz;
 
@@ -18,15 +18,15 @@ public class Answer implements Serializable {
 
     private Integer aztsl;
 
-    private Integer aplsl;
+    private Integer aplsl = 0;
 
     private Date ahdrq;
 
-    private String ahdwt;
+    private Integer ahdwt;
 
-    private Boolean dz;
+    private Boolean dz = false;
 
-    private Boolean sc;
+    private Boolean sc = false;
 
     private String title;
 
@@ -34,12 +34,12 @@ public class Answer implements Serializable {
 
     private String ahdzgxqm;
 
-    public String getAid() {
+    public Integer getAid() {
         return aid;
     }
 
-    public void setAid(String aid) {
-        this.aid = aid == null ? null : aid.trim();
+    public void setAid(Integer aid) {
+        this.aid = aid ;
     }
 
     public String getAhdz() {
@@ -82,12 +82,12 @@ public class Answer implements Serializable {
         this.ahdrq = ahdrq;
     }
 
-    public String getAhdwt() {
+    public Integer getAhdwt() {
         return ahdwt;
     }
 
-    public void setAhdwt(String ahdwt) {
-        this.ahdwt = ahdwt == null ? null : ahdwt.trim();
+    public void setAhdwt(Integer ahdwt) {
+        this.ahdwt = ahdwt;
     }
 
     public Boolean getDz() {

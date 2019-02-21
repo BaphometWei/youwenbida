@@ -47,7 +47,7 @@ public class LoginController {
     @ResponseBody
     public String dlzt(HttpServletRequest request){
         HttpSession session =request.getSession();
-        if(session.getAttribute("user")==null)
+        if(session.getAttribute("username")==null)
             return "false";
         return "true";
     }

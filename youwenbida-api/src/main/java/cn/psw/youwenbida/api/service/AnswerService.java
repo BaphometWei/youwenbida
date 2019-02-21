@@ -8,4 +8,6 @@ public interface AnswerService {
 
     public List<Answer> getHotAnswer();
 
+    public Integer getCountAns(Integer pid);
+
 }

@@ -5,13 +5,17 @@ import cn.psw.youwenbida.api.model.Answer;
 import java.util.List;
 
 public interface AnswerMapper {
-    int deleteByPrimaryKey(String aid);
+    int deleteByPrimaryKey(Integer aid);
 
     int insert(Answer record);
 
-    Answer selectByPrimaryKey(String aid);
+    Answer selectByPrimaryKey(Integer aid);
 
     List<Answer> selectAll();
 
     int updateByPrimaryKey(Answer record);
+
+    List<Answer> selectListByPrimaryKey(Answer answer);
+
+    Integer selectCountByPrimaryKey(Integer pid);
 }

@@ -5,11 +5,13 @@ import cn.psw.youwenbida.api.model.Operation;
 import java.util.List;
 
 public interface OperationMapper {
-    int deleteByPrimaryKey(String oid);
+    int deleteByPrimaryKey(Integer oid);
 
     int insert(Operation record);
 
     Operation selectByPrimaryKey(Operation record);
+
+    Integer selectCount(Operation record);
 
     List<Operation> selectAll();
 

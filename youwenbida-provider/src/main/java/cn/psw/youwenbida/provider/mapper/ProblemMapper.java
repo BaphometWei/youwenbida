@@ -9,7 +9,7 @@ public interface ProblemMapper {
 
     int insert(Problem record);
 
-    Problem selectByPrimaryKey(String pid);
+    Problem selectByPrimaryKey(Integer pid);
 
     List<Problem> selectAll();
 

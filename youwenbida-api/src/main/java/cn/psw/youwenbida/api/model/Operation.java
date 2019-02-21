@@ -9,20 +9,20 @@ public class Operation implements Serializable {
      */
     private static final long serialVersionUID = -5809782578272943999L;
 
-    private String oid;
+    private Integer oid;
 
     private String ooz;
 
-    private String obo;
+    private Integer obo;
 
     private String olx;
 
-    public String getOid() {
+    public Integer getOid() {
         return oid;
     }
 
-    public void setOid(String oid) {
-        this.oid = oid == null ? null : oid.trim();
+    public void setOid(Integer oid) {
+        this.oid = oid;
     }
 
     public String getOoz() {
@@ -33,12 +33,12 @@ public class Operation implements Serializable {
         this.ooz = ooz == null ? null : ooz.trim();
     }
 
-    public String getObo() {
+    public Integer getObo() {
         return obo;
     }
 
-    public void setObo(String obo) {
-        this.obo = obo == null ? null : obo.trim();
+    public void setObo(Integer obo) {
+        this.obo = obo;
     }
 
     public String getOlx() {

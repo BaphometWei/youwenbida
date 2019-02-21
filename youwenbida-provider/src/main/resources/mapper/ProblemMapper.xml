@@ -2,24 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.psw.youwenbida.provider.mapper.ProblemMapper">
   <resultMap id="BaseResultMap" type="cn.psw.youwenbida.api.model.Problem">
-    <id column="pid" jdbcType="VARCHAR" property="pid" />
+    <id column="pid" jdbcType="INTEGER" property="pid" />
     <result column="ptitle" jdbcType="VARCHAR" property="ptitle" />
     <result column="pms" jdbcType="VARCHAR" property="pms" />
     <result column="ptcz" jdbcType="VARCHAR" property="ptcz" />
-    <result column="pgzzsl" jdbcType="INTEGER" property="pgzzsl" />
-    <result column="phdsl" jdbcType="INTEGER" property="phdsl" />
+    <result column="pllsl" jdbcType="INTEGER" property="pllsl" />
     <result column="ptcrq" jdbcType="DATE" property="ptcrq" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from problem
-    where pid = #{pid,jdbcType=VARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Problem">
     insert into problem (pid, ptitle, pms, 
-      ptcz, pgzzsl, phdsl, 
+      ptcz, pllsl,
       ptcrq)
-    values (#{pid,jdbcType=VARCHAR}, #{ptitle,jdbcType=VARCHAR}, #{pms,jdbcType=VARCHAR}, 
-      #{ptcz,jdbcType=VARCHAR}, #{pgzzsl,jdbcType=INTEGER}, #{phdsl,jdbcType=INTEGER}, 
+    values (#{pid,jdbcType=INTEGER}, #{ptitle,jdbcType=VARCHAR}, #{pms,jdbcType=VARCHAR},
+      #{ptcz,jdbcType=VARCHAR}, #{pllsl,jdbcType=INTEGER},
       #{ptcrq,jdbcType=DATE})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Problem">
@@ -27,18 +26,17 @@
     set ptitle = #{ptitle,jdbcType=VARCHAR},
       pms = #{pms,jdbcType=VARCHAR},
       ptcz = #{ptcz,jdbcType=VARCHAR},
-      pgzzsl = #{pgzzsl,jdbcType=INTEGER},
-      phdsl = #{phdsl,jdbcType=INTEGER},
+      pllsl = #{pllsl,jdbcType=INTEGER},
       ptcrq = #{ptcrq,jdbcType=DATE}
-    where pid = #{pid,jdbcType=VARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select pid, ptitle, pms, ptcz, pgzzsl, phdsl, ptcrq
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select pid, ptitle, pms, ptcz, pllsl, ptcrq
     from problem
-    where pid = #{pid,jdbcType=VARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select pid, ptitle, pms, ptcz, pgzzsl, phdsl, ptcrq
+    select pid, ptitle, pms, ptcz, pgzzsl, pllsl, ptcrq
     from problem
   </select>
 </mapper>

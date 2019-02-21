@@ -3,14 +3,14 @@ package cn.psw.youwenbida.api.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Problem  implements Serializable {
+public class Problem implements Serializable {
 
     /**
      *  序列化ID
      */
     private static final long serialVersionUID = -5809782578272943999L;
 
-    private String pid;
+    private Integer pid;
 
     private String ptitle;
 
@@ -18,18 +18,22 @@ public class Problem  implements Serializable {
 
     private String ptcz;
 
-    private Integer pgzzsl;
+    private Integer pgzzsl = 0;
 
-    private Integer phdsl;
+    private Integer pllsl = 0;
 
     private Date ptcrq;
 
-    public String getPid() {
+    private Integer pplsl = 0;
+
+    private Integer phdsl = 0;
+
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid == null ? null : pid.trim();
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     public String getPtitle() {
@@ -64,12 +68,12 @@ public class Problem  implements Serializable {
         this.pgzzsl = pgzzsl;
     }
 
-    public Integer getPhdsl() {
-        return phdsl;
+    public Integer getPllsl() {
+        return pllsl;
     }
 
-    public void setPhdsl(Integer phdsl) {
-        this.phdsl = phdsl;
+    public void setPllsl(Integer phdsl) {
+        this.pllsl = phdsl;
     }
 
     public Date getPtcrq() {
@@ -78,5 +82,21 @@ public class Problem  implements Serializable {
 
     public void setPtcrq(Date ptcrq) {
         this.ptcrq = ptcrq;
+    }
+
+    public Integer getPplsl() {
+        return pplsl;
+    }
+
+    public void setPplsl(Integer pplsl) {
+        this.pplsl = pplsl;
+    }
+
+    public Integer getPhdsl() {
+        return phdsl;
+    }
+
+    public void setPhdsl(Integer phdsl) {
+        this.phdsl = phdsl;
     }
 }

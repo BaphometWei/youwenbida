@@ -1,12 +1,8 @@
 package cn.psw.youwenbida.consumer.controller;
 
 import cn.psw.youwenbida.api.model.Answer;
-import cn.psw.youwenbida.api.model.Operation;
 import cn.psw.youwenbida.api.model.User;
-import cn.psw.youwenbida.api.service.AnswerService;
-import cn.psw.youwenbida.api.service.IdentityService;
-import cn.psw.youwenbida.api.service.OperationService;
-import cn.psw.youwenbida.api.service.ProblemService;
+import cn.psw.youwenbida.api.service.*;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +23,8 @@ public class AnswerController {
     ProblemService problemService;
     @Reference
     IdentityService identityService;
+    @Reference
+    CommentService commentService;
 
 
     @RequestMapping("/getHotAnswer")
@@ -35,24 +33,19 @@ public class AnswerController {
         List<Answer> answers = answerService.getHotAnswer();
         HttpSession session = request.getSession();
         String uid = (String)session.getAttribute("userid");
-        Operation operation = new Operation();
-        operation.setOlx("1");
-        operation.setOoz(uid);
         for(Answer answer:answers){
             User user = identityService.getUser(answer.getAhdz());
             answer.setAhdzname(user.getName());
             answer.setAhdzgxqm(user.getGxqm());
             answer.setTitle(problemService.getPro(answer.getAhdwt()).getPtitle());
-            answer.setDz(false);
-            answer.setSc(false);
             if(uid!=null){
-                operation.setObo(answer.getAid());
-                if(operationService.getOplx(operation)!=null)
+                if(operationService.getDz(uid,answer.getAid())!=null)
                     answer.setDz(true);
-                operation.setOlx("2");
-                if(operationService.getOplx(operation)!=null)
+                if(operationService.getSc(uid,answer.getAid())!=null)
                     answer.setSc(true);
             }
+            answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
+            answer.setAztsl(operationService.getConutByDz(answer.getAid()));
         }
         return answers;
     }

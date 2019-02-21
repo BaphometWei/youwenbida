@@ -16,4 +16,38 @@ public class OperationServiceImpl implements OperationService {
     public Operation getOplx(Operation operation) {
         return operationMapper.selectByPrimaryKey(operation);
     }
+
+    @Override
+    public Operation getDz(String uid,Integer aid) {
+        Operation operation = new Operation();
+        operation.setOoz(uid);
+        operation.setObo(aid);
+        operation.setOlx("1");
+        return operationMapper.selectByPrimaryKey(operation);
+    }
+
+    @Override
+    public Operation getSc(String uid,Integer aid) {
+        Operation operation = new Operation();
+        operation.setOoz(uid);
+        operation.setObo(aid);
+        operation.setOlx("2");
+        return operationMapper.selectByPrimaryKey(operation);
+    }
+
+    @Override
+    public Integer getConutByDz(Integer aid) {
+        Operation operation = new Operation();
+        operation.setObo(aid);
+        operation.setOlx("1");
+        return operationMapper.selectCount(operation);
+    }
+
+    @Override
+    public Integer getCountDzByCom(Integer cid){
+        Operation operation = new Operation();
+        operation.setObo(cid);
+        operation.setOlx("4");
+        return operationMapper.selectCount(operation);
+    }
 }
