@@ -11,8 +11,8 @@
     </commentGenerator>
     <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
     <jdbcConnection
-            driverClass="com.mysql.jdbc.Driver"
-            connectionURL="jdbc:mysql://localhost:3306/youwenbida"
+            driverClass="com.mysql.cj.jdbc.Driver"
+            connectionURL="jdbc:mysql://localhost:3306/youwenbida?useSSL=false"
             userId="root"
             password="123456">
     </jdbcConnection>
@@ -47,7 +47,7 @@
         <property name="enableSubPackages" value="false" />
     </javaClientGenerator>
     <!-- 指定数据库表 -->
-    <table tableName="comment" enableSelectByExample="false"
+    <table tableName="reply" enableSelectByExample="false"
            enableDeleteByExample="false" enableCountByExample="false"
            selectByExampleQueryId="true" enableUpdateByExample="false">
         <property name="useActualColumnNames" value="true"/>

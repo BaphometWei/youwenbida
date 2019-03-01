@@ -21,6 +21,39 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public Integer getCountAns(Integer pid) {
-        return answerMapper.selectCountByPrimaryKey(pid);
+        Answer answer = new Answer();
+        answer.setAhdwt(pid);
+        return answerMapper.selectCountByPrimaryKey(answer);
+    }
+
+    @Override
+    public Integer getCountUserAns(String uid) {
+        Answer answer = new Answer();
+        answer.setAhdz(uid);
+        return answerMapper.selectCountByPrimaryKey(answer);
+    }
+
+    @Override
+    public Answer getAns(Integer aid) {
+        return answerMapper.selectByPrimaryKey(aid);
+    }
+
+    @Override
+    public List<Answer> getUserAns(String uid){
+        Answer answer = new Answer();
+        answer.setAhdz(uid);
+        return answerMapper.selectListByPrimaryKey(answer);
+    }
+
+    @Override
+    public List<Answer> getProAns(Integer pid){
+        Answer answer = new Answer();
+        answer.setAhdwt(pid);
+        return answerMapper.selectListByPrimaryKey(answer);
+    }
+
+    @Override
+    public Answer searchProAns(String pid) {
+        return answerMapper.selectByPrimaryKey(answerMapper.searchProAns(Integer.parseInt(pid)));
     }
 }

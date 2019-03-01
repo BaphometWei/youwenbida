@@ -17,5 +17,7 @@ public interface AnswerMapper {
 
     List<Answer> selectListByPrimaryKey(Answer answer);
 
-    Integer selectCountByPrimaryKey(Integer pid);
+    Integer selectCountByPrimaryKey(Answer answer);
+
+    Integer searchProAns(Integer pid);
 }

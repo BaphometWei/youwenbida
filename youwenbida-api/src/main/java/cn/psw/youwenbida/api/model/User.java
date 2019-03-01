@@ -33,6 +33,14 @@ public class User implements Serializable {
 
     private String img;
 
+    private Boolean isgz = false;
+
+    private Integer gzzsl;
+
+    private Integer twsl;
+
+    private Integer hdsl;
+
     public String getId() {
         return id;
     }
@@ -127,5 +135,37 @@ public class User implements Serializable {
 
     public void setImg(String img) {
         this.img = img == null ? null : img.trim();
+    }
+
+    public Boolean getIsgz() {
+        return isgz;
+    }
+
+    public void setIsgz(Boolean isgz) {
+        this.isgz = isgz;
+    }
+
+    public Integer getGzzsl() {
+        return gzzsl;
+    }
+
+    public void setGzzsl(Integer gzzsl) {
+        this.gzzsl = gzzsl;
+    }
+
+    public Integer getTwsl() {
+        return twsl;
+    }
+
+    public void setTwsl(Integer twsl) {
+        this.twsl = twsl;
+    }
+
+    public Integer getHdsl() {
+        return hdsl;
+    }
+
+    public void setHdsl(Integer hdsl) {
+        this.hdsl = hdsl;
     }
 }

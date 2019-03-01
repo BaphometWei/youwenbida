@@ -1,16 +1,23 @@
 package cn.psw.youwenbida.api.service;
 
 import cn.psw.youwenbida.api.model.Operation;
+import cn.psw.youwenbida.api.utils.ResponseBo;
+
+import java.util.List;
 
 public interface OperationService {
 
     public Operation getOplx(Operation operation);
 
-    public Operation getDz(String uid,Integer aid);
+    public Operation getOp(String uid,String id,String op);
 
-    public Operation getSc(String uid,Integer aid);
+    public List<Operation> getOpList(String uid, String id, String op);
 
-    public Integer getConutByDz(Integer aid);
+    public List<Operation> getUserOp(String uid, String id, String op);
 
-    public Integer getCountDzByCom(Integer cid);
+    public Integer getOpConut(String id,String lx);
+
+    public ResponseBo op(String uid,String id,String op);
+
+    public ResponseBo deleteop(String uid,String id,String op);
 }

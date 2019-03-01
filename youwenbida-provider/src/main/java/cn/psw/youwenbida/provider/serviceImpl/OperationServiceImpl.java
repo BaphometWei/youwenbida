@@ -2,9 +2,12 @@ package cn.psw.youwenbida.provider.serviceImpl;
 
 import cn.psw.youwenbida.api.model.Operation;
 import cn.psw.youwenbida.api.service.OperationService;
+import cn.psw.youwenbida.api.utils.ResponseBo;
 import cn.psw.youwenbida.provider.mapper.OperationMapper;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 @Service
 public class OperationServiceImpl implements OperationService {
@@ -18,36 +21,61 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public Operation getDz(String uid,Integer aid) {
+    public Operation getOp(String uid,String id,String op) {
         Operation operation = new Operation();
         operation.setOoz(uid);
-        operation.setObo(aid);
-        operation.setOlx("1");
+        operation.setObo(id);
+        operation.setOlx(op);
         return operationMapper.selectByPrimaryKey(operation);
     }
 
     @Override
-    public Operation getSc(String uid,Integer aid) {
+    public List<Operation> getOpList(String uid, String id, String op) {
         Operation operation = new Operation();
         operation.setOoz(uid);
-        operation.setObo(aid);
-        operation.setOlx("2");
-        return operationMapper.selectByPrimaryKey(operation);
+        operation.setObo(id);
+        operation.setOlx(op);
+        return operationMapper.selectList(operation);
     }
 
     @Override
-    public Integer getConutByDz(Integer aid) {
+    public List<Operation> getUserOp(String uid, String id, String op) {
         Operation operation = new Operation();
-        operation.setObo(aid);
-        operation.setOlx("1");
+        operation.setOoz(uid);
+        operation.setObo(id);
+        operation.setOlx(op);
+        return operationMapper.getUserOp(operation);
+    }
+
+    @Override
+    public Integer getOpConut(String id,String lx) {
+        Operation operation = new Operation();
+        operation.setObo(id);
+        operation.setOlx(lx);
         return operationMapper.selectCount(operation);
     }
 
     @Override
-    public Integer getCountDzByCom(Integer cid){
+    public ResponseBo op(String uid,String id,String op) {
         Operation operation = new Operation();
-        operation.setObo(cid);
-        operation.setOlx("4");
-        return operationMapper.selectCount(operation);
+        operation.setOlx(op);
+        operation.setObo(id);
+        operation.setOoz(uid);
+        if(operationMapper.insert(operation)!=0)
+            return ResponseBo.ok();
+        else
+            return ResponseBo.error();
+    }
+
+    @Override
+    public ResponseBo deleteop(String uid,String id,String op) {
+        Operation operation = new Operation();
+        operation.setOlx(op);
+        operation.setObo(id);
+        operation.setOoz(uid);
+        if(operationMapper.deleteByPrimaryKey(operation)!=0)
+            return ResponseBo.ok();
+        else
+            return ResponseBo.error();
     }
 }

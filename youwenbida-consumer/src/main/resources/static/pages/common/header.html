@@ -38,8 +38,8 @@
                 <li class="nav-item">话题</li>
             </ul>
             <div class="header-search">
-                <form>
-                    <input id="search-input" type="text" placeholder="请输入您要搜索的内容...">
+                <form action="/toSearch" onclick="return checksearchvalue()" method="get">
+                    <input id="search-input" type="text" name="q" placeholder="请输入您要搜索的内容..." autocomplete="off">
                     <button type="submit"></button>
                 </form>
                 <dl class="layui-nav-child"> <!-- 二级菜单 -->
@@ -109,6 +109,8 @@
 <script type="text/javascript">
     $(function () {
         validateDlzt();
+        if(getQueryString("q")!=null)
+            $("#search-input").attr("value",getQueryString("q"));
     })
 </script>
 </body>

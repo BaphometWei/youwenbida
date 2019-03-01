@@ -1,6 +1,9 @@
 package cn.psw.youwenbida.api.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 public class Operation implements Serializable {
 
@@ -13,9 +16,15 @@ public class Operation implements Serializable {
 
     private String ooz;
 
-    private Integer obo;
+    private String obo;
 
     private String olx;
+
+    private Date odate;
+
+    private Problem problem;
+
+    private Answer answer;
 
     public Integer getOid() {
         return oid;
@@ -33,11 +42,11 @@ public class Operation implements Serializable {
         this.ooz = ooz == null ? null : ooz.trim();
     }
 
-    public Integer getObo() {
+    public String getObo() {
         return obo;
     }
 
-    public void setObo(Integer obo) {
+    public void setObo(String obo) {
         this.obo = obo;
     }
 
@@ -47,5 +56,30 @@ public class Operation implements Serializable {
 
     public void setOlx(String olx) {
         this.olx = olx == null ? null : olx.trim();
+    }
+
+    public Problem getProblem() {
+        return problem;
+    }
+
+    public void setProblem(Problem problem) {
+        this.problem = problem;
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    public Date getOdate() {
+        return odate;
+    }
+
+    public void setOdate(Date odate) {
+        this.odate = odate;
     }
 }

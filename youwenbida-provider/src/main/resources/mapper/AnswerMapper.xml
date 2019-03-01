@@ -40,10 +40,14 @@
       <if test="aid != null">
         and aid = #{aid,jdbcType=INTEGER}
       </if>
-      <if test="ahdwt !=null">
+      <if test="ahdwt != null">
         and ahdwt = #{ahdwt,jdbcType=INTEGER}
       </if>
+      <if test="ahdz != null">
+        and ahdz = #{ahdz,jdbcType=VARCHAR}
+      </if>
     </where>
+    order by ahdrq desc
   </select>
   <select id="selectCountByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer" resultType="java.lang.Integer">
     select count(1)
@@ -55,10 +59,16 @@
       <if test="ahdwt !=null">
         and ahdwt = #{ahdwt,jdbcType=INTEGER}
       </if>
+      <if test="ahdz != null">
+          and ahdz = #{ahdz,jdbcType=VARCHAR}
+      </if>
     </where>
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select aid, ahdz, ahd, ahdrq, ahdwt
     from answer
+  </select>
+  <select id="searchProAns" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      select cbpl from comment where cbpl in (select aid from answer where ahdwt = #{0}) and cpllx = '2' group by cbpl order by count(cbpl) desc limit 1
   </select>
 </mapper>

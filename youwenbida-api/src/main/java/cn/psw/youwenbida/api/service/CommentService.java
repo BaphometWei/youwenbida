@@ -14,4 +14,10 @@ public interface CommentService {
     public List<Comment> getAnsCom(Integer aid);
 
     public ResponseBo insertAnsCom(Comment comment);
+
+    public Comment getCom(Comment comment,String clx);
+
+    public List<Comment> getProCom(Integer pid);
+
+    public ResponseBo insertProCom(Comment comment);
 }

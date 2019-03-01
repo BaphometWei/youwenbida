@@ -4,28 +4,42 @@
   <resultMap id="BaseResultMap" type="cn.psw.youwenbida.api.model.Operation">
     <id column="oid" jdbcType="INTEGER" property="oid" />
     <result column="ooz" jdbcType="VARCHAR" property="ooz" />
-    <result column="obo" jdbcType="INTEGER" property="obo" />
+    <result column="obo" jdbcType="VARCHAR" property="obo" />
     <result column="olx" jdbcType="VARCHAR" property="olx" />
+    <result column="odate" jdbcType="TIMESTAMP" property="odate" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Operation">
     delete from operation
-    where oid = #{oid,jdbcType=INTEGER}
+    <where>
+      <if test="oid != null">
+        and oid = #{oid,jdbcType=INTEGER}
+      </if>
+      <if test="ooz != null">
+        and ooz = #{ooz,jdbcType=VARCHAR}
+      </if>
+      <if test="obo != null">
+        and obo = #{obo,jdbcType=VARCHAR}
+      </if>
+      <if test="olx != null">
+        and olx = #{olx,jdbcType=VARCHAR}
+      </if>
+    </where>
   </delete>
-  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Operation">
+  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Operation" useGeneratedKeys="true" keyProperty="oid">
     insert into operation (oid, ooz, obo, 
       olx)
-    values (#{oid,jdbcType=INTEGER}, #{ooz,jdbcType=VARCHAR}, #{obo,jdbcType=INTEGER},
+    values (#{oid,jdbcType=INTEGER}, #{ooz,jdbcType=VARCHAR}, #{obo,jdbcType=VARCHAR},
       #{olx,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Operation">
     update operation
-    set ooz = #{ooz,jdbcType=INTEGER},
-      obo = #{obo,jdbcType=INTEGER},
+    set ooz = #{ooz,jdbcType=VARCHAR},
+      obo = #{obo,jdbcType=VARCHAR},
       olx = #{olx,jdbcType=VARCHAR}
     where oid = #{oid,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Operation" resultMap="BaseResultMap">
-    select oid, ooz, obo, olx
+    select oid, ooz, obo, olx, odate
     from operation
     <where>
       <if test="oid!=null">
@@ -35,12 +49,50 @@
         and ooz = #{ooz,jdbcType=VARCHAR}
       </if>
       <if test="obo!=null">
-        and obo = #{obo,jdbcType=INTEGER}
+        and obo = #{obo,jdbcType=VARCHAR}
       </if>
       <if test="olx!=null">
         and olx = #{olx,jdbcType=VARCHAR}
       </if>
     </where>
+  </select>
+  <select id="selectList" parameterType="cn.psw.youwenbida.api.model.Operation" resultMap="BaseResultMap">
+    select oid, ooz, obo, olx, odate
+    from operation
+    <where>
+      <if test="oid!=null">
+        and oid = #{oid,jdbcType=INTEGER}
+      </if>
+      <if test="ooz!=null">
+        and ooz = #{ooz,jdbcType=VARCHAR}
+      </if>
+      <if test="obo!=null">
+        and obo = #{obo,jdbcType=VARCHAR}
+      </if>
+      <if test="olx!=null">
+        and olx = #{olx,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by odate desc
+  </select>
+  <select id="getUserOp" parameterType="cn.psw.youwenbida.api.model.Operation" resultMap="BaseResultMap">
+    select oid, ooz, obo, olx, odate
+    from operation
+    <where>
+      <if test="oid!=null">
+        and oid = #{oid,jdbcType=INTEGER}
+      </if>
+      <if test="ooz!=null">
+        and ooz = #{ooz,jdbcType=VARCHAR}
+      </if>
+      <if test="obo!=null">
+        and obo = #{obo,jdbcType=VARCHAR}
+      </if>
+      <if test="olx!=null">
+        and olx in ${olx}
+      </if>
+    </where>
+    order by odate desc
   </select>
   <select id="selectCount" parameterType="cn.psw.youwenbida.api.model.Operation" resultType="java.lang.Integer">
     select count(1)
@@ -53,7 +105,7 @@
         and ooz = #{ooz,jdbcType=VARCHAR}
       </if>
       <if test="obo!=null">
-        and obo = #{obo,jdbcType=INTEGER}
+        and obo = #{obo,jdbcType=VARCHAR}
       </if>
       <if test="olx!=null">
         and olx = #{olx,jdbcType=VARCHAR}
@@ -61,7 +113,7 @@
     </where>
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select oid, ooz, obo, olx
+    select oid, ooz, obo, olx, odate
     from operation
   </select>
 </mapper>

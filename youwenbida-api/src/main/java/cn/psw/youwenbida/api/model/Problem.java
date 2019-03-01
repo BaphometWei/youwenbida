@@ -1,5 +1,7 @@
 package cn.psw.youwenbida.api.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -27,6 +29,8 @@ public class Problem implements Serializable {
     private Integer pplsl = 0;
 
     private Integer phdsl = 0;
+
+    private Boolean isgz = false;
 
     public Integer getPid() {
         return pid;
@@ -72,10 +76,11 @@ public class Problem implements Serializable {
         return pllsl;
     }
 
-    public void setPllsl(Integer phdsl) {
-        this.pllsl = phdsl;
+    public void setPllsl(Integer pllsl) {
+        this.pllsl = pllsl;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getPtcrq() {
         return ptcrq;
     }
@@ -98,5 +103,13 @@ public class Problem implements Serializable {
 
     public void setPhdsl(Integer phdsl) {
         this.phdsl = phdsl;
+    }
+
+    public Boolean getIsgz() {
+        return isgz;
+    }
+
+    public void setIsgz(Boolean isgz) {
+        this.isgz = isgz;
     }
 }

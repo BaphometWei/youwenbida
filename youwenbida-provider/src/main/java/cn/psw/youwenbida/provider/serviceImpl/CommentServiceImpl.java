@@ -36,15 +36,39 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = new Comment();
         comment.setCbpl(aid);
         comment.setCpllx("2");
-        return commentMapper.selectByPrimaryKey(comment);
+        return commentMapper.selectList(comment);
+    }
+
+    @Override
+    public List<Comment> getProCom(Integer pid){
+        Comment comment = new Comment();
+        comment.setCbpl(pid);
+        comment.setCpllx("1");
+        return commentMapper.selectList(comment);
     }
 
     @Override
     public ResponseBo insertAnsCom(Comment comment) {
         comment.setCpllx("2");
         if(commentMapper.insert(comment)!=0)
-            return ResponseBo.ok();
+            return ResponseBo.ok().put("cid",comment.getCid());
         else
             return ResponseBo.error();
     }
+
+    @Override
+    public ResponseBo insertProCom(Comment comment) {
+        comment.setCpllx("1");
+        if(commentMapper.insert(comment)!=0)
+            return ResponseBo.ok().put("cid",comment.getCid());
+        else
+            return ResponseBo.error();
+    }
+
+    @Override
+    public Comment getCom(Comment comment,String clx){
+        comment.setCpllx(clx);
+        return commentMapper.selectByPrimaryKey(comment);
+    }
+
 }

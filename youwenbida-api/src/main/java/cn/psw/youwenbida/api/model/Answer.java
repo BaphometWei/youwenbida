@@ -1,7 +1,10 @@
 package cn.psw.youwenbida.api.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Answer implements Serializable {
 
@@ -28,11 +31,9 @@ public class Answer implements Serializable {
 
     private Boolean sc = false;
 
-    private String title;
+    private Problem problem;
 
-    private String ahdzname;
-
-    private String ahdzgxqm;
+    private User user;
 
     public Integer getAid() {
         return aid;
@@ -74,6 +75,7 @@ public class Answer implements Serializable {
         this.aplsl = aplsl;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getAhdrq() {
         return ahdrq;
     }
@@ -106,27 +108,29 @@ public class Answer implements Serializable {
         this.sc = sc;
     }
 
-    public String getTitle() {
-        return title;
+    public List<Comment> comments;
+
+    public Problem getProblem() {
+        return problem;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setProblem(Problem problem) {
+        this.problem = problem;
     }
 
-    public String getAhdzname() {
-        return ahdzname;
+    public User getUser() {
+        return user;
     }
 
-    public void setAhdzname(String ahdzname) {
-        this.ahdzname = ahdzname;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getAhdzgxqm() {
-        return ahdzgxqm;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setAhdzgxqm(String ahdzgxqm) {
-        this.ahdzgxqm = ahdzgxqm;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

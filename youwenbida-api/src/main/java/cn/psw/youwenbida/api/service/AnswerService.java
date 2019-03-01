@@ -10,4 +10,14 @@ public interface AnswerService {
 
     public Integer getCountAns(Integer pid);
 
+    public Answer getAns(Integer aid);
+
+    public List<Answer> getUserAns(String uid);
+
+    public List<Answer> getProAns(Integer pid);
+
+    public Answer searchProAns(String pid);
+
+    Integer getCountUserAns(String uid);
+
 }

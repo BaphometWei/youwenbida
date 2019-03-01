@@ -1,0 +1,91 @@
+.pinglun{
+    border: 1px solid #EBEBEB;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
+    border-radius: 2px;
+    display: none;
+}
+.pinglun .plsl,.hfsl{
+    border-bottom: 1px solid #F6F6F6;
+}
+.pinglun h3,.hfsl h3{
+    font-weight: 600;
+    padding:10px 20px;
+    font-size:15px;
+}
+.pinglun-body{
+    padding:0 20px;
+}
+.pler{
+    padding: 15px 0;
+    border-bottom: 1px solid #F6F6F6;
+}
+.pldate{
+    float: right;
+    font-size: 14px;
+    color: #8590A6;
+}
+.pler-body{
+    width:650px;
+    word-wrap:break-word;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+    font-size: 15px;
+    color: #1A1A1A;
+    -webkit-tap-highlight-color: rgba(26, 26, 26, 0);
+}
+.pler-body p{
+    padding: 10px 0;
+}
+.pler-body a{
+    border-bottom: 1px solid #808080;
+}
+.pler-footer a{
+    color: #8590A6;
+    margin-right: 20px;
+}
+.pler-footer i{
+    vertical-align: middle;
+}
+.layui-layedit{
+    margin-top: 10px;
+}
+.plfh-footer{
+    margin-top: 5px;
+    color: #FFFFFF;
+    background: #FCC9C9;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    float: right;
+}
+.hf{
+    padding-top:10px;
+    font-size:0;
+    display: none;
+}
+.hf input{
+    width:600px;
+}
+.hf input,.hf button{
+    font-size: 14px;
+    display:inline;
+}
+.hf button{
+    line-height: 38px;
+    border: none;
+    padding: 0 12px;
+    color: #FFFFFF;
+    background: #FCC9C9;
+}
+.main-left,.main-right{
+    margin-bottom: 50px;
+}
+.navop{
+    border-bottom: 3px solid #FCC9C9;
+    font-weight: 600;
+}
+.problem{
+    padding:10px 0;
+    margin: 0 15px;
+    border-bottom: 1px solid #e7e9ee;
+}

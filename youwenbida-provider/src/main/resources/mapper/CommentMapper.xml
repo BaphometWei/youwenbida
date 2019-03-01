@@ -7,12 +7,13 @@
     <result column="cpl" jdbcType="VARCHAR" property="cpl" />
     <result column="cpllx" jdbcType="VARCHAR" property="cpllx" />
     <result column="cbpl" jdbcType="INTEGER" property="cbpl" />
+    <result column="cdate" jdbcType="TIMESTAMP" property="cdate" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from comment
     where cid = #{cid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Comment">
+  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Comment" useGeneratedKeys="true" keyProperty="cid">
     insert into comment (cid, cplz, cpl, 
       cpllx, cbpl)
     values (#{cid,jdbcType=INTEGER}, #{cplz,jdbcType=VARCHAR}, #{cpl,jdbcType=VARCHAR}, 
@@ -26,8 +27,24 @@
       cbpl = #{cbpl,jdbcType=INTEGER}
     where cid = #{cid,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Comment" resultMap="BaseResultMap">
-    select cid, cplz, cpl, cpllx, cbpl
+  <select id="selectList" parameterType="cn.psw.youwenbida.api.model.Comment" resultMap="BaseResultMap">
+  select cid, cplz, cpl, cpllx, cbpl, cdate
+  from comment
+  <where>
+    <if test="cid != null">
+      and cid = #{cid,jdbcType=INTEGER}
+    </if>
+    <if test="cbpl != null">
+      and cbpl = #{cbpl,jdbcType=INTEGER}
+    </if>
+    <if test="cpllx != null">
+      and cpllx = #{cpllx,jdbcType=VARCHAR}
+    </if>
+  </where>
+  order by cdate desc
+  </select>
+  <select id="selectByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Comment" resultType="cn.psw.youwenbida.api.model.Comment">
+    select cid, cplz, cpl, cpllx, cbpl, cdate
     from comment
     <where>
       <if test="cid != null">
@@ -57,7 +74,7 @@
     </where>
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select cid, cplz, cpl, cpllx, cbpl
+    select cid, cplz, cpl, cpllx, cbpl, cdate
     from comment
   </select>
 </mapper>

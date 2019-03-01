@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>狼外婆-有问必答</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
     <script src="/js/jquery-3.3.1.min.js"></script>
     <style>
         .main-top{
@@ -45,7 +46,7 @@
             background: #ffffff;
             float: left;
             width:740px;
-            box-shadow: 0 1px 1px rgba(26, 26, 26, 0.1);
+            box-shadow: 0 0 1px rgba(26, 26, 26, 0.1);
             background-clip: content-box;
         }
         .main-left .bankuai{
@@ -157,97 +158,18 @@
 <div class="main">
     <div class="main-left">
         <div class="bankuai">
-            <h4>我的动态</h4>
+            <h4></h4>
         </div>
         <div class="main-problem">
-            <div class="problem">
-                <h2 class="problem-title">你班主任说过最让你难忘的一句话是什么？</h2>
-                <div class="problem-answer">
-                    <a>
-                        <img class="Avatar AuthorInfo-avatar" width="24" height="24" src="/img/touxiang.jpg" />
-                        <span class="answername">  夏木</span>
-                        <span class="answerqm">断剑重铸之日，骑士归来之时</span>
-                    </a>
-                </div>
-                <div class="problem-zan">
-                    <span>0</span>人赞同了该回答
-                </div>
-                <div class="problem-fold">
-                    <p>jgijgijgkajdojhiodjgkdjakjgkdjaksjhkejfaijgjgjksjgijdfiohajdksjgaidsjijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjagiajfksjgggggggggkdfjgggggggggggggggggglskjg</p>
-                    <p>jgijgj啊啊啊啊啊啊啊啊啊啊啊7gugyfgfg啊啊啊ijgijgij以及高级挤公交四大金刚卡萨就赶快啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
-                </div>
-                <div class="controlfold">
-
-                </div>
-                <div class="answer-time">
-                    发布于  <span>2018-01-10</span>
-                </div>
-                <div class="problem-footer">
-                    <button class="problem-dianzan" style="background: #FCC9C9;color:#ffffff;padding: 0 12px;" isdz="false" onclick="zantong(this)"><i class="layui-icon layui-icon-praise"></i> <span>34</span></button>
-                    <button class="problem-pinglun"><i class="layui-icon layui-icon-reply-fill"></i> <span>34条评论</span></button>
-                    <button class="problem-shoucang" style="margin-left: 0px;" onclick="shoucang(this)" issc="true"><i class="layui-icon layui-icon-rate-solid"></i> <span>收藏</span></button>
-                </div>
-            </div>
-            <div class="problem">
-                <h2 class="problem-title">你班主任说过最让你难忘的一句话是什么？</h2>
-                <div class="problem-answer">
-                    <a>
-                        <img class="Avatar AuthorInfo-avatar" width="24" height="24" src="/img/touxiang.jpg" />
-                        <span class="answername">  夏木</span>
-                        <span class="answerqm">断剑重铸之日，骑士归来之时</span>
-                    </a>
-                </div>
-                <div class="problem-zan">
-                    <span>0</span>人赞同了该回答
-                </div>
-                <div class="problem-fold">
-                    <p>aghifjgi还记得高i家啊看个JOIA挂机看到股价几个</p>
-                    <p>根据奥克斯宫颈癌及哦啊接的骨灰级按估计回家机构</p>
-                </div>
-                <div class="controlfold">
-
-                </div>
-                <div class="answer-time">
-                    发布于  <span>2018-01-10</span>
-                </div>
-                <div class="problem-footer">
-                    <button class="problem-dianzan" style="background: #FCC9C9;color:#ffffff;padding: 0 12px;" isdz="true" onclick="zantong(this)"><i class="layui-icon layui-icon-praise"></i> <span>34</span></button>
-                    <button class="problem-pinglun"><i class="layui-icon layui-icon-reply-fill"></i> <span>34条评论</span></button>
-                    <button class="problem-shoucang" style="margin-left: 0px;" onclick="shoucang(this)" issc="false"><i class="layui-icon layui-icon-rate-solid"></i> <span>收藏</span></button>
-                </div>
-            </div>
         </div>
     </div>
     <div class="main-right">
     </div>
+    <div class="clearfix"></div>
 </div>
 <script src="/layui/layui.js"></script>
 <script src="/js/common.js"></script>
 <script type="text/javascript">
-    function guanzhu() {
-        if($("#guanzhu").html()=="取消关注"){
-            $("#guanzhu").css("background","#0084FF");
-            $("#guanzhu").html("<i class='layui-icon layui-icon-add-1'></i>关注问题")
-        }else{
-            $("#guanzhu").css("background","#8590A6");
-            $("#guanzhu").html("取消关注")
-        }
-    }
-    function zhanshi(){
-        if($("#chakan").html()==' 查看详细资料'){
-            $(".userxx-body1").css('display','none');
-            $(".userxx-body2").css('display','block');
-            $(".layui-icon-down").addClass("layui-icon-up");
-            $(".layui-icon-down").removeClass("layui-icon-down");
-            $("#chakan").html(" 收起详细资料")
-        }else{
-            $(".userxx-body2").css('display','none');
-            $(".userxx-body1").css('display','block');
-            $(".layui-icon-up").addClass("layui-icon-down");
-            $(".layui-icon-up").removeClass("layui-icon-up");
-            $("#chakan").html(" 查看详细资料")
-        }
-    };
     $(function () {
         $(".main-header").load("/pages/common/header.html");
         $.ajax({
@@ -259,29 +181,33 @@
                 var showhtml = "";
                 showhtml += "<div class='left'><h1>"+data.ptitle+"</h1><div class='problem-fold'>"+data.pms;
                 showhtml += "</div><div class='controlfold'></div><div class='problem-footer'>";
-                showhtml += "<a id='guanzhu' style='padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #0084FF;color:#ffffff;' onclick='guanzhu()'>";
-                showhtml += "<i class='layui-icon layui-icon-add-1'></i>关注问题</a><a style='margin-left:15px;padding:7px 10px;";
-                showhtml += "border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;'><i class='layui-icon layui-icon-edit'></i>写回答</a>";
-                showhtml += "<button class='problem-pinglun' style='margin-left:15px;'><i class='layui-icon layui-icon-reply-fill'></i> <span>"+data.pplsl+"条评论</span></button></div></div><div class='right'>";
-                showhtml += "<div class='gzxx'><button style='border-right: 1px solid #c6d5ec;'>关注者</br><span class='gzsl'>"+data.pgzzsl+"</span></button>";
+                    if(data.isgz==false)
+                        showhtml += "<a id='guanzhu' style='padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #0084FF;color:#ffffff;' onclick='guanzhupro()'><i class='layui-icon layui-icon-add-1'></i>关注问题</a>";
+                    else
+                        showhtml += "<a id='guanzhu' style='padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #8590A6;color:#ffffff;' onclick='guanzhupro()'>取消关注</a>";
+                showhtml += "<a style='margin-left:15px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;'><i class='layui-icon layui-icon-edit'></i>写回答</a>";
+                showhtml += "<button class='problem-pinglun propl' style='margin-left:15px;' onclick='ckppl()'><i class='layui-icon layui-icon-reply-fill'></i> <span>"+data.pplsl+"</span>条评论</button></div></div><div class='right'>";
+                showhtml += "<div class='gzxx'><button id='gzzsl' style='border-right: 1px solid #c6d5ec;'>关注者</br><span class='gzsl'>"+data.pgzzsl+"</span></button>";
                 showhtml += "<button>被浏览</br><span class='bgzsl'>2,902,734</span></button></div></div><div class='clearfix'></div>";
                 $(".main-footer").append(showhtml);
-            }
-        })
-        $(".problem-dianzan").each(function (i,val) {
-            if($(this).attr("isdz")=="true"){
-                $(this).find("span").text("已赞同"+$(this).find("span").text());
-            }else{
-                $(this).find("span").text("赞同"+$(this).find("span").text());
+                $(".bankuai").find("h4").html(data.phdsl+"条回答");
+                commonAjax("/getProAnswer",callback,{pid: getQueryString("proid")});
+                function callback(ans) {
+                    showhtml = "";
+                    for(var k=0;k<ans.length;k++) {
+                        showhtml += "<div class='problem'>";
+                        showhtml += "<div class='problem-answer'><a href='/zhuye?id="+ans[k].user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + ans[k].user.name + "</span>";
+                        showhtml += "<span class='answerqm'> " + ans[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + ans[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + ans[k].ahd;
+                        showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + ans[k].ahdrq + "</span></div><div class='problem-footer'>";
+                        showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + ans[k].dz + "' onclick='zantong(this)' alt='" + ans[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + ans[k].aztsl + "</span></button>";
+                        showhtml += "<button class='problem-pinglun' alt='" + ans[k].aid + "' onclick='chakanpl(this)'><i class='layui-icon layui-icon-reply-fill'></i> <span>" + ans[k].aplsl + "</span>条评论</button>";
+                        showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='" + ans[k].sc + "' alt='" + ans[k].aid + "'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button></div><div class='pinglun'></div></div>";
+                    }
+                    $(".main-problem").append(showhtml);
+                }
             }
         });
-        $(".problem-shoucang").each(function (i,val) {
-            if($(this).attr("issc")=="true"){
-                $(this).find("i").css('color','yellow');
-            }else{
-                $(this).find("i").css('color','#8590A6');
-            }
-        });
+        init()
         show();
     })
 </script>

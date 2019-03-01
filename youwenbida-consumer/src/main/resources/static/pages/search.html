@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>狼外婆-有问必答</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <style>
+        .main-top{
+            background: #ffffff;
+            width: 100%;
+            box-shadow: 0 1px 3px rgba(20, 20, 20, 0.1);
+            background-clip: content-box;
+        }
+        .main-footer{
+            width:980px;
+            margin: 2px auto;
+        }
+        .left{
+            float: left;
+            width:725px;
+        }
+        .right{
+            float:right;
+            width:231px;
+            text-align: right;
+        }
+        .main-footer h1{
+            font-size: 22px;
+            font-weight: 600;
+            font-synthesis: style;
+            line-height: 32px;
+            color: #1A1A1A;
+            padding-bottom: 10px;
+        }
+        .main {
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .main-right{
+            margin-top: 10px;
+        }
+        .main-left{
+            background: #ffffff;
+            float: left;
+            width:740px;
+        }
+        .main-left .bankuai{
+            border-bottom: 1px solid #F6F6F6;
+        }
+        .main-left .bankuai h4{
+            font-weight: 600;
+            padding:10px 20px;
+        }
+        .problem{
+            padding:5px 15px;
+            box-shadow: 0 0 1px rgba(26, 26, 26, 0.1);
+            background-clip: content-box;
+        }
+        .problem-title{
+            font-size: 18px;
+            font-weight: 600;
+            font-synthesis: style;
+            line-height: 1.6;
+            color: #1A1A1A;
+            margin-top: -4px;
+            margin-bottom: -4px;
+            padding:10px 0;
+        }
+        .problem-footer{
+            padding:10px 0;
+        }
+        .problem-footer button{
+            line-height: 20px;
+            margin-right: 12px;
+            border: none;
+            border-radius: 5%;
+            background: #ffffff;
+            height: 25px;
+            color: #8590A6;
+        }
+        .problem-footer i{
+            vertical-align: middle;
+        }
+        .problem-footer span{
+            vertical-align: middle;
+        }
+        .answerqm{
+            vertical-align: middle;
+            color: #5a6271;
+        }
+        .answername{
+            color: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            vertical-align: middle;
+        }
+        .problem-fold{
+            width:700px;
+            word-wrap:break-word;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+            font-size: 15px;
+            color: #1A1A1A;
+            -webkit-tap-highlight-color: rgba(26, 26, 26, 0);
+        }
+        .problem-fold a{
+            border-bottom: 1px solid #808080;
+        }
+        .problem-fold p{
+            padding-bottom: 15px;
+        }
+        .problem-answer,.problem-zan,.answer-time{
+            padding:4px 0;
+        }
+        .zantong,.problem-zan,.answer-time{
+            color: #8590A6;
+        }
+        .fold-button{
+            cursor:pointer;
+            color: #175199;
+        }
+        .main-right{
+            float:right;
+            width:246px;
+        }
+        .nav li {
+            height: 58px;
+            line-height: 58px;
+            display: inline-block;
+            padding: 0 20px;
+            font-size: 16px;
+            color: #1A1A1A;
+        }
+        .nav li a {
+            padding: 19px 0;
+        }
+        .uimg,.uop,.uxx{
+            float:left;
+        }
+        .uxx{
+            padding:0 20px;
+            padding-top: 7px;
+            width: 480px;
+        }
+        .uname a{
+            font-weight: 600;
+            color: #1A1A1A;
+            font-size: 16px;
+        }
+        .ugxqm{
+            color: #5a6271;
+            margin-top: 7px;
+        }
+        .uopxx{
+            margin-top: 7px;
+            font-size: 14px;
+            color: #8590A6;
+        }
+        .uop{
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="main-top">
+    <div class="main-header"></div>
+    <div class="main-footer">
+        <ul class="nav">
+            <li class="item"><a class="navop" onclick="searchtw(this)">问题</a></li>
+            <li class="item"><a onclick="searchhd(this)">回答</a></li>
+            <li class="item"><a onclick="searchuser(this)">用户</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main">
+    <div class="main-left" style="background: #f3f3f3;">
+    </div>
+    <div class="main-right">
+    </div>
+    <div class="clearfix"></div>
+</div>
+<script src="/layui/layui.js"></script>
+<script src="/js/common.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".main-header").load("/pages/common/header.html");
+        commonAjax("/searchPro",callback,{q:getQueryString("q")});
+        function callback(data){
+            var showhtml = "";
+            if(data.ans.length==0){
+                showhtml +="<div class='problem' style='background: #ffffff;margin: 10px 0;'>"
+                showhtml +="<img width='710' height='379' src='/img/searchnothing.jpg' />";
+                showhtml +="</div>"
+            }else {
+                for (var k = 0; k < data.ans.length; k++) {
+                    showhtml += "<div class='problem' style='background: #ffffff;margin: 10px 0;'><h2 class='problem-title'>" + data.ans[k].problem.ptitle + "</h2>";
+                    showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.ans[k].user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + data.ans[k].user.name + "</span>";
+                    showhtml += "<span class='answerqm'> " + data.ans[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data.ans[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data.ans[k].ahd;
+                    showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + data.ans[k].ahdrq + "</span></div><div class='problem-footer'>";
+                    showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data.ans[k].dz + "' onclick='zantong(this)' alt='" + data.ans[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data.ans[k].aztsl + "</span></button>";
+                    showhtml += "<button class='problem-pinglun' alt='" + data.ans[k].aid + "' onclick='chakanpl(this)'><i class='layui-icon layui-icon-reply-fill'></i> <span>" + data.ans[k].aplsl + "</span>条评论</button>";
+                    showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='" + data.ans[k].sc + "' alt='" + data.ans[k].aid + "'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button></div><div class='pinglun'></div></div>";
+                }
+            }
+            $(".main-left").append(showhtml);
+        }
+        init()
+        show();
+    })
+</script>
+<script src="/js/search.js"></script>
+</body>
+</html>

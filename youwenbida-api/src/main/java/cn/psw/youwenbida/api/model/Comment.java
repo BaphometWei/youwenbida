@@ -1,6 +1,10 @@
 package cn.psw.youwenbida.api.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 public class Comment  implements Serializable {
 
@@ -21,7 +25,13 @@ public class Comment  implements Serializable {
 
     private Integer cbpl;
 
-    private String cplzname;
+    private Date cdate;
+
+    private User user;
+
+    private Boolean isdz = false;
+
+    private List<Reply> replies;
 
     public Integer getCid() {
         return cid;
@@ -71,13 +81,36 @@ public class Comment  implements Serializable {
         this.cbpl = cbpl ;
     }
 
-    public String getCplzname() {
-        return cplzname;
+    public Boolean getIsdz() {
+        return isdz;
     }
 
-    public void setCplzname(String cplzname) {
-        this.cplzname = cplzname == null ? null : cplzname.trim();
+    public void setIsdz(Boolean isdz) {
+        this.isdz = isdz;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    public Date getCdate() {
+        return cdate;
+    }
 
+    public void setCdate(Date cdate) {
+        this.cdate = cdate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
+    }
 }

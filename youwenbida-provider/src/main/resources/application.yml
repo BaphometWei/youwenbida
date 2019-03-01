@@ -12,13 +12,15 @@ spring:
       port: 20110
     scan: cn.psw.youwenbida.provider.serviceImpl #扫描的包名
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/youwenbida
+    url: jdbc:mysql://127.0.0.1:3306/youwenbida?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
 
 logging:
   config: classpath:logback-boot.xml
+  level:
+    cn.psw.youwenbida.provider.mapper: debug
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml

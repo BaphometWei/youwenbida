@@ -8,7 +8,9 @@ public interface CommentMapper {
 
     int insert(Comment record);
 
-    List<Comment> selectByPrimaryKey(Comment comment);
+    List<Comment> selectList(Comment comment);
+
+    Comment selectByPrimaryKey(Comment comment);
 
     Integer selectCount(Comment comment);
 

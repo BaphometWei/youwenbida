@@ -1,5 +1,6 @@
 server:
   port: 7526
+  max-http-header-size: 4048576
 
 spring:
   dubbo:
@@ -17,6 +18,9 @@ spring:
     active: dev
   mvc:
     static-path-pattern: /**
+  jackson:
+      time-zone: Asia/Shanghai
+
 
 logging:
   config: classpath:logback-boot.xml

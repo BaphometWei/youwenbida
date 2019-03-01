@@ -143,6 +143,7 @@ a,button{
 }
 .layui-layer-dialog .layui-layer-content {
     padding: 0 10px;
+    padding-right: 0px;
 }
 .tiwen-header{
     padding:10px 0;

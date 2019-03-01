@@ -35,8 +35,33 @@
     from problem
     where pid = #{pid,jdbcType=INTEGER}
   </select>
+  <select id="selectListByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Problem" resultMap="BaseResultMap">
+    select pid, ptitle, pms, ptcz, pllsl, ptcrq
+    from problem
+    <where>
+      <if test="pid != null">
+        and pid = #{pid,jdbcType=INTEGER}
+      </if>
+      <if test="ptcz != null">
+        and ptcz = #{ptcz,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by ptcrq desc
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select pid, ptitle, pms, ptcz, pgzzsl, pllsl, ptcrq
     from problem
+  </select>
+  <select id="selectCountByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Problem" resultType="java.lang.Integer">
+    select count(1)
+    from problem
+    <where>
+      <if test="pid != null">
+        and pid = #{pid,jdbcType=INTEGER}
+      </if>
+      <if test="ptcz !=null">
+        and ptcz = #{ptcz,jdbcType=VARCHAR}
+      </if>
+    </where>
   </select>
 </mapper>

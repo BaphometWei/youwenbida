@@ -13,5 +13,9 @@ public interface ProblemMapper {
 
     List<Problem> selectAll();
 
+    List<Problem> selectListByPrimaryKey(Problem problem);
+
     int updateByPrimaryKey(Problem record);
+
+    int selectCountByPrimaryKey(Problem problem);
 }
