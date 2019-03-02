@@ -51,14 +51,16 @@ public class Lucence {
     }
 
     public static void main(String[] args) throws Exception {
-        String sql = "select id, name from user";
+//        String sql = "select pid, ptitle from problem";
+        String sql = "select aid, ahd from answer";
         System.out.println("====="+indexDir);
         try {
             stmt = getConnection().createStatement();
             rs = stmt.executeQuery(sql);
             // 给数据库创建索引,此处执行一次，不要每次运行都创建索引
             // 以后数据有更新可以后台调用更新索引
-            createIndex(rs,"user");
+//            createIndex(rs,"pro");
+            createIndex(rs,"ans");
             // 显示查询结果
 //            showSearchResults("故事专心球","pro");
 
@@ -122,11 +124,11 @@ public class Lucence {
         while (rs.next()) {
             // 创建document并添加field
             Document doc = new Document();
-            doc.add(new TextField("id", rs.getString("id"), Field.Store.YES));
-            doc.add(new TextField("text", rs.getString("name"),
+            doc.add(new TextField("id", rs.getString("aid"), Field.Store.YES));
+            doc.add(new TextField("text", rs.getString("ahd"),
                     Field.Store.YES));
             // 将doc添加到索引中
-            System.out.println(rs.getString("name"));
+            System.out.println(rs.getString("ahd"));
             indexWriter.addDocument(doc);
         }
         indexWriter.close();

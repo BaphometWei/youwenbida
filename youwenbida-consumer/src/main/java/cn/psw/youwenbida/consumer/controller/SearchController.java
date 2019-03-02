@@ -47,6 +47,11 @@ public class SearchController {
         if(list!=null) {
             for (Map<String, Object> map : list) {
                 Answer answer = answerService.searchProAns((String) map.get("id"));
+                if(answer==null){
+                    List<Answer> as = answerService.getProAns(Integer.parseInt((String) map.get("id")));
+                    if(as.size()!=0)
+                        answer = as.get(0);
+                }
                 if (answer != null) {
                     User user = identityService.getUser(answer.getAhdz());
                     if(user.getGxqm()==null)
