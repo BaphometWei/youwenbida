@@ -63,6 +63,8 @@ public class SearchController {
                             answer.setDz(true);
                         if(operationService.getOp(uid,answer.getAid().toString(),"2")!=null)
                             answer.setSc(true);
+                        if(operationService.getOp(uid, answer.getAid().toString(), "6") != null)
+                            answer.setFd(true);
                     }
                     answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
                     answer.setAztsl(operationService.getOpConut(answer.getAid().toString(),"1"));
@@ -95,6 +97,8 @@ public class SearchController {
                             answer.setDz(true);
                         if(operationService.getOp(uid,answer.getAid().toString(),"2")!=null)
                             answer.setSc(true);
+                        if(operationService.getOp(uid, answer.getAid().toString(), "6") != null)
+                            answer.setFd(true);
                     }
                     answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
                     answer.setAztsl(operationService.getOpConut(answer.getAid().toString(),"1"));

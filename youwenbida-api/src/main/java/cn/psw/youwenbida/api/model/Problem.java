@@ -26,6 +26,8 @@ public class Problem implements Serializable {
 
     private Date ptcrq;
 
+    private String pbq;
+
     private Integer pplsl = 0;
 
     private Integer phdsl = 0;
@@ -111,5 +113,13 @@ public class Problem implements Serializable {
 
     public void setIsgz(Boolean isgz) {
         this.isgz = isgz;
+    }
+
+    public String getPbq() {
+        return pbq;
+    }
+
+    public void setPbq(String pbq) {
+        this.pbq = pbq;
     }
 }

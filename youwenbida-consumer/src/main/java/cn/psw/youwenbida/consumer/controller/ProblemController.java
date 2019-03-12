@@ -112,8 +112,9 @@ public class ProblemController {
 
     @RequestMapping("/getProAnswer")
     @ResponseBody
-    public List<Answer> getHotAnswer(HttpServletRequest request,@RequestBody @RequestParam("pid")String pid){
+    public ResponseBo getHotAnswer(HttpServletRequest request,@RequestBody @RequestParam("pid")String pid){
         List<Answer> answers = answerService.getProAns(Integer.parseInt(pid));
+        List<Answer> yzanswers = answerService.getProYzAns(Integer.parseInt(pid));
         HttpSession session = request.getSession();
         String uid = (String)session.getAttribute("userid");
         for(Answer answer:answers){
@@ -127,11 +128,39 @@ public class ProblemController {
                     answer.setDz(true);
                 if(operationService.getOp(uid,answer.getAid().toString(),"2")!=null)
                     answer.setSc(true);
+                if(operationService.getOp(uid, answer.getAid().toString(), "6") != null)
+                    answer.setFd(true);
+            }
+            answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
+            answer.setAztsl(60);
+            answer.setScore(0.8548);
+        }
+        for(Answer answer:yzanswers){
+            User user = identityService.getUser(answer.getAhdz());
+            if(user.getGxqm()==null)
+                user.setGxqm("");
+            answer.setUser(user);
+            answer.setProblem(problemService.getPro(answer.getAhdwt()));
+            if(uid!=null){
+                if(operationService.getOp(uid,answer.getAid().toString(),"1")!=null)
+                    answer.setDz(true);
+                if(operationService.getOp(uid,answer.getAid().toString(),"2")!=null)
+                    answer.setSc(true);
+                if(operationService.getOp(uid, answer.getAid().toString(), "6") != null)
+                    answer.setFd(true);
             }
             answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
             answer.setAztsl(operationService.getOpConut(answer.getAid().toString(),"1"));
         }
-        return answers;
+//        Iterator<Answer> it = answers.iterator();
+//        while(it.hasNext()){
+//            Answer x = it.next();
+//            if(x.getYzhd().equals("t")){
+//                yzanswers.add(x);
+//                it.remove();
+//            }
+//        }
+        return ResponseBo.ok().put("ans",answers).put("yzans",yzanswers).put("userid",uid);
     }
 
 }

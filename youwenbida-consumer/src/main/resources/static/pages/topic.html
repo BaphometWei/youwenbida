@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>狼外婆-有问必答</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <style>
+        .main {
+            width: 1000px;
+            margin: 0 auto;
+            margin-top: 15px;
+        }
+
+        .main-left {
+            float: left;
+            width: 740px;
+        }
+
+        .topic-title {
+            background: red;
+            margin-bottom: 15px;
+        }
+
+        .topic-title, .topic-foot {
+            background: #ffffff;
+            box-shadow: 0 0 1px rgba(26, 26, 26, 0.1);
+            background-clip: content-box;
+        }
+
+        .main-left .title {
+            border-bottom: 1px solid #F6F6F6;
+        }
+
+        .main-left .title li {
+            height: 58px;
+            line-height: 58px;
+            display: inline-block;
+            padding: 0 20px;
+            font-size: 16px;
+            color: #1A1A1A;
+        }
+
+        .main-left .title li a {
+            padding: 19px 0;
+        }
+
+        .main-left .bankuai {
+            border-bottom: 1px solid #F6F6F6;
+            padding: 10px 20px;
+            font-size: 15px;
+            line-height: 24px;
+            color: #646464;
+            padding-bottom: 50px;
+        }
+
+        .bkop {
+            font-weight: 600;
+            padding: 15px 0;
+            font-size: 18px;
+            color: #1A1A1A;
+        }
+
+        .bkgzop {
+            font-weight: 600;
+        }
+
+        .problem-title {
+            font-size: 18px;
+            font-weight: 600;
+            font-synthesis: style;
+            line-height: 1.6;
+            color: #1A1A1A;
+            margin-top: -4px;
+            margin-bottom: -4px;
+            padding: 10px 0;
+        }
+
+        .problem-footer {
+            padding: 10px 0;
+        }
+
+        .problem-footer button {
+            line-height: 20px;
+            margin-right: 12px;
+            border: none;
+            border-radius: 5%;
+            background: #ffffff;
+            height: 25px;
+            color: #8590A6;
+        }
+
+        .problem-footer i {
+            vertical-align: middle;
+        }
+
+        .problem-footer span {
+            vertical-align: middle;
+        }
+
+        .answerqm {
+            vertical-align: middle;
+            color: #5a6271;
+        }
+
+        .answername {
+            color: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            vertical-align: middle;
+        }
+
+        .problem-fold {
+            width: 700px;
+            word-wrap: break-word;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+            font-size: 15px;
+            color: #1A1A1A;
+            -webkit-tap-highlight-color: rgba(26, 26, 26, 0);
+        }
+
+        .problem-fold p {
+            padding-bottom: 15px;
+        }
+
+        .problem-answer, .problem-zan, .answer-time {
+            padding: 4px 0;
+        }
+
+        .zantong, .problem-zan, .answer-time {
+            color: #8590A6;
+        }
+
+        .fold-button {
+            cursor: pointer;
+            color: #175199;
+        }
+
+        .main-right {
+            float: right;
+            width: 246px;
+        }
+
+        .gzxx {
+            background: #ffffff;
+            box-shadow: 0 1px 1px #c6d5ec;
+            background-clip: content-box;
+        }
+
+        .gzxx button {
+            width: 121px;
+            border: none;
+            color: #8590A6;
+            background: #ffffff;
+            height: 74px;
+            cursor: pointer;
+        }
+
+        .topic-list .item {
+            display: block;
+            width: 690px;
+            height: 110px;
+            border-bottom: 1px dotted #e5e5e5;
+            padding: 25px 25px;
+        }
+
+        .topic-list .item .topic-body {
+            display: block;
+            width: 570px;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .topic-img {
+            display: block;
+            width: 110px;
+            float: left;
+        }
+
+        .topic-img img {
+            border-radius: 3px;
+        }
+
+        .topic-img a {
+            display: block;
+            height: 110px;
+            width: 110px;
+        }
+
+        .topic-body a {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 22px;
+            font-weight: 600;
+            font-synthesis: style;
+            line-height: 1.6;
+            color: #1A1A1A;
+        }
+
+        .topic-body p {
+            margin-top: 5px;
+            line-height: 25px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            color: #646464;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+    </style>
+</head>
+<body>
+<header style="background: #ffffff"></header>
+<div class="main">
+    <div class="main-left">
+        <div class="topic-title">
+            <div class="topic-list">
+            </div>
+        </div>
+        <div class="topic-foot">
+            <div class="title">
+                <ul class="nav">
+                    <li class="item"><a onclick="showjj(this)">简介</a></li>
+                    <li class="item"><a class="navop" onclick="showtl(this)">讨论</a></li>
+                    <li class="item"><a onclick="showjh(this)">精华</a></li>
+                </ul>
+            </div>
+            <div class="main-problem">
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="main-right">
+        <div class="gzxx">
+            <button style="border-right: 1px solid #c6d5ec;">关注了</br><span class="gzsl">0</span></button>
+            <button>关注者</br><span class="bgzsl">0</span></button>
+        </div>
+    </div>
+    <div class="hidder" style="display: none">
+        <div class="bankuai">
+            <h4 class="bkop">简介</h4>
+        </div>
+    </div>
+</div>
+<script src="/layui/layui.js"></script>
+<script src="/js/common.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $("header").load("/pages/common/header.html");
+        commonAjax("/getTopicById", callback, {tid: getQueryString("tid")});
+        function callback(data) {
+            var showhtml = "";
+            var topic = data.topic;
+            showhtml += "<div class='item'><div class='topic-img'>";
+            showhtml += "<a target='_blank'><img width='110' height='110' src='/img/topic/" + topic.timg + "' alt='" + topic.tname + "'>";
+            showhtml += "</a></div><div class='topic-body'><a target='_blank'>";
+            showhtml += "<strong>" + topic.tname + "</strong></a><br /><p>" + data.jj + "</p></div></div>";
+            $(".topic-list").prepend(showhtml);
+            $(".bankuai").append(topic.tjj);
+            commonAjax("/getTopicAns", showhd, {tid: getQueryString("tid")});
+            function showhd(data) {
+                var showhtml = "";
+                for(var k=0;k<data.length;k++) {
+                    showhtml += "<div class='problem'><a target='_blank' href='/problem?proid="+data[k].problem.pid+"'><h2 class='problem-title'>" + data[k].problem.ptitle + "</h2></a>";
+                    showhtml += "<div class='problem-answer'><a href='/zhuye?id="+data[k].user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + data[k].user.name + "</span>";
+                    showhtml += "<span class='answerqm'> " + data[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data[k].ahd;
+                    showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + data[k].ahdrq + "</span></div><div class='problem-footer'>";
+                    showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data[k].dz + "' onclick='zantong(this)' alt='" + data[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data[k].aztsl + "</span></button>";
+                    showhtml += "<button class='problem-fandui' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isfd='" + data[k].fd + "' onclick='fandui(this)' alt='" + data[k].aid + "'><i class='layui-icon layui-icon-tread'></i> 踩</button>";
+                    showhtml += "<button class='problem-pinglun' alt='" + data[k].aid + "' onclick='chakanpl(this)'><i class='layui-icon layui-icon-reply-fill'></i> <span id='pls"+data[k].aid+"'>" + data[k].aplsl + "</span>条评论</button>";
+                    showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='" + data[k].sc + "' alt='" + data[k].aid + "'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button></div><div class='pinglun'></div></div>";
+                }
+                $(".main-problem").append(showhtml);
+            }
+        }
+        init();
+        if($(".problem-fold img").length >0) {
+            var load = "true";
+            $(".problem-fold img").on('load', function () {
+                if (load == "true")
+                    show();
+                load = "false";
+            })
+        }else{
+            show();
+        }
+    })
+</script>
+<script src="/js/topic.js"></script>
+</body>
+</html>

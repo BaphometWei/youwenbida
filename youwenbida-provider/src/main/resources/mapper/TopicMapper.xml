@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.psw.youwenbida.provider.mapper.TopicMapper">
+  <resultMap id="BaseResultMap" type="cn.psw.youwenbida.api.model.Topic">
+    <id column="tid" jdbcType="INTEGER" property="tid" />
+    <result column="tname" jdbcType="VARCHAR" property="tname" />
+    <result column="tjj" jdbcType="VARCHAR" property="tjj" />
+    <result column="timg" jdbcType="VARCHAR" property="timg" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from topic
+    where tid = #{tid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Topic">
+    insert into topic (tid, tname, tjj, 
+      timg)
+    values (#{tid,jdbcType=INTEGER}, #{tname,jdbcType=VARCHAR}, #{tjj,jdbcType=VARCHAR}, 
+      #{timg,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Topic">
+    update topic
+    set tname = #{tname,jdbcType=VARCHAR},
+      tjj = #{tjj,jdbcType=VARCHAR},
+      timg = #{timg,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select tid, tname, tjj, timg
+    from topic
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select tid, tname, tjj, timg
+    from topic
+  </select>
+</mapper>

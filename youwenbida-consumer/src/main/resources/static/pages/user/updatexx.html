@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>狼外婆-有问必答</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <style>
+        .main {
+            width: 1000px;
+            margin: 0 auto;
+            margin-top: 15px;
+        }
+        .main-top{
+            background: #ffffff;
+            box-shadow: 0 1px 1px rgba(26, 26, 26, 0.1);
+            background-clip: content-box;
+            min-height: 372px;
+        }
+        .top-img{
+
+        }
+        .touxiang{
+            height: 164px;
+            padding:3px 3px 0px 3px;
+            border-radius: 3%;
+            background: #ffffff;
+        }
+        .userxx{
+            padding:10px 0;
+            margin-left: 170px;
+            margin-right: 20px;
+            width: 600px;
+
+        }
+    </style>
+</head>
+<body>
+<header style="background: #ffffff"></header>
+<div class="main">
+    <div class="main-top">
+        <div class="top-img" style="position:relative">
+            <img class="Avatar AuthorInfo-avatar" width="1000" height="200" src="/img/zhuye.jpg" />
+            <div class="touxiang" style="position:absolute;top:180px;left:20px">
+                <img style="border-radius: 3%;" class="Avatar AuthorInfo-avatar" width="160" height="160" src="/img/touxiang.jpg" />
+            </div>
+        </div>
+        <div class='userxx'>
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="sex" value="m" title="男" checked=""><div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>男</div></div>
+                        <input type="radio" name="sex" value="f" title="女"><div class="layui-unselect layui-form-radio layui-form-radioed"><i class="layui-anim layui-icon"></i><div>女</div></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">一句话介绍自己</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="gxqm" placeholder="个性简短地介绍自己" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">居住地</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="location" placeholder="北京" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所在行业</label>
+                    <div class="layui-input-block">
+                        <select name="industry">
+                            <option value=""></option>
+                            <option value="高新科技">高新科技</option>
+                            <option value="互联网">互联网</option>
+                            <option value="电子商务">电子商务</option>
+                            <option value="计算机软件">计算机软件</option>
+                            <option value="金融">金融</option>
+                            <option value="证券投资">证券投资</option>
+                            <option value="保险">保险</option>
+                            <option value="信贷">信贷</option>
+                            <option value="服务业">服务业</option>
+                            <option value="广告">广告</option>
+                            <option value="旅游">旅游</option>
+                            <option value="法律">法律</option>
+                            <option value="市场推广">市场推广</option>
+                            <option value="教育">教育</option>
+                            <option value="制药">制药</option>
+                            <option value="制造加工">制造加工</option>
+                            <option value="纺织皮革业">纺织皮革业</option>
+                            <option value="食品饮料业">食品饮料业</option>
+                            <option value="烟草业">烟草业</option>
+                            <option value="服装业">服装业</option>
+                            <option value="造纸业">造纸业</option>
+                            <option value="汽车">汽车</option>
+                            <option value="电子电器">电子电器</option>
+                            <option value="金属加工">金属加工</option>
+                            <option value="装饰装潢">装饰装潢</option>
+                            <option value="房地产">房地产</option>
+                            <option value="零售">零售</option>
+                            <option value="国防军事">国防军事</option>
+                            <option value="装饰装潢">装饰装潢</option>
+                            <option value="进出口贸易">进出口贸易</option>
+                            <option value="科研">科研</option>
+                            <option value="水利能源">水利能源</option>
+                            <option value="航天">航天</option>
+                            <option value="农林牧渔">农林牧渔</option>
+                            <option value="畜牧养殖业">畜牧养殖业</option>
+                            <option value="林业">林业</option>
+                            <option value="渔业">渔业</option>
+                        </select><div class="layui-unselect layui-form-select"><div class="layui-select-title"><input type="text" placeholder="请选择" value="" readonly="" class="layui-input layui-unselect"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="" class="layui-select-tips">请选择</dd><dd lay-value="0" class="">北京</dd><dd lay-value="1" class="">上海</dd><dd lay-value="2" class="">广州</dd><dd lay-value="3" class="">深圳</dd><dd lay-value="4" class="">杭州</dd></dl></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">毕业学校</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="gs"  placeholder="哈佛" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学历</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="education" placeholder="博士" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">个人经历</label>
+                    <div class="layui-input-block">
+                        <textarea name="introduction" placeholder="" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+            </form>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" onclick="updatexx()">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/layui/layui.js"></script>
+<script src="/js/common.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $("header").load("/pages/common/header.html");
+        layui.use('form', function(){
+            var form = layui.form;
+            commonAjax("/getUser",callback,{uid:getQueryString("id")});
+            function callback(data) {
+                $("input[name='name']").val(data.user.name);
+                $("input[name=sex][value='m']").attr("checked", data.user.sex == 'm' ? true : false);
+                $("input[name=sex][value='f']").attr("checked", data.user.sex == 'f' ? true : false);
+                if(data.user.gxqm!=null)
+                    $("input[name='gxqm']").val(data.user.gxqm);
+                if(data.user.location!=null)
+                    $("input[name='location']").val(data.user.location);
+                if(data.user.industry!=null)
+                    $("select[name='industry']").val(data.user.industry);
+                if(data.user.gs!=null)
+                    $("input[name='gs']").val(data.user.gs);
+                if(data.user.education!=null)
+                    $("input[name='education']").val(data.user.education);
+                if(data.user.introduction!=null)
+                    $("textarea[name='introduction']").val(data.user.introduction);
+                form.render();
+            }
+        });
+    })
+</script>
+<script src="/js/zhuye.js"></script>
+</body>
+</html>

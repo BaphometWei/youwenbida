@@ -27,9 +27,15 @@ public class Answer implements Serializable {
 
     private Integer ahdwt;
 
+    private Double score;
+
+    private String yzhd;
+
     private Boolean dz = false;
 
     private Boolean sc = false;
+
+    private Boolean fd = false;
 
     private Problem problem;
 
@@ -132,5 +138,29 @@ public class Answer implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Boolean getFd() {
+        return fd;
+    }
+
+    public void setFd(Boolean fd) {
+        this.fd = fd;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public String getYzhd() {
+        return yzhd;
+    }
+
+    public void setYzhd(String yzhd) {
+        this.yzhd = yzhd;
     }
 }

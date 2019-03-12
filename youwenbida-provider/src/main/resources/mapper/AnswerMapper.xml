@@ -7,34 +7,36 @@
     <result column="ahd" jdbcType="VARCHAR" property="ahd" />
     <result column="ahdrq" jdbcType="DATE" property="ahdrq" />
     <result column="ahdwt" jdbcType="INTEGER" property="ahdwt" />
+    <result column="score" jdbcType="DOUBLE" property="score" />
+    <result column="yzhd" jdbcType="VARCHAR" property="yzhd" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from answer
     where aid = #{aid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Answer">
-    insert into answer (aid, ahdz, ahd, 
-     ahdrq, ahdwt
-      )
-    values (#{aid,jdbcType=INTEGER}, #{ahdz,jdbcType=VARCHAR}, #{ahd,jdbcType=VARCHAR},
-      #{ahdrq,jdbcType=DATE}, #{ahdwt,jdbcType=INTEGER}
-      )
+  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Answer" useGeneratedKeys="true" keyProperty="aid">
+    insert into answer (ahdz, ahd, ahdwt)
+    values (#{ahdz,jdbcType=VARCHAR}, #{ahd,jdbcType=VARCHAR},#{ahdwt,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer">
     update answer
-    set ahdz = #{ahdz,jdbcType=VARCHAR},
-      ahd = #{ahd,jdbcType=VARCHAR},
-      ahdrq = #{ahdrq,jdbcType=DATE},
-      ahdwt = #{ahdwt,jdbcType=INTEGER}
+      <set>
+        <if test="ahdz!=null">ahdz = #{ahdz,jdbcType=VARCHAR},</if>
+        <if test="ahd!=null">ahd = #{ahd,jdbcType=VARCHAR},</if>
+        <if test="ahdrq!=null">ahdrq = #{ahdrq,jdbcType=DATE},</if>
+        <if test="ahdwt!=null">ahdwt = #{ahdwt,jdbcType=INTEGER}</if>
+        <if test="score!=null">score = #{score,jdbcType=DOUBLE}</if>
+        <if test="yzhd!=null">yzhd = #{yzhd,jdbcType=VARCHAR},</if>
+      </set>
     where aid = #{aid,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select aid, ahdz, ahd, ahdrq, ahdwt
+    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd
     from answer
     where aid = #{aid,jdbcType=INTEGER}
   </select>
   <select id="selectListByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer" resultMap="BaseResultMap">
-    select aid, ahdz, ahd, ahdrq, ahdwt
+    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd
     from answer
     <where>
       <if test="aid != null">
@@ -47,7 +49,28 @@
         and ahdz = #{ahdz,jdbcType=VARCHAR}
       </if>
     </where>
-    order by ahdrq desc
+    order by score desc
+  </select>
+  <select id="getProAns" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd
+    from answer
+    where ahdwt = #{pid} and yzhd = 'f'
+    order by score desc
+  </select>
+  <select id="getProYzAns" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd
+    from answer
+    where ahdwt = #{pid} and yzhd = 't'
+    order by score desc
+  </select>
+  <select id="getTopicAnsByOpDate" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select ans.* from answer ans inner join (select obo,MAX(odate) date from operation where obo in (select aid from answer where ahdwt in (select pid from problem where pbq like concat('%',#{bq},'%'))) and (olx = '1' or olx = '2' or olx = '6') group by obo order by date desc) op on ans.aid = op.obo
+  </select>
+  <select id="getTopicAnsByAnsDate" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from answer where ahdwt in (select pid from problem where pbq like concat('%',#{bq},'%')) and aid not in(select obo from operation where obo in (select aid from answer where ahdwt in (select pid from problem where pbq like concat('%',#{bq},'%'))) and (olx = '1' or olx = '2' or olx = '6') group by obo)
+  </select>
+  <select id="getTopicAnsByAnsScore" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from answer where ahdwt in (select pid from problem where pbq like concat('%',#{bq},'%')) order by score desc
   </select>
   <select id="selectCountByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer" resultType="java.lang.Integer">
     select count(1)
@@ -65,7 +88,7 @@
     </where>
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select aid, ahdz, ahd, ahdrq, ahdwt
+    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd
     from answer
   </select>
   <select id="searchProAns" parameterType="java.lang.Integer" resultType="java.lang.Integer">

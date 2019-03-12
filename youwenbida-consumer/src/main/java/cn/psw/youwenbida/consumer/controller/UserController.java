@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -82,10 +83,12 @@ public class UserController {
                 answer.setUser(user);
                 answer.setProblem(problemService.getPro(answer.getAhdwt()));
                 if (uid != null) {
-                    if (operationService.getOp(uid, answer.getAid().toString(), "1") != null)
+                    if(operationService.getOp(uid, answer.getAid().toString(), "1") != null)
                         answer.setDz(true);
-                    if (operationService.getOp(uid, answer.getAid().toString(), "2") != null)
+                    if(operationService.getOp(uid, answer.getAid().toString(), "2") != null)
                         answer.setSc(true);
+                    if(operationService.getOp(uid,answer.getAid().toString(),"6")!=null)
+                        answer.setFd(true);
                 }
                 answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
                 answer.setAztsl(operationService.getOpConut(answer.getAid().toString(),"1"));
@@ -115,6 +118,8 @@ public class UserController {
                     answer.setDz(true);
                 if (operationService.getOp(uid, answer.getAid().toString(), "2") != null)
                     answer.setSc(true);
+                if (operationService.getOp(uid, answer.getAid().toString(), "6") != null)
+                    answer.setFd(true);
             }
             answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
             answer.setAztsl(operationService.getOpConut(answer.getAid().toString(),"1"));
@@ -140,6 +145,8 @@ public class UserController {
                     answer.setDz(true);
                 if (operationService.getOp(uid, answer.getAid().toString(), "2") != null)
                     answer.setSc(true);
+                if (operationService.getOp(uid, answer.getAid().toString(), "6") != null)
+                    answer.setFd(true);
             }
             answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
             answer.setAztsl(operationService.getOpConut(answer.getAid().toString(),"1"));
@@ -159,5 +166,86 @@ public class UserController {
             return ResponseBo.ok().put("pros",problems);
 
     }
+
+    @RequestMapping("/getUserGz")
+    @ResponseBody
+    public ResponseBo getUserGz(HttpServletRequest request,@RequestBody @RequestParam("uid")String uid){
+        List<Operation> operations = operationService.getOpList(uid,null,"5");
+        List<User> users = new ArrayList<>();
+        HttpSession session = request.getSession();
+        uid = (String) session.getAttribute("userid");
+        for(Operation operation:operations){
+            User user = identityService.getUser(operation.getObo());
+            user.setTwsl(problemService.getCountUserPro(user.getId()));
+            user.setHdsl(answerService.getCountUserAns(user.getId()));
+            user.setGzzsl(operationService.getOpConut(user.getId(),"5"));
+            if(uid!=null)
+                if (operationService.getOp(uid, user.getId(), "5") != null)
+                    user.setIsgz(true);
+            users.add(user);
+        }
+        return ResponseBo.ok().put("users",users);
+    }
+
+    @RequestMapping("/getGzUser")
+    @ResponseBody
+    public ResponseBo getGzUser(HttpServletRequest request,@RequestBody @RequestParam("uid")String uid){
+        List<Operation> operations = operationService.getOpList(null,uid,"5");
+        List<User> users = new ArrayList<>();
+        HttpSession session = request.getSession();
+        uid = (String) session.getAttribute("userid");
+        for(Operation operation:operations){
+            User user = identityService.getUser(operation.getObo());
+            user.setTwsl(problemService.getCountUserPro(user.getId()));
+            user.setHdsl(answerService.getCountUserAns(user.getId()));
+            user.setGzzsl(operationService.getOpConut(user.getId(),"5"));
+            if(uid!=null)
+                if (operationService.getOp(uid, user.getId(), "5") != null)
+                    user.setIsgz(true);
+            users.add(user);
+        }
+        return ResponseBo.ok().put("users",users);
+    }
+
+    @RequestMapping("/getGzTw")
+    @ResponseBody
+    public ResponseBo getGzTw(HttpServletRequest request,@RequestBody @RequestParam("uid")String uid){
+        HttpSession session = request.getSession();
+        List<Operation> operations = operationService.getOpList(uid,null,"3");
+        List<Problem> pros = new ArrayList<>();
+        uid = (String) session.getAttribute("userid");
+        for(Operation operation:operations){
+            Problem problem = problemService.getPro(Integer.parseInt(operation.getObo()));
+            problem.setPgzzsl(operationService.getOpConut(problem.getPid().toString(),"3"));
+            problem.setPhdsl(answerService.getCountAns(problem.getPid()));
+            pros.add(problem);
+        }
+        return ResponseBo.ok().put("pros",pros);
+    }
+
+    @RequestMapping("/updateuserxx")
+    @ResponseBody
+    public ResponseBo updateuserxx(HttpServletRequest request,User user){
+        HttpSession session = request.getSession();
+        user.setId((String) session.getAttribute("userid"));
+        return identityService.updateUserXx(user);
+    }
+
+    @RequestMapping("/getDlyh")
+    @ResponseBody
+    public ResponseBo getDlyh(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User user = identityService.getUser((String)session.getAttribute("userid"));
+        if(user.getGxqm()==null)
+            user.setGxqm("");
+        return ResponseBo.ok().put("user",user);
+    }
+
+
+    @RequestMapping("/tixing")
+    public String tixing(){
+        return "/pages/tixing.html";
+    }
+
 
 }

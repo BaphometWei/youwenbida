@@ -23,7 +23,7 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     public ResponseBo insertPro(Problem problem){
         if(problemMapper.insert(problem)!=0)
-            return ResponseBo.ok();
+            return ResponseBo.ok().put("msg","提问成功");
         return ResponseBo.error();
     }
 

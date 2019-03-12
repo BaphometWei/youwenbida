@@ -11,9 +11,7 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.highlight.Highlighter;
-import org.apache.lucene.search.highlight.QueryScorer;
-import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
+import org.apache.lucene.search.highlight.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
@@ -90,6 +88,8 @@ public class Lucence {
 
         SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<span style='color:red'>", "</span>");
         Highlighter highlighter = new Highlighter(simpleHTMLFormatter, new QueryScorer(query));
+        Fragmenter fragmenter = new SimpleFragmenter(10000);   //高亮后的段落范围在100字内
+        highlighter.setTextFragmenter(fragmenter);
         List<Map<String,Object>> list = new ArrayList<>();
         for (int i = 0; i < topDocs.scoreDocs.length; ++i) {
             Map<String,Object> map =new HashMap<>();
@@ -99,11 +99,11 @@ public class Lucence {
             System.out.print((i + 1));
             System.out.print("\t" + scoreDoc.score);
             System.out.print("\t" + d.get("id"));
+            System.out.print("\t" + d.get("text"));
             map.put("id",d.get("id"));
             List<IndexableField> fields = d.getFields();
             TokenStream tokenStream = smartChineseAnalyzer.tokenStream(fields.get(1).name(), new StringReader(d.get(fields.get(1).name())));
             String fieldContent = highlighter.getBestFragment(tokenStream, d.get(fields.get(1).name()));
-            System.out.print("\t" + fieldContent);
             map.put("text",fieldContent);
             System.out.println("<br>");
             list.add(map);

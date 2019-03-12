@@ -1,33 +1,34 @@
 var dlzt;
+var userid;
 var prolayedit;
 var prpgetText;
+var anslayedit;
+var ansgetText;
 function show()
 {
     $(".problem-fold").each(function (i,val) {
-
-        var text = $(".problem-fold")[i].innerHTML;
-        var clientheight =parseInt($(".problem-fold")[i].clientHeight);
-        var newBox = document.createElement("div");
-        var btn = document.createElement("a");
-        btn.className += "fold-button";
-        btn.innerHTML = "";
-        if($(".problem-fold")[i].clientHeight > 70){
-            btn.innerHTML = "...显示全部";
-            $(".problem-fold")[i].style.height = 70 + "px";
-        }
-        btn.onclick = function(){
-            if(btn.innerHTML == "...显示全部")
-            {
-                btn.innerHTML = "收起";
-                $(".problem-fold")[i].style.height = clientheight + "px";
-            }
-            else
-            {
+        if($(".controlfold").eq(i).html()==" "||$(".controlfold").eq(i).html()=="") {
+            var text = $(".problem-fold")[i].innerHTML;
+            var clientheight = parseInt($(".problem-fold")[i].clientHeight);
+            var newBox = document.createElement("div");
+            var btn = document.createElement("a");
+            btn.className += "fold-button";
+            btn.innerHTML = "";
+            if ($(".problem-fold")[i].clientHeight > 90) {
                 btn.innerHTML = "...显示全部";
-                $(".problem-fold")[i].style.height = 70 + "px";
+                $(".problem-fold")[i].style.height = 90 + "px";
             }
+            btn.onclick = function () {
+                if (btn.innerHTML == "...显示全部") {
+                    btn.innerHTML = "收起";
+                    $(btn).parent().parent().find(".problem-fold").css("height", clientheight + "px");
+                } else {
+                    btn.innerHTML = "...显示全部";
+                    $(btn).parent().parent().find(".problem-fold").css("height", "70px");
+                }
+            }
+            $(".controlfold")[i].appendChild(btn);
         }
-        $(".controlfold")[i].appendChild(btn);
     })
 }
 function zantong(obj){
@@ -44,6 +45,7 @@ function zantong(obj){
                         $(obj).parent().parent().find(".problem-zan").find("span").text((parseInt($(obj).find("span").text().replace("已赞同", "")) - 1).toString());
                         $(obj).find("span").text("赞同" + (parseInt($(obj).find("span").text().replace("已赞同", "")) - 1).toString());
                         $(obj).attr('isdz', 'false');
+                        $(obj).css("color", "#ffffff");
                     }
                 }
             })
@@ -51,13 +53,58 @@ function zantong(obj){
             $.ajax({
                 type: "GET",
                 url: "/dzAnswer",
-                data: {aid:$(obj).attr("alt")},
+                data: {aid:$(obj).attr("alt"),isfd:$(obj).next().attr("isfd")},
                 async: false,
                 success: function (data) {
                     if(data.code==0){
                         $(obj).parent().parent().find(".problem-zan").find("span").text((parseInt($(obj).find("span").text().replace("赞同", "")) + 1).toString());
                         $(obj).find("span").text("已赞同" + (parseInt($(obj).find("span").text().replace("赞同", "")) + 1).toString());
                         $(obj).attr('isdz', 'true');
+                        $(obj).css("color", "yellow");
+                        if($(obj).next().attr("isfd")=="true") {
+                            $(obj).next().css("color", "#ffffff");
+                            $(obj).next().attr("isfd","false");
+                        }
+                    }
+                }
+            })
+        }
+    }else{
+        dlts();
+    }
+}
+function fandui(obj){
+
+    if(dlzt=="true") {
+        if ($(obj).attr('isfd') == 'true') {
+            $.ajax({
+                type: "GET",
+                url: "/deleteFdAnswer",
+                data: {aid:$(obj).attr("alt")},
+                async: false,
+                success: function (data) {
+                    if(data.code==0){
+                       $(obj).attr('isfd', 'false');
+                        $(obj).css("color", "#ffffff");
+                    }
+                }
+            })
+        } else {
+            $.ajax({
+                type: "GET",
+                url: "/fdAnswer",
+                data: {aid:$(obj).attr("alt"),isdz:$(obj).prev().attr("isdz")},
+                async: false,
+                success: function (data) {
+                    if(data.code==0){
+                        $(obj).attr('isfd', 'true');
+                        $(obj).css("color", "yellow");
+                        if($(obj).prev().attr("isdz")=="true") {
+                            $(obj).parent().parent().find(".problem-zan").find("span").text((parseInt($(obj).prev().find("span").text().replace("已赞同", "")) - 1).toString());
+                            $(obj).prev().find("span").text("赞同" + (parseInt($(obj).prev().find("span").text().replace("已赞同", "")) - 1).toString());
+                            $(obj).prev().css("color", "#ffffff");
+                            $(obj).prev().attr("isdz","false");
+                        }
                     }
                 }
             })
@@ -198,13 +245,13 @@ function chakanhuifu(obj){
                 showhtml += "<div class='pler' style='margin-right: 10px;'><div class='pler-header'><a><img class='Avatar AuthorInfo-avatar' width='24' height='24' ";
                 showhtml += "src='/img/touxiang.jpg' /><span class='answername' >  "+data.user.name+"</span></a><span class='pldate'>"+getIntervalTime(data.cdate)+"</span></div><div class='pler-body'>";
                 showhtml += data.cpl+"</div><div class='pler-footer'>";
-                showhtml += "<a class='pler-huifu' alt='hf"+data.cid+"'><i class='layui-icon layui-icon-chat'> </i>回复</a></div><div id='hf"+data.cid+"' class='hf'><input class='hf-input layui-input' /><button class='hf-btn' alt='"+data.cid+"' for='"+data.user.id+"'>回复</button></div></div>";
+                showhtml += "</div></div>";
                 showhtml += "<div class='hfsl'><h3><span>"+data.replies.length+"</span> 条回复</h3></div>";
                 for(var j=0;j<data.replies.length;j++){
                     showhtml += "<div class='pler' style='margin-right: 10px;width: 670px;margin-left: 20px;'><div class='pler-header'><a><img class='Avatar AuthorInfo-avatar' width='24' height='24' ";
                     showhtml += "src='/img/touxiang.jpg' /><span class='answername' >  "+data.replies[j].rzuser.name+"</span> 回复 <span class='hfanswer'>"+data.replies[j].rbzuser.name+"</span></a><span class='pldate'>"+getIntervalTime(data.replies[j].rdate)+"</span></div><div class='pler-body'>";
                     showhtml += data.replies[j].rr+"</div><div class='pler-footer'>";
-                    showhtml += "<a class='pler-huifu' alt='hf"+data.replies[j].rid+"'><i class='layui-icon layui-icon-chat'> </i>回复</a></div><div id='hf"+data.replies[j].rid+"' class='hf'><input class='hf-input layui-input' /><button class='hf-btn' alt='"+data.replies[j].rid+"' for='"+data.replies[j].rzuser.id+"'>回复</button></div></div>";
+                    showhtml += "<a class='pler-huifu' alt='hf"+data.replies[j].rid+"' onclick='showhf(this)'><i class='layui-icon layui-icon-chat'> </i>回复</a></div><div id='hf"+data.replies[j].rid+"' class='hf'><input class='hf-input layui-input' /><button class='hf-btn' alt='"+data.cid+"' for='"+data.replies[j].rzuser.id+"' onclick='hf(this)'>回复</button></div></div>";
                     }
 
                 var layer = layui.layer;
@@ -359,7 +406,7 @@ function chakanpl(obj) {
             data: {aid:dom.attr('alt')},
             async: false,
             success: function (data) {
-                var showhtml = "<div class='plsl'><h3><span>"+dom.find("span").html()+"</span> 条评论</h3></div><div class='pinglun-body'></div>";
+                var showhtml = "<div class='plsl'><h3><span id='plsl"+dom.attr('alt')+"'>"+dom.find("span").html()+"</span> 条评论</h3></div><div class='pinglun-body'></div>";
                 showhtml += "";
                 dompl.append(showhtml);
                 for(var j=0;j<data.length;j++){
@@ -376,8 +423,14 @@ function chakanpl(obj) {
                 dompl.after("<div class='plhf' id='"+aid1+"'><div class='plhf-body' id='"+aid2+"'></div></div>")
                 layui.use('layedit', function(){
                     var layedit = layui.layedit;
+                    layedit.set({
+                        uploadImage: {
+                            url: "/imgupload", //接口url
+                            type: 'post' //默认post
+                        }
+                    });
                     var getText = layedit.build(aid2, {
-                        height: 42,  //设置编辑器高度
+                        height: 100,  //设置编辑器高度
                     });
                     $("#"+aid1+"").append("<button class='plfh-footer' id='"+dom.attr("alt")+"'>发表评论</button><div class='clearfix'></div>");
                     $("#"+dom.attr("alt")+"").on("click",function () {
@@ -416,6 +469,8 @@ function chakanpl(obj) {
                                         showhtml += "<span>0</span></a><a class='pler-chakan' onclick='chakanhuifu(this)' alt='"+data.cid+"'><i class='layui-icon layui-icon-dialogue'>";
                                         showhtml += "</i> 查看回复</a><a class='pler-huifu' alt='hf"+data.cid+"' onclick='showhf(this)'><i class='layui-icon layui-icon-chat'> </i>回复</a></div><div id='hf"+data.cid+"' class='hf'><input class='hf-input layui-input' /><button class='hf-btn' alt='"+data.cid+"' for='"+data.user.id+"' onclick='hf(this)'>回复</button></div></div>";
                                         dompl.find(".pinglun-body").append(showhtml);
+                                        $("#pls"+dom.attr("alt")+"").html(parseInt($("#pls"+dom.attr("alt")+"").html())+1);
+                                        $("#plsl"+dom.attr("alt")+"").html(parseInt($("#plsl"+dom.attr("alt")+"").html())+1);
                                         layedit.setContent(getText, "");
                                     }
                                 })
@@ -443,8 +498,10 @@ function init() {
     $(".problem-dianzan").each(function (i,val) {
         if($(this).attr("isdz")=="true"){
             $(this).find("span").text("已赞同"+$(this).find("span").text());
+            $(this).css("color", "yellow");
         }else{
             $(this).find("span").text("赞同"+$(this).find("span").text());
+            $(this).css("color", "#ffffff");
         }
     });
     $(".problem-shoucang").each(function (i,val) {
@@ -452,6 +509,13 @@ function init() {
             $(this).find("i").css('color','yellow');
         }else{
             $(this).find("i").css('color','#8590A6');
+        }
+    });
+    $(".problem-fandui").each(function (i,val) {
+        if($(this).attr("isfd")=="true"){
+            $(this).css("color", "yellow");
+        }else{
+            $(this).css("color", "#ffffff");
         }
     });
 }
@@ -540,4 +604,161 @@ function commonAjax(url,callback,data) {
             callback(data);
         }
     })
+}
+
+function updatexx() {
+    if(dlzt=="false")
+        dlts();
+    else {
+        commonAjax("/updateuserxx", callback, {
+            name: $("input[name='name']").val(),
+            sex: $('input:radio[name="sex"]:checked').val(),
+            gxqm: $("input[name='gxqm']").val(),
+            location: $("input[name='location']").val(),
+            industry: $("select[name='industry']").val(),
+            gs: $("input[name='gs']").val(),
+            education: $("input[name='education']").val(),
+            introduction: $("textarea[name='introduction']").val()
+        });
+
+        function callback(data) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.open({
+                    title: '提示',
+                    offset: '100px',
+                    btn: [],
+                    content: data.msg
+                })
+            })
+        }
+    }
+}
+
+function qxsetyzhd(obj) {
+    commonAjax("/yzhdop",callback,{aid:$(obj).attr("alt"),yzhd:'f'});
+    function callback(data) {
+        if(data.code==0){
+            $(obj).parent().parent().find(".yzhdbz").remove();
+            $(obj).parent().parent().find(".yzbtn").attr("onclick","setyzhd(this)");
+            $(obj).parent().parent().find(".yzbtn").find("span").html("设为优质答案");
+            if($(".main-left").find(".main-problem").html()=="")
+                $(".main-left").show();
+            $(".main-left").find(".bankuai h4").html(parseInt($(".main-left").find(".bankuai h4").html().replace("条回答"))+1+"条回答");
+            $(".main-left").find(".main-problem").prepend($(obj).parent().parent());
+            if($(".main-yzhd").find(".main-problem").html() == "")
+                $(".main-yzhd").hide();
+        }
+    }
+}
+
+function setyzhd(obj) {
+    commonAjax("/yzhdop",callback,{aid:$(obj).attr("alt"),yzhd:'t'});
+    function callback(data) {
+        if(data.code==0) {
+            $(obj).parent().parent().find(".problem-answer").prepend("<div class='problem-answer yzhdbz'><img width='20' height='20' src='/img/jiangzhang.png' /><span class='twztj'>本回答由提问者推介</span></div>");
+            $(obj).parent().parent().find(".yzbtn").attr("onclick", "qxsetyzhd(this)");
+            $(obj).parent().parent().find(".yzbtn").find("span").html("取消设为优质答案");
+            if($(".main-yzhd").find(".main-problem").html() == "")
+                $(".main-yzhd").show();
+            $(".main-yzhd").find(".main-problem").append($(obj).parent().parent());
+            $(".main-left").find(".bankuai h4").html(parseInt($(".main-left").find(".bankuai h4").html().replace("条回答"))-1+"条回答");
+            if($(".main-left").find(".main-problem").html() == "")
+                $(".main-left").hide();
+        }
+    }
+}
+
+function xiehuida(obj) {
+    if(dlzt=="false")
+        dlts();
+    else if($(obj).attr("alt")=="false"){
+        commonAjax("/getDlyh",callback,{});
+        function callback(data) {
+            if(data.code == 0) {
+                var showhtml = "";
+                showhtml += "<div class='problem-answer' style='margin-left: 15px;margin-top: 5px;'><a href='/zhuye?id=" + data.user.id + "' target='_blank'><img width='40' height='40' src='/img/touxiang.jpg' /><span class='answername'>  " + data.user.name + "</span>";
+                showhtml += "<span class='answerqm'> " + data.user.gxqm + "</span></a></div>";
+                showhtml += "<div class='plhf'><div class='plhf-body' id='" + getQueryString("proid") + "'></div><button class='plfh-footer' style='margin-right: 3px;margin-bottom: 5px' onclick='tjhd()'>提交回答</button><div class='clearfix'></div></div>";
+                $(".main-xhd").append(showhtml);
+                layui.use('layedit', function () {
+                    anslayedit = layui.layedit;
+                    anslayedit.set({
+                        uploadImage: {
+                            url: "/imgupload", //接口url
+                            type: 'post' //默认post
+                        }
+                    });
+                    ansgetText = anslayedit.build(getQueryString("proid"));
+                })
+                $(obj).attr("alt", "true");
+            }
+        }
+    }
+}
+
+function tjhd() {
+    validateDlzt();
+    if(dlzt=="false")
+        dlts();
+    else if(anslayedit.getContent(ansgetText)==""){
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.open({
+                title: '提示',
+                offset: '100px',
+                btn: [],
+                content: "内容不能为空"
+            })
+        });
+    }else{
+        var text = anslayedit.getContent(ansgetText);
+        if(text.indexOf("<p>")<0)
+            var text = "<p>" + text +"</p>";
+        commonAjax("/xiehuida",callback,{ahd:text,ahdwt:getQueryString("proid")});
+        function callback(data){
+            if(data.code==0){
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.open({
+                        title: '提示',
+                        offset: '100px',
+                        btn: [],
+                        content: data.msg
+                    })
+                });
+                commonAjax("/getAns",addAns,{aid:data.aid});
+                function addAns(data){
+                    if(data.code==0){
+                        if($(".main-left").find(".main-problem").html()=="")
+                            $(".main-left").show();
+                        $(".main-left").find(".bankuai h4").html(parseInt($(".main-left").find(".bankuai h4").html().replace("条回答"))+1+"条回答");
+                        var showhtml = "";
+                        showhtml += "<div class='problem'>";
+                        showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.ans.user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + data.ans.user.name + "</span>";
+                        showhtml += "<span class='answerqm'> " + data.ans.user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data.ans.aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data.ans.ahd;
+                        showhtml += "</div><div class='controlfold'> </div><div class='data.answer-time'>发布于  <span>" + data.ans.ahdrq + "</span></div><div class='problem-footer'>";
+                        showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data.ans.dz + "' onclick='zantong(this)' alt='" + data.ans.aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data.ans.aztsl + "</span></button>";
+                        showhtml += "<button class='problem-fandui' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isfd='" + data.ans.fd + "' onclick='fandui(this)' alt='" + data.ans.aid + "'><i class='layui-icon layui-icon-tread'></i> 踩</button>";
+                        showhtml += "<button class='problem-pinglun' alt='" + data.ans.aid + "' onclick='chakanpl(this)'><i class='layui-icon layui-icon-reply-fill'></i> <span>" + data.ans.aplsl + "</span>条评论</button>";
+                        showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='" + data.ans.sc + "' alt='" + data.ans.aid + "'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button>";
+                        showhtml += "</div><div class='pinglun'></div></div>";
+                        $(".main-left").find(".main-problem").prepend(showhtml);
+                    }
+                    init();
+                    if($(".problem-fold img").length >0) {
+                        var load = "true";
+                        $(".problem-fold img").on('load', function () {
+                            if (load == "true")
+                                show();
+                            load = "false";
+                        })
+                    }else{
+                        show();
+                    }
+                }
+                anslayedit.setContent(ansgetText,"");
+            }
+        }
+    }
 }

@@ -28,4 +28,9 @@ public class IController {
     public String zhuye(){
         return "/pages/user/zhuye.html";
     }
+
+    @RequestMapping("/updatexx")
+    public String updatexx(){
+        return "/pages/user/updatexx.html";
+    }
 }

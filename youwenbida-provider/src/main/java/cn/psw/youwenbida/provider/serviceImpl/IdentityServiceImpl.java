@@ -48,5 +48,13 @@ public class IdentityServiceImpl implements IdentityService {
         return userMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public ResponseBo updateUserXx(User user){
+        if(userMapper.updateByPrimaryKey(user)==0){
+            return ResponseBo.error().put("msg","修改失败");
+        }
+        return ResponseBo.ok().put("msg","修改成功");
+    }
+
 
 }

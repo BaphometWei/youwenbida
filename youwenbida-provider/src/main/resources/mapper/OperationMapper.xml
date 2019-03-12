@@ -116,4 +116,7 @@
     select oid, ooz, obo, olx, odate
     from operation
   </select>
+  <select id="getAnsDzAndCai" parameterType="java.lang.String" resultType="java.util.HashMap">
+    select dz.dzsl,cai.caisl from (select count(1) dzsl from operation where obo = #{0} and olx = '1') dz,(select count(1) caisl from operation where obo = #{0} and olx = '6') cai
+  </select>
 </mapper>

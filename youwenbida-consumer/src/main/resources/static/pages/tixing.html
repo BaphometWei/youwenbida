@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>话题广场</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <style>
+        .main-top{
+            background: #ffffff;
+            width: 100%;
+        }
+        .main-footer{
+            width:1000px;
+            margin: 2px auto;
+        }
+        .main-left{
+            float: left;
+            width:740px;
+            margin-top: 15px;
+        }
+        .main-right{
+            float:right;
+            width:245px;
+            height:200px;
+            background: #0C0C0C;
+            margin-top: 15px;
+        }
+        .zm-topic-cat-title {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            padding-left: 15px;
+        }
+        .zm-topic-cat-title h2{
+            font-weight: 700;
+            font-size: 16px;
+            outline: 0;
+            color: #666;
+        }
+        .topic-list .item{
+            display: block;
+            width: 340px;
+            height: 60px;
+            float: left;
+            border-bottom: 1px dotted #e5e5e5;
+            padding: 25px 15px;
+        }
+        .topic-list .item .topic-body{
+            display: block;
+            width: 270px;
+            float: right;
+            margin-left: 5px;
+        }
+        .topic-img{
+            display: block;
+            width: 60px;
+            float: left;
+        }
+        .topic-img img{
+            border-radius: 3px;
+        }
+        .topic-img a{
+            display:block;
+            height: 60px;
+            width: 60px;
+        }
+        .topic-body a{
+            color: #259;
+            display: inline-block;
+            height: 1.5em;
+            word-wrap: normal;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .topic-body p{
+            font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+            font-size: 13px;
+            line-height: 1.7;
+            word-wrap: break-word;
+            color: #222;
+            margin-top: 7px;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:2;
+        }
+    </style>
+</head>
+<body style="background: #ffffff">
+<div class="main-top">
+    <div class="main-header"></div>
+    <div class="main-footer">
+        <div class="main-left">
+            <div class="zm-topic-cat-title">
+                <h2><i class="layui-icon layui-icon-app"> </i> 话题广场</h2>
+            </div>
+            <div class="topic-list">
+                <!--<div class="item">-->
+                    <!--<div class="topic-img">-->
+                        <!--<a target="_blank">-->
+                            <!--<img width='50' height='50' src="/img/topic/shenghuofangshi.jpg" alt="生活方式">-->
+                        <!--</a>-->
+                    <!--</div>-->
+                    <!--<div class="topic-body">-->
+                        <!--<a target="_blank" href="/topic/19555513">-->
+                            <!--<strong>生活方式</strong>-->
+                        <!--</a>-->
+                        <!--<br />-->
+                        <!--<p>生活方式不是「生活」。 &gt; 社会学中，生活型态（或生活风格、生…</p>-->
+
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="item">-->
+                    <!--<div class="topic-img">-->
+                        <!--<a target="_blank">-->
+                            <!--<img width='50' height='50' src="/img/topic/shenghuofangshi.jpg" alt="生活方式">-->
+                        <!--</a>-->
+                    <!--</div>-->
+                    <!--<div class="topic-body">-->
+                        <!--<a target="_blank" href="/topic/19555513">-->
+                            <!--<strong>生活方式</strong>-->
+                        <!--</a>-->
+                        <!--<br />-->
+                        <!--<p>生活方式不是「生活」。 &gt; 社会学中，生活型态（或生活风格、生…</p>-->
+
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="item">-->
+                    <!--<div class="topic-img">-->
+                        <!--<a target="_blank">-->
+                            <!--<img width='50' height='50' src="/img/topic/shenghuofangshi.jpg" alt="生活方式">-->
+                        <!--</a>-->
+                    <!--</div>-->
+                    <!--<div class="topic-body">-->
+                        <!--<a target="_blank" href="/topic/19555513">-->
+                            <!--<strong>生活方式</strong>-->
+                        <!--</a>-->
+                        <!--<br />-->
+                        <!--<p>生活方式不是「生活」。 &gt; 社会学中，生活型态（或生活风格、生…</p>-->
+
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="main-right"></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<script src="/layui/layui.js"></script>
+<script src="/js/common.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".main-header").load("/pages/common/header.html");
+        commonAjax("/getTopic",callback,{});
+        function callback(data){
+            var showhtml = "";
+            for (var k = 0; k < data.topics.length; k++) {
+                var topic = data.topics[k];
+                showhtml += "<div class='item'><div class='topic-img'>";
+                showhtml += "<a target='_blank'><img width='50' height='50' src='/img/topic/"+topic.timg+"' alt='"+topic.tname+"'>";
+                showhtml += "</a></div><div class='topic-body'><a target='_blank'>";
+                showhtml += "<strong>"+topic.tname+"</strong></a><br /><p>"+topic.tjj+"</p></div></div>";
+
+            }
+            $(".topic-list").prepend(showhtml);
+        }
+    })
+</script>
+</body>
+</html>

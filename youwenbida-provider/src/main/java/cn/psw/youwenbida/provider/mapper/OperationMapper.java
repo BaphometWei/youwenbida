@@ -2,7 +2,7 @@ package cn.psw.youwenbida.provider.mapper;
 
 import cn.psw.youwenbida.api.model.Operation;
 
-import java.util.List;
+import java.util.*;
 
 public interface OperationMapper {
     int deleteByPrimaryKey(Operation record);
@@ -20,4 +20,6 @@ public interface OperationMapper {
     List<Operation> selectAll();
 
     int updateByPrimaryKey(Operation record);
+
+    Map<String, Object> getAnsDzAndCai(String aid);
 }

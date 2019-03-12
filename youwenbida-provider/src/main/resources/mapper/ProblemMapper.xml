@@ -8,6 +8,7 @@
     <result column="ptcz" jdbcType="VARCHAR" property="ptcz" />
     <result column="pllsl" jdbcType="INTEGER" property="pllsl" />
     <result column="ptcrq" jdbcType="DATE" property="ptcrq" />
+    <result column="pbq" jdbcType="VARCHAR" property="pbq" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from problem
@@ -16,10 +17,10 @@
   <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Problem">
     insert into problem (pid, ptitle, pms, 
       ptcz, pllsl,
-      ptcrq)
+      ptcrq, pbq)
     values (#{pid,jdbcType=INTEGER}, #{ptitle,jdbcType=VARCHAR}, #{pms,jdbcType=VARCHAR},
       #{ptcz,jdbcType=VARCHAR}, #{pllsl,jdbcType=INTEGER},
-      #{ptcrq,jdbcType=DATE})
+      #{ptcrq,jdbcType=DATE}, #{pbq,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Problem">
     update problem
@@ -31,12 +32,12 @@
     where pid = #{pid,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select pid, ptitle, pms, ptcz, pllsl, ptcrq
+    select pid, ptitle, pms, ptcz, pllsl, ptcrq, pbq
     from problem
     where pid = #{pid,jdbcType=INTEGER}
   </select>
   <select id="selectListByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Problem" resultMap="BaseResultMap">
-    select pid, ptitle, pms, ptcz, pllsl, ptcrq
+    select pid, ptitle, pms, ptcz, pllsl, ptcrq, pbq
     from problem
     <where>
       <if test="pid != null">
@@ -49,7 +50,7 @@
     order by ptcrq desc
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select pid, ptitle, pms, ptcz, pgzzsl, pllsl, ptcrq
+    select pid, ptitle, pms, ptcz, pgzzsl, pllsl, ptcrq, pbq
     from problem
   </select>
   <select id="selectCountByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Problem" resultType="java.lang.Integer">

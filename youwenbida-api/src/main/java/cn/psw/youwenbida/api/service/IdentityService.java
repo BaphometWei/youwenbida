@@ -12,4 +12,6 @@ public interface IdentityService {
     public ResponseBo validateSignup(User user);
 
     public User getUser(String id);
+
+    ResponseBo updateUserXx(User user);
 }

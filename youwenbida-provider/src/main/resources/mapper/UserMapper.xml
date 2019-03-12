@@ -33,17 +33,32 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.User">
     update user
-    set name = #{name,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      gxqm = #{gxqm,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      location = #{location,jdbcType=VARCHAR},
-      industry = #{industry,jdbcType=VARCHAR},
-      gs = #{gs,jdbcType=VARCHAR},
-      education = #{education,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      introduction = #{introduction,jdbcType=VARCHAR},
-      img = #{img,jdbcType=VARCHAR}
+      <set>
+        <if test="name!=null">
+          name = #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="gxqm!=null">
+          gxqm = #{gxqm,jdbcType=VARCHAR},
+        </if>
+        <if test="sex!=null">
+          sex = #{sex,jdbcType=VARCHAR},
+        </if>
+        <if test="location!=null">
+          location = #{location,jdbcType=VARCHAR},
+        </if>
+        <if test="industry!=null">
+          industry = #{industry,jdbcType=VARCHAR},
+        </if>
+        <if test="gs!=null">
+          gs = #{gs,jdbcType=VARCHAR},
+        </if>
+        <if test="education!=null">
+          education = #{education,jdbcType=VARCHAR},
+        </if>
+        <if test="introduction!=null">
+          introduction = #{introduction,jdbcType=VARCHAR},
+        </if>
+      </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">

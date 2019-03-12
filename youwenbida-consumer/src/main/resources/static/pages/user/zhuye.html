@@ -108,6 +108,9 @@
             font-weight: 600;
             padding:10px 20px;
         }
+        .bkgzop{
+            font-weight: 600;
+        }
         .problem-title{
             font-size: 18px;
             font-weight: 600;
@@ -190,6 +193,31 @@
             font-size: 14px;
             color: #8590A6;
         }
+        .uimg,.uop,.uxx{
+            float:left;
+        }
+        .uxx{
+            padding:0 20px;
+            padding-top: 7px;
+            width: 450px;
+        }
+        .uname a{
+            font-weight: 600;
+            color: #1A1A1A;
+            font-size: 16px;
+        }
+        .ugxqm{
+            color: #5a6271;
+            margin-top: 7px;
+        }
+        .uopxx{
+            margin-top: 7px;
+            font-size: 14px;
+            color: #8590A6;
+        }
+        .uop{
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
@@ -210,7 +238,7 @@
                 <li class="item"><a onclick="userans(this)">回答</a></li>
                 <li class="item"><a onclick="usertw(this)">提问</a></li>
                 <li class="item"><a onclick="usersc(this)">收藏夹</a></li>
-                <li class="item"><a onclick="usergz(this)">关注</a></li>
+                <li class="item"><a onclick="usergz(this)" id="gzxx">关注</a></li>
             </ul>
         </div>
         <div class="bankuai">
@@ -302,7 +330,7 @@
                                 if (op.olx == "3") {
                                     showhtml += "<div class='problem'>";
                                     showhtml += "<div class='problem-zan'>关注了该问题 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
-                                    showhtml += "<h2 class='problem-title'>" + op.problem.ptitle + "</h2>";
+                                    showhtml += "<a target='_blank' href='/problem?proid="+op.problem.pid+"'><h2 class='problem-title'>" + op.problem.ptitle + "</h2></a>";
                                     showhtml += "</div>";
                                     $(".main-problem").append(showhtml);
                                 } else {
@@ -311,11 +339,12 @@
                                         showhtml += "<div class='problem-zan'>赞同了该回答 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
                                     else
                                         showhtml += "<div class='problem-zan'>收藏了该回答 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
-                                    showhtml += "<h2 class='problem-title'>" + op.answer.problem.ptitle + "</h2>";
+                                    showhtml += "<a target='_blank' href='/problem?proid="+op.answer.problem.pid+"'><h2 class='problem-title'>" + op.answer.problem.ptitle + "</h2></a>";
                                     showhtml += "<div class='problem-answer'><a href='/zhuye?id="+op.answer.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + op.answer.user.name + "</span>";
                                     showhtml += "<span class='answerqm'> " + op.answer.user.gxqm + "</span></a></div><div class='problem-zan'><span>" + op.answer.aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + op.answer.ahd;
                                     showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + op.answer.ahdrq + "</span></div><div class='problem-footer'>";
                                     showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + op.answer.dz + "' onclick='zantong(this)' alt='" + op.answer.aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + op.answer.aztsl + "</span></button>";
+                                    showhtml += "<button class='problem-fandui' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isfd='" + op.answer.fd + "' onclick='fandui(this)' alt='" + op.answer.aid + "'><i class='layui-icon layui-icon-tread'></i> 踩</button>";
                                     showhtml += "<button class='problem-pinglun' alt='" + op.answer.aid + "' onclick='chakanpl(this)'><i class='layui-icon layui-icon-reply-fill'></i> <span>" + op.answer.aplsl + "</span>条评论</button>";
                                     showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='" + op.answer.sc + "' alt='" + op.answer.aid + "'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button></div><div class='pinglun'></div></div>";
                                     $(".main-problem").append(showhtml);
@@ -328,7 +357,16 @@
             }
         });
         init();
-        show();
+        if($(".problem-fold img").length >0) {
+            var load = "true";
+            $(".problem-fold img").on('load', function () {
+                if (load == "true")
+                    show();
+                load = "false";
+            })
+        }else{
+            show();
+        }
     })
 </script>
 <script src="/js/zhuye.js"></script>
