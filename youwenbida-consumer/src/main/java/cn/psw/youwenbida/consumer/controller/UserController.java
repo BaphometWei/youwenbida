@@ -241,7 +241,6 @@ public class UserController {
         return ResponseBo.ok().put("user",user);
     }
 
-
     @RequestMapping("/tixing")
     public String tixing(){
         return "/pages/tixing.html";
