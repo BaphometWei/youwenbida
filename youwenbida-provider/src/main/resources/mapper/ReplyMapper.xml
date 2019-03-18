@@ -13,7 +13,7 @@
     delete from reply
     where rid = #{rid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Reply">
+  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Reply" useGeneratedKeys="true" keyProperty="rid">
     insert into reply (rid, rz, rbz, 
       rr, rbc)
     values (#{rid,jdbcType=INTEGER}, #{rz,jdbcType=VARCHAR}, #{rbz,jdbcType=VARCHAR}, 

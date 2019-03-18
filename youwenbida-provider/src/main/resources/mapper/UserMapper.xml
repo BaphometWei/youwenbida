@@ -58,6 +58,9 @@
         <if test="introduction!=null">
           introduction = #{introduction,jdbcType=VARCHAR},
         </if>
+        <if test="img!=null">
+          img = #{img,jdbcType=VARCHAR},
+        </if>
       </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -70,7 +73,7 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select id, name, password, gxqm, sex, location, industry, gs, education, email,
     introduction, img
-    from user
+    from user LIMIT 5
   </select>
   <select id="validateByColumn" parameterType="cn.psw.youwenbida.api.model.User" resultMap="BaseResultMap">
     select id,name
@@ -86,5 +89,8 @@
           and email = #{email,jdbcType=VARCHAR}
       </if>
     </where>
+  </select>
+  <select id="selectRand" resultMap="BaseResultMap">
+    SELECT * FROM user WHERE id >= ((SELECT MAX(id) FROM user)-(SELECT MIN(id) FROM user)) * RAND() + (SELECT MIN(id) FROM user)  LIMIT 5
   </select>
 </mapper>

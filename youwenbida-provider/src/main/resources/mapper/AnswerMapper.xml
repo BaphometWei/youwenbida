@@ -9,14 +9,19 @@
     <result column="ahdwt" jdbcType="INTEGER" property="ahdwt" />
     <result column="score" jdbcType="DOUBLE" property="score" />
     <result column="yzhd" jdbcType="VARCHAR" property="yzhd" />
+    <result column="nm" jdbcType="VARCHAR" property="nm" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from answer
     where aid = #{aid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Answer" useGeneratedKeys="true" keyProperty="aid">
-    insert into answer (ahdz, ahd, ahdwt)
-    values (#{ahdz,jdbcType=VARCHAR}, #{ahd,jdbcType=VARCHAR},#{ahdwt,jdbcType=INTEGER})
+    insert into answer (ahdz, ahd, ahdwt
+    <if test="nm!=null">,nm</if>
+    )
+    values (#{ahdz,jdbcType=VARCHAR}, #{ahd,jdbcType=VARCHAR},#{ahdwt,jdbcType=INTEGER}
+    <if test="nm!=null">,#{nm,jdbcType=VARCHAR}</if>
+    )
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer">
     update answer
@@ -27,16 +32,17 @@
         <if test="ahdwt!=null">ahdwt = #{ahdwt,jdbcType=INTEGER}</if>
         <if test="score!=null">score = #{score,jdbcType=DOUBLE}</if>
         <if test="yzhd!=null">yzhd = #{yzhd,jdbcType=VARCHAR},</if>
+        <if test="nm!=null">nm = #{nm,jdbcType=VARCHAR},</if>
       </set>
     where aid = #{aid,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd
+    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
     from answer
     where aid = #{aid,jdbcType=INTEGER}
   </select>
   <select id="selectListByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer" resultMap="BaseResultMap">
-    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd
+    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
     from answer
     <where>
       <if test="aid != null">
@@ -52,13 +58,13 @@
     order by score desc
   </select>
   <select id="getProAns" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd
+    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
     from answer
     where ahdwt = #{pid} and yzhd = 'f'
     order by score desc
   </select>
   <select id="getProYzAns" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd
+    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
     from answer
     where ahdwt = #{pid} and yzhd = 't'
     order by score desc
@@ -88,7 +94,7 @@
     </where>
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd
+    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
     from answer
   </select>
   <select id="searchProAns" parameterType="java.lang.Integer" resultType="java.lang.Integer">

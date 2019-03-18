@@ -14,7 +14,7 @@ function showtl(obj) {
         var showhtml = "";
         for(var k=0;k<data.length;k++) {
             showhtml += "<div class='problem'><a target='_blank' href='/problem?proid="+data[k].problem.pid+"'><h2 class='problem-title'>" + data[k].problem.ptitle + "</h2></a>";
-            showhtml += "<div class='problem-answer'><a href='/zhuye?id="+data[k].user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + data[k].user.name + "</span>";
+            showhtml += "<div class='problem-answer'><a href='/zhuye?id="+data[k].user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+data[k].user.img+"' /><span class='answername'>  " + data[k].user.name + "</span>";
             showhtml += "<span class='answerqm'> " + data[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data[k].ahd;
             showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + data[k].ahdrq + "</span></div><div class='problem-footer'>";
             showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data[k].dz + "' onclick='zantong(this)' alt='" + data[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data[k].aztsl + "</span></button>";
@@ -46,7 +46,7 @@ function showjh(obj) {
         var showhtml = "";
         for(var k=0;k<data.length;k++) {
             showhtml += "<div class='problem'><a target='_blank' href='/problem?proid="+data[k].problem.pid+"'><h2 class='problem-title'>" + data[k].problem.ptitle + "</h2></a>";
-            showhtml += "<div class='problem-answer'><a href='/zhuye?id="+data[k].user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + data[k].user.name + "</span>";
+            showhtml += "<div class='problem-answer'><a href='/zhuye?id="+data[k].user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+data[k].user.img+"' /><span class='answername'>  " + data[k].user.name + "</span>";
             showhtml += "<span class='answerqm'> " + data[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data[k].ahd;
             showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + data[k].ahdrq + "</span></div><div class='problem-footer'>";
             showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data[k].dz + "' onclick='zantong(this)' alt='" + data[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data[k].aztsl + "</span></button>";

@@ -30,7 +30,7 @@ function userop(obj) {
                 if (op.olx == "3") {
                     showhtml += "<div class='problem'>";
                     showhtml += "<div class='problem-zan'>关注了该问题 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
-                    showhtml += "<a target='_blank' href='/problem?proid="+op.problem.pid+"'><h2 class='problem-topic'>" + op.problem.ptitle + "</h2></a>";
+                    showhtml += "<a target='_blank' href='/problem?proid="+op.problem.pid+"'><h2 class='problem-title'>" + op.problem.ptitle + "</h2></a>";
                     showhtml += "</div>";
                     $(".main-problem").append(showhtml);
                 } else {
@@ -39,8 +39,8 @@ function userop(obj) {
                         showhtml += "<div class='problem-zan'>赞同了该回答 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
                     else
                         showhtml += "<div class='problem-zan'>收藏了该回答 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
-                    showhtml += "<h2 class='problem-topic'>" + op.answer.problem.ptitle + "</h2>";
-                    showhtml += "<div class='problem-answer'><a href='/zhuye?id="+op.answer.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + op.answer.user.name + "</span>";
+                    showhtml += "<h2 class='problem-title'>" + op.answer.problem.ptitle + "</h2>";
+                    showhtml += "<div class='problem-answer'><a href='/zhuye?id="+op.answer.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+op.answer.user.img+"' /><span class='answername'>  " + op.answer.user.name + "</span>";
                     showhtml += "<span class='answerqm'> " + op.answer.user.gxqm + "</span></a></div><div class='problem-zan'><span>" + op.answer.aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + op.answer.ahd;
                     showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + op.answer.ahdrq + "</span></div><div class='problem-footer'>";
                     showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + op.answer.dz + "' onclick='zantong(this)' alt='" + op.answer.aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + op.answer.aztsl + "</span></button>";
@@ -78,14 +78,21 @@ function userans(obj) {
                 var answer = data.ans[i];
                 var showhtml = "";
                 showhtml += "<div class='problem'>";
-                showhtml += "<a target='_blank' href='/problem?proid="+answer.problem.pid+"'><h2 class='problem-topic'>" + answer.problem.ptitle + "</h2></a>";
-                showhtml += "<div class='problem-answer'><a href='/zhuye?id="+answer.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + answer.user.name + "</span>";
+                showhtml += "<a target='_blank' href='/problem?proid="+answer.problem.pid+"'><h2 class='problem-title'>" + answer.problem.ptitle + "</h2></a>";
+                showhtml += "<div class='problem-answer'><a href='/zhuye?id="+answer.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+answer.user.img+"' /><span class='answername'>  " + answer.user.name + "</span>";
                 showhtml += "<span class='answerqm'> " + answer.user.gxqm + "</span></a></div><div class='problem-zan'><span>" + answer.aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + answer.ahd;
                 showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + answer.ahdrq + "</span></div><div class='problem-footer'>";
                 showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + answer.dz + "' onclick='zantong(this)' alt='" + answer.aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + answer.aztsl + "</span></button>";
                 showhtml += "<button class='problem-fandui' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isfd='" + answer.fd + "' onclick='fandui(this)' alt='" + answer.aid + "'><i class='layui-icon layui-icon-tread'></i> 踩</button>";
                 showhtml += "<button class='problem-pinglun' alt='" + answer.aid + "' onclick='chakanpl(this)'><i class='layui-icon layui-icon-reply-fill'></i> <span>" + answer.aplsl + "</span>条评论</button>";
-                showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='" + answer.sc + "' alt='" + answer.aid + "'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button></div><div class='pinglun'></div></div>";
+                showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='" + answer.sc + "' alt='" + answer.aid + "'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button>";
+                if(data.br==true) {
+                    showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='edit(this)' alt='" + answer.aid + "' for='ans'><i class='layui-icon layui-icon-edit'></i> <span>编辑</span></button>";
+                    showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='deleteop(this)' alt='" + answer.aid + "' for='ans'><i class='layui-icon layui-icon-delete'></i> <span>删除</span></button>";
+                    if(answer.nm=="t")
+                        showhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='quni(this)' alt='" + answer.aid + "' for='ans'><i class='layui-icon layui-icon-menu-fill'></i> <span>取匿</span></button>";
+                }
+                showhtml += "</div><div class='pinglun'></div></div>";
                 $(".main-problem").append(showhtml);
             }
 
@@ -118,9 +125,13 @@ function usertw(obj) {
                 var pro = data.pros[i];
                 var showhtml = "";
                 showhtml += "<div class='problem'>";
-                showhtml += "<a target='_blank' href='/problem?proid="+pro.pid+"'><h2 class='problem-topic'>" + pro.ptitle + "</h2></a>";
-                showhtml += "<div class='problem-zan'>"+pro.ptcrq+"</div>";
-                showhtml += "</div>";
+                showhtml += "<a target='_blank' href='/problem?proid="+pro.pid+"'><h2 class='problem-title'>" + pro.ptitle + "</h2></a>";
+                showhtml += "<div class='problem-zan'>"+pro.ptcrq;
+                if(data.br==true) {
+                    showhtml += "<button class='problem-shoucang' style='margin-left: 10px;' onclick='edit(this)' alt='" + pro.pid + "' for='pro'><i class='layui-icon layui-icon-edit'></i> <span>编辑</span></button>";
+                    showhtml += "<button class='problem-shoucang' style='margin-left: 10px;' onclick='deleteop(this)' alt='" + pro.pid + "' for='pro'><i class='layui-icon layui-icon-delete'></i> <span>删除</span></button>";
+                }
+                showhtml += "</div></div>";
                 $(".main-problem").append(showhtml);
             }
         }
@@ -152,8 +163,8 @@ function usersc(obj) {
                 var showhtml = "";
                 showhtml += "<div class='problem'>";
                 showhtml += "<div class='problem-zan'>收藏了该回答 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
-                showhtml += "<a target='_blank' href='/problem?proid="+op.answer.problem.pid+"'><h2 class='problem-topic'>" + op.answer.problem.ptitle + "</h2></a>";
-                showhtml += "<div class='problem-answer'><a href='/zhuye?id="+op.answer.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + op.answer.user.name + "</span>";
+                showhtml += "<a target='_blank' href='/problem?proid="+op.answer.problem.pid+"'><h2 class='problem-title'>" + op.answer.problem.ptitle + "</h2></a>";
+                showhtml += "<div class='problem-answer'><a href='/zhuye?id="+op.answer.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+op.answer.user.img+"' /><span class='answername'>  " + op.answer.user.name + "</span>";
                 showhtml += "<span class='answerqm'> " + op.answer.user.gxqm + "</span></a></div><div class='problem-zan'><span>" + op.answer.aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + op.answer.ahd;
                 showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + op.answer.ahdrq + "</span></div><div class='problem-footer'>";
                 showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + op.answer.dz + "' onclick='zantong(this)' alt='" + op.answer.aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + op.answer.aztsl + "</span></button>";
@@ -194,7 +205,7 @@ function usergz(obj) {
             for (var k = 0; k < data.users.length; k++) {
                 var user = data.users[k];
                 showhtml += "<div class='problem' style='border-radius:5px;background: #ffffff;padding:15px 15px'>";
-                showhtml += "<div class='uimg'><a href='zhuye?id="+user.id+"' target='_blank'><img width='80' height='80' src='/img/touxiang.jpg' /></a></div><div class='uxx'>";
+                showhtml += "<div class='uimg'><a href='zhuye?id="+user.id+"' target='_blank'><img width='80' height='80' src='"+user.img+"' /></a></div><div class='uxx'>";
                 showhtml += "<div class='uname'><a href='zhuye?id="+user.id+"' target='_blank'>"+user.name+"</a></div>";
                 if(user.gxqm!=null)
                     showhtml += "<div class='ugxqm'>"+user.gxqm+"</div>";
@@ -222,7 +233,7 @@ function userbgz(obj) {
             for (var k = 0; k < data.users.length; k++) {
                 var user = data.users[k];
                 showhtml += "<div class='problem' style='border-radius:5px;background: #ffffff;padding:15px 15px'>";
-                showhtml += "<div class='uimg'><a href='zhuye?id="+user.id+"' target='_blank'><img width='80' height='80' src='/img/touxiang.jpg' /></a></div><div class='uxx'>";
+                showhtml += "<div class='uimg'><a href='zhuye?id="+user.id+"' target='_blank'><img width='80' height='80' src='"+user.img+"' /></a></div><div class='uxx'>";
                 showhtml += "<div class='uname'><a href='zhuye?id="+user.id+"' target='_blank'>"+user.name+"</a></div>";
                 if(user.gxqm!=null)
                     showhtml += "<div class='ugxqm'>"+user.gxqm+"</div>";
@@ -251,7 +262,7 @@ function gztw(obj) {
             for (var k = 0; k < data.pros.length; k++) {
                 var pro = data.pros[k];
                 showhtml += "<div class='problem'>";
-                showhtml += "<a target='_blank' href='/problem?proid="+pro.pid+"'><h2 class='problem-topic'>" + pro.ptitle + "</h2></a>";
+                showhtml += "<a target='_blank' href='/problem?proid="+pro.pid+"'><h2 class='problem-title'>" + pro.ptitle + "</h2></a>";
                 showhtml += "<div class='uopxx'>"+pro.ptcrq+" 回答 · "+pro.pgzzsl+" 个回答 · "+pro.phdsl+" 个关注</div>";
                 showhtml += "</div>";
             }

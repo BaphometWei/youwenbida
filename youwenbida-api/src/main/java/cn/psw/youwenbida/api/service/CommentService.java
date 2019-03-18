@@ -20,4 +20,6 @@ public interface CommentService {
     public List<Comment> getProCom(Integer pid);
 
     public ResponseBo insertProCom(Comment comment);
+
+    ResponseBo deleteCom(String cid);
 }

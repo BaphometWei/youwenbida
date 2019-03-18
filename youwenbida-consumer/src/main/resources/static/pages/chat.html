@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>-有问必答-</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <style>
+        .main-top {
+            background: #ffffff;
+            width: 100%;
+        }
+
+        .main-footer {
+            width: 1000px;
+            margin: 2px auto;
+        }
+
+        .main-left {
+            float: left;
+            width: 740px;
+            margin-top: 15px;
+        }
+
+        .main-right {
+            float: right;
+            width: 245px;
+            height: 200px;
+            background: #0C0C0C;
+            margin-top: 15px;
+        }
+
+        .zm-sixin-cat-title {
+            padding-bottom: 10px;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+
+        .zm-sixin-cat-title h2 {
+            font-size: 13px;
+            color: #259;
+        }
+
+        .sixin-list .item {
+            display: block;
+            width: 710px;
+            border-top: 1px solid #e5e5e5;
+            padding: 10px 15px;
+            position: relative;
+            min-height: 50px;
+        }
+
+
+        .sixinbianji {
+            padding: 10px 15px;
+        }
+
+        .sixinbianji span {
+            color: #999;
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        .sixinbianji .sixinduixiang {
+            color: #666;
+        }
+        .sixin-body{
+            dispaly:block;
+            width: 600px;
+            font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+            font-size: 13px;
+            word-wrap: break-word;
+            color: #222;
+            margin-left: 60px;
+        }
+        .sixin-list .item a{
+            dispaly:block;
+            float: left;
+            color:#698ebf;
+        }
+        .sixin-foot{
+            padding: 5px 0;
+        }
+        .sixin-op{
+            float: right;
+            display: inline-block;
+        }
+        .sixin-time{
+            display: inline-block;
+            color: #999;
+            font-size: 13px;
+            font-weight: 400;
+        }
+        .sixin-text{
+            line-height: 23px;
+        }
+    </style>
+</head>
+<body style="background: #ffffff">
+<div class="main-top">
+    <div class="main-header"></div>
+    <div class="main-footer">
+        <div class="main-left">
+            <div class="zm-sixin-cat-title">
+                <a><h2><i class="layui-icon layui-icon-prev" style="font-size: 3px"></i> 返回</h2></a>
+            </div>
+            <div class="sixinbianji">
+                <span>发私信给 </span> <span class="sixinduixiang" id="sixinduixiang">程序猿</span>：
+                <br/><br/>
+                <textarea name="sixin" id="sixinneirong" placeholder="" class="layui-textarea"></textarea>
+                <br/>
+                <button id="xiesixin" class="layui-btn" style="float: right;background: #FCC9C9;border: 1px solid #FCC9C9;color: #ffffff;height: 30px;line-height: 28px">发送</button>
+                <div class="clearfix"></div>
+            </div>
+            <div class="sixin-list">
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="main-right"></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<script src="/layui/layui.js"></script>
+<script src="/js/common.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var user;
+        $(".main-header").load("/pages/common/header.html");
+        commonAjax("/getChat", callback, {uid:getQueryString("uid")});
+        function callback(data) {
+            user=data.user;
+            $("#sixinduixiang").html(data.chatuser.name);
+            var showhtml = "";
+            for(var k=0; k<data.chat.length; k++){
+                if(data.chat[k].cz != data.user.id)
+                    showhtml+="<div class='item'><a href='/zhuye?id="+data.chatuser.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='50' height='50' src='"+data.chatuser.user.img+"'></a><div class='sixin-body'><div class='sixin-text'><a href='/zhuye?id="+data.chatuser.id+"' target='_blank'>"+data.chatuser.name+"</a>： ";
+                else
+                    showhtml+="<div class='item'><a href='/zhuye?id="+data.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='50' height='50' src='"+data.user.img+"'></a><div class='sixin-body'><div class='sixin-text'>我： ";
+                showhtml+=data.chat[k].ctext+"</div><div class='sixin-foot'>";
+                showhtml+="<div class='sixin-time'>"+data.chat[k].chdate+"</div><div class='sixin-op'><a alt='"+data.chat[k].chid+"' class='deleteChat' onclick='deleteChat(this)'>删除</a></div><div class='clearfix'></div></div></div></div>";
+            }
+            $(".sixin-list").prepend(showhtml);
+        }
+        $("#xiesixin").click(function () {
+            validateDlzt();
+            if(dlzt=="false"){
+                dlts();
+            }else if($("#sixinneirong").val().length<1){
+                ts("内容不能为空");
+            }else{
+                commonAjax("/chat", callback, {cbz:getQueryString("uid"),ctext:$("#sixinneirong").val()});
+                function callback(data) {
+                    $("#sixinneirong").val("");
+                    var showhtml = "";
+                    showhtml+="<div class='item'><a href='/zhuye?id="+user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='50' height='50' src='"+user.img+"'></a><div class='sixin-body'><div class='sixin-text'>我： ";
+                    showhtml+=data.chat.ctext+"</div><div class='sixin-foot'>";
+                    showhtml+="<div class='sixin-time'>"+data.chat.chdate+"</div><div class='sixin-op'><a alt='"+data.chat.chid+"' class='deleteChat' onclick='deleteChat(this)'>删除</a></div><div class='clearfix'></div></div></div></div>";
+                    $(".sixin-list").prepend(showhtml);
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>

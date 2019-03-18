@@ -5,7 +5,7 @@ import cn.psw.youwenbida.api.model.Problem;
 import java.util.List;
 
 public interface ProblemMapper {
-    int deleteByPrimaryKey(String pid);
+    int deleteByPrimaryKey(Integer pid);
 
     int insert(Problem record);
 

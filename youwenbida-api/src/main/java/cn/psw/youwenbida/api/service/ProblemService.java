@@ -14,4 +14,8 @@ public interface ProblemService {
     List<Problem> getProList(String uid);
 
     Integer getCountUserPro(String uid);
+
+    ResponseBo updatePro(Problem problem);
+
+    ResponseBo deletePro(String pid);
 }

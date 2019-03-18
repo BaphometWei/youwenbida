@@ -40,4 +40,18 @@ public class ProblemServiceImpl implements ProblemService {
         problem.setPtcz(uid);
         return problemMapper.selectCountByPrimaryKey(problem);
     }
+
+    @Override
+    public ResponseBo updatePro(Problem problem){
+        if(problemMapper.updateByPrimaryKey(problem)!=0)
+            return ResponseBo.ok();
+        return ResponseBo.error();
+    }
+
+    @Override
+    public ResponseBo deletePro(String pid){
+        if(problemMapper.deleteByPrimaryKey(Integer.parseInt(pid))!=0)
+            return ResponseBo.ok();
+        return ResponseBo.error();
+    }
 }

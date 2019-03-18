@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>狼外婆-有问必答</title>
+    <title>-有问必答-</title>
+    <link type="text/css" rel="stylesheet" href="/css/fm.tagator.jquery.css"/>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <link rel="stylesheet" href="/css/common.css">
     <script src="/js/jquery-3.3.1.min.js"></script>
@@ -218,6 +219,15 @@
         .uop{
             margin-top: 30px;
         }
+        .problem-zan button {
+            line-height: 20px;
+            margin-right: 12px;
+            border: none;
+            border-radius: 5%;
+            background: #ffffff;
+            height: 25px;
+            color: #8590A6;
+        }
     </style>
 </head>
 <body>
@@ -258,6 +268,7 @@
 </div>
 <script src="/layui/layui.js"></script>
 <script src="/js/common.js"></script>
+<script src="/js/fm.tagator.jquery.js"></script>
 <script type="text/javascript">
 
     $(function () {
@@ -268,6 +279,7 @@
             data: {uid:getQueryString("id")},
             async: false,
             success: function (data) {
+                $(".touxiang img").attr("src",data.user.img);
                 var showhtml = "";
                 showhtml += "<div class='userxx'><div class='userxx-header'><h1>";
                 showhtml += "<span class='username'>"+data.user.name+"</span>";
@@ -297,13 +309,13 @@
                 if(data.show1 == "true" && data.show2 == "true")
                     showhtml += "<a onclick='zhanshi()'><i class='layui-icon layui-icon-down'></i> <span id='chakan'> 查看详细资料</span></a>";
                 if(data.br == "true")
-                    showhtml += "<div class='userxxop'><a style='margin-right:30px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #0084FF;border: 1px solid #0084FF;'><i class='layui-icon layui-icon-dialogue'></i>编辑个人资料</a></div>";
+                    showhtml += "<div class='userxxop'><a target='_blank' href='/updatexx?id="+data.user.id+"' style='margin-right:30px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #0084FF;border: 1px solid #0084FF;'><i class='layui-icon layui-icon-dialogue'></i>编辑个人资料</a></div>";
                 else{
                     if(data.user.isgz==false)
                         showhtml += "<div class='userxxop'><a id='guanzhu' style='margin-right:20px;padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #0084FF;color:#ffffff;' onclick='guanzhu(this)' alt='"+data.user.id+"'><i class='layui-icon layui-icon-add-1'></i>关 注</a>";
                     else
                         showhtml += "<div class='userxxop'><a id='guanzhu' style='margin-right:20px;padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #8590A6;color:#ffffff;' onclick='guanzhu(this)' alt='"+data.user.id+"'>取消关注</a>";
-                    showhtml += "<a style='margin-right:20px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;'><i class='layui-icon layui-icon-dialogue'></i>发私信</a></div>";
+                    showhtml += "<a target='_blank' href='/xiesixin?uid="+getQueryString("id")+"' style='margin-right:20px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;'><i class='layui-icon layui-icon-dialogue'></i>发私信</a></div>";
                 }
                 showhtml += "</div></div>";
                 $(".main-top").append(showhtml);
@@ -340,7 +352,7 @@
                                     else
                                         showhtml += "<div class='problem-zan'>收藏了该回答 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
                                     showhtml += "<a target='_blank' href='/problem?proid="+op.answer.problem.pid+"'><h2 class='problem-title'>" + op.answer.problem.ptitle + "</h2></a>";
-                                    showhtml += "<div class='problem-answer'><a href='/zhuye?id="+op.answer.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + op.answer.user.name + "</span>";
+                                    showhtml += "<div class='problem-answer'><a href='/zhuye?id="+op.answer.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+op.answer.user.img+"' /><span class='answername'>  " + op.answer.user.name + "</span>";
                                     showhtml += "<span class='answerqm'> " + op.answer.user.gxqm + "</span></a></div><div class='problem-zan'><span>" + op.answer.aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + op.answer.ahd;
                                     showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + op.answer.ahdrq + "</span></div><div class='problem-footer'>";
                                     showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + op.answer.dz + "' onclick='zantong(this)' alt='" + op.answer.aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + op.answer.aztsl + "</span></button>";

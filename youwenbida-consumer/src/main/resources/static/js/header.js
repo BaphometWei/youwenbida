@@ -12,6 +12,7 @@ $("#cleanhistory").mousedown(function(event){
     $(".searchis").remove();
 });
 function tiwen() {
+    validateDlzt();
     if(dlzt=="true") {
         var layedit;
         var getText;
@@ -26,6 +27,12 @@ function tiwen() {
                 success: function (layero, index) {
                     layui.use('layedit', function () {
                         layedit = layui.layedit;
+                        layedit.set({
+                            uploadImage: {
+                                url: "/imgupload", //接口url
+                                type: 'post' //默认post
+                            }
+                        });
                         getText = layedit.build('tiwenedit', {
                             height: 190, //设置编辑器高度
                             width:520

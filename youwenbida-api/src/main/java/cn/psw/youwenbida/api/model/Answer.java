@@ -31,6 +31,8 @@ public class Answer implements Serializable {
 
     private String yzhd;
 
+    private String nm;
+
     private Boolean dz = false;
 
     private Boolean sc = false;
@@ -162,5 +164,13 @@ public class Answer implements Serializable {
 
     public void setYzhd(String yzhd) {
         this.yzhd = yzhd;
+    }
+
+    public String getNm() {
+        return nm;
+    }
+
+    public void setNm(String nm) {
+        this.nm = nm;
     }
 }

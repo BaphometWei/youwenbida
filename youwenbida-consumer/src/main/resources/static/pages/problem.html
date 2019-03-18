@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>狼外婆-有问必答</title>
+    <title>-有问必答-</title>
+    <link type="text/css" rel="stylesheet" href="/css/searchuser.css"/>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <link rel="stylesheet" href="/css/common.css">
     <script src="/js/jquery-3.3.1.min.js"></script>
@@ -168,6 +169,57 @@
             margin-right: 10px;
             color: #646464;
         }
+        .user-item{
+            color: #333;
+            font-size: 14px;
+            padding: 5px 8px;
+            border-top: 1px solid #F6F6F6;
+        }
+        .users .user-item{
+            padding: 10px 15px;
+            line-height: 30px;
+        }
+        .users{
+            padding: 20px 15px;
+            margin-right: 10px;
+        }
+        .user-item a{
+        }
+        .yquser{
+            float: right;
+            background: #0084FF;
+            color: #ffffff;
+            font-size: 13px;
+            padding: 0 5px;
+        }
+        .user-search {
+            float: left;
+            padding: 4px 0;
+            position: relative;
+            margin-left: 20px;
+        }
+        .user-search input {
+            width: 250px;
+            border-radius: 42px;
+            border: 1px solid #EBEBEB;
+            background: #F6F6F6;
+            transition: .3s linear;
+            float: right;
+            outline: none;
+            height: 30px;
+            padding-left: 13px;
+        }
+        .user-search button {
+            background: none;
+            top: -2px;
+            right: 0;
+            border: none;
+            outline: none;
+            height: 35px;
+            width: 35px;
+            cursor: pointer;
+            position: absolute;
+        }
     </style>
 </head>
 <body>
@@ -198,6 +250,7 @@
 </div>
 <script src="/layui/layui.js"></script>
 <script src="/js/common.js"></script>
+<script src="/js/searchuser.js"></script>
 <script type="text/javascript">
     $(function () {
         var ptcz = "";
@@ -221,7 +274,8 @@
                         showhtml += "<a id='guanzhu' style='padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #0084FF;color:#ffffff;' onclick='guanzhupro()'><i class='layui-icon layui-icon-add-1'></i>关注问题</a>";
                     else
                         showhtml += "<a id='guanzhu' style='padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #8590A6;color:#ffffff;' onclick='guanzhupro()'>取消关注</a>";
-                showhtml += "<a style='margin-left:15px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;' onclick='xiehuida(this)' alt='false'><i class='layui-icon layui-icon-edit'></i>写回答</a>";
+                showhtml += "<a style='margin-left:15px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #0084FF;border: 1px solid #0084FF;' onclick='xiehuida(this)' alt='false'><i class='layui-icon layui-icon-edit'></i>写回答</a>";
+                showhtml += "<a style='margin-left:15px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;' onclick='yaoqing(this)' alt='false'><i class='layui-icon layui-icon-user'></i>邀请回答</a>";
                 showhtml += "<button class='problem-pinglun propl' style='margin-left:15px;' onclick='ckppl()'><i class='layui-icon layui-icon-reply-fill'></i> <span>"+data.pplsl+"</span>条评论</button></div></div><div class='right'>";
                 showhtml += "<div class='gzxx'><button id='gzzsl' style='border-right: 1px solid #c6d5ec;'>关注者</br><span class='gzsl'>"+data.pgzzsl+"</span></button>";
                 showhtml += "<button>被浏览</br><span class='bgzsl'>2,902,734</span></button></div></div><div class='clearfix'></div>";
@@ -233,7 +287,7 @@
                         $(".main-yzhd").show();
                         for (var k = 0; k < data.yzans.length; k++) {
                             showhtml += "<div class='problem'><div class='problem-answer yzhdbz'><img width='20' height='20' src='/img/jiangzhang.png' /><span class='twztj'>本回答由提问者推介</span></div>";
-                            showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.yzans[k].user.id + "' target='_blank'><img width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + data.yzans[k].user.name + "</span>";
+                            showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.yzans[k].user.id + "' target='_blank'><img width='24' height='24' src='"+data.yzans[k].user.img+"' /><span class='answername'>  " + data.yzans[k].user.name + "</span>";
                             showhtml += "<span class='answerqm'> " + data.yzans[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data.yzans[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data.yzans[k].ahd;
                             showhtml += "</div><div class='controlfold'> </div><div class='data.yzanswer-time'>发布于  <span>" + data.yzans[k].ahdrq + "</span></div><div class='problem-footer'>";
                             showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data.yzans[k].dz + "' onclick='zantong(this)' alt='" + data.yzans[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data.yzans[k].aztsl + "</span></button>";
@@ -252,7 +306,7 @@
                         $(".bankuai").find("h4").html("0条回答");
                         $(".main-left").show();
                         showhtml +="<div class='problem''>"
-                        showhtml +="<img width='710' height='300' src='/img/ansnothing.png' />";
+                        showhtml +="<div class='ansnothing'><img width='710' height='300' src='/img/ansnothing.png' /></div>";
                         showhtml +="</div>"
                     }
                     if(data.ans.length!=0){
@@ -260,7 +314,7 @@
                         $(".bankuai").find("h4").html(data.ans.length+"条回答");
                         for (var k = 0; k < data.ans.length; k++) {
                             showhtml += "<div class='problem'>";
-                            showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.ans[k].user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + data.ans[k].user.name + "</span>";
+                            showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.ans[k].user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+data.ans[k].user.img+"' /><span class='answername'>  " + data.ans[k].user.name + "</span>";
                             showhtml += "<span class='answerqm'> " + data.ans[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data.ans[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data.ans[k].ahd;
                             showhtml += "</div><div class='controlfold'> </div><div class='data.answer-time'>发布于  <span>" + data.ans[k].ahdrq + "</span></div><div class='problem-footer'>";
                             showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data.ans[k].dz + "' onclick='zantong(this)' alt='" + data.ans[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data.ans[k].aztsl + "</span></button>";

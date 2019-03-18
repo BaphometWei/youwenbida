@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Service
 public class IdentityServiceImpl implements IdentityService {
 
@@ -56,5 +58,12 @@ public class IdentityServiceImpl implements IdentityService {
         return ResponseBo.ok().put("msg","修改成功");
     }
 
+    @Override
+    public ResponseBo selectRand(){
+        List<User> users = userMapper.selectRand();
+        if(users!=null)
+            return ResponseBo.ok().put("users",users);
+        return ResponseBo.error();
+    }
 
 }

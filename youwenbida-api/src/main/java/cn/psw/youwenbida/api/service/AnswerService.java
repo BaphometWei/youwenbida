@@ -35,4 +35,5 @@ public interface AnswerService {
 
     List<Answer> getTopicAnsByAnsDate(String bq);
 
+    ResponseBo deleteAns(String aid);
 }

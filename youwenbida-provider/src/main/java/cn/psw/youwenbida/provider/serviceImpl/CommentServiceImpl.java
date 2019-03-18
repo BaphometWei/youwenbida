@@ -71,4 +71,11 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.selectByPrimaryKey(comment);
     }
 
+    @Override
+    public ResponseBo deleteCom(String cid){
+        if(commentMapper.deleteByPrimaryKey(Integer.parseInt(cid))!=0)
+            return ResponseBo.ok();
+        return ResponseBo.error();
+    }
+
 }

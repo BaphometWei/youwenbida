@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.psw.youwenbida.provider.mapper.NoticeMapper">
+  <resultMap id="BaseResultMap" type="cn.psw.youwenbida.api.model.Notice">
+    <id column="nid" jdbcType="INTEGER" property="nid" />
+    <result column="nz" jdbcType="VARCHAR" property="nz" />
+    <result column="nlx" jdbcType="VARCHAR" property="nlx" />
+    <result column="nnr" jdbcType="VARCHAR" property="nnr" />
+    <result column="ndate" jdbcType="DATE" property="ndate" />
+    <result column="ydbs" jdbcType="VARCHAR" property="ydbs" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notice
+    where nid = #{nid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Notice">
+    insert into notice (nid, nz, nlx,
+      nnr, ndate)
+    values (#{nid,jdbcType=INTEGER}, #{nz,jdbcType=VARCHAR}, #{nlx,jdbcType=VARCHAR}, 
+      #{nnr,jdbcType=VARCHAR}, #{ndate,jdbcType=DATE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Notice">
+    update notice
+    set nz = #{nz,jdbcType=VARCHAR},
+      nlx = #{nlx,jdbcType=VARCHAR},
+      nnr = #{nnr,jdbcType=VARCHAR},
+      ndate = #{ndate,jdbcType=TIMESTAMP}
+    where nid = #{nid,jdbcType=DATE}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select nid, nz, nlx, nnr, ndate, ydbs
+    from notice
+    where nid = #{nid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByDate" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select nid, nz, nlx, nnr, ndate, ydbs
+    from notice
+    where nz = #{nz,jdbcType=VARCHAR} and ndate = #{ndate,jdbcType=DATE} order by ndate desc
+  </select>
+  <select id="selectCountByNz" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(1)
+    from notice
+    where nz = #{nz,jdbcType=VARCHAR} and ydbs = 'f'
+  </select>
+  <select id="selectByNzGbDate" parameterType="java.lang.String" resultType="java.util.Date">
+    select ndate
+    from notice
+    where nz = #{nz,jdbcType=VARCHAR} group by ndate order by ndate desc
+  </select>
+  <update id="updateByNzGbDateForYd" parameterType="java.lang.String">
+    update notice
+    set ydbs = 't'
+    where nz = #{nz,jdbcType=VARCHAR} and ydbs = 'f'
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select nid, nz, nlx, nnr, ndate, ydbs
+    from notice
+  </select>
+</mapper>

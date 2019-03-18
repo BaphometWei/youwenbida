@@ -14,4 +14,6 @@ public interface IdentityService {
     public User getUser(String id);
 
     ResponseBo updateUserXx(User user);
+
+    ResponseBo selectRand();
 }

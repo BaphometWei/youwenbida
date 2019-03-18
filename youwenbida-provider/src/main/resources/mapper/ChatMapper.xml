@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.psw.youwenbida.provider.mapper.ChatMapper">
+  <resultMap id="BaseResultMap" type="cn.psw.youwenbida.api.model.Chat">
+    <id column="chid" jdbcType="INTEGER" property="chid" />
+    <result column="cz" jdbcType="VARCHAR" property="cz" />
+    <result column="cbz" jdbcType="VARCHAR" property="cbz" />
+    <result column="ctext" jdbcType="VARCHAR" property="ctext" />
+    <result column="chdate" jdbcType="TIMESTAMP" property="chdate" />
+    <result column="ydbs" jdbcType="VARCHAR" property="ydbs" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from chat
+    where chid = #{chid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Chat" useGeneratedKeys="true" keyProperty="chid">
+    insert into chat (chid, cz, cbz, 
+      ctext
+      )
+    values (#{chid,jdbcType=INTEGER}, #{cz,jdbcType=VARCHAR}, #{cbz,jdbcType=VARCHAR}, 
+      #{ctext,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Chat">
+    update chat
+    set cz = #{cz,jdbcType=VARCHAR},
+      cbz = #{cbz,jdbcType=VARCHAR},
+      ctext = #{ctext,jdbcType=VARCHAR},
+      chdate = #{chdate,jdbcType=TIMESTAMP},
+      ydbs = #{ydbs,jdbcType=VARCHAR}
+    where chid = #{chid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select chid, cz, cbz, ctext, chdate, ydbs
+    from chat
+    where chid = #{chid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select chid, cz, cbz, ctext, chdate, ydbs
+    from chat
+  </select>
+  <select id="getChat" parameterType="cn.psw.youwenbida.api.model.Chat" resultMap="BaseResultMap">
+    select chid, cz, cbz, ctext, chdate, ydbs
+    from chat
+    where (cz = #{cz,jdbcType=VARCHAR} or cz = #{cbz,jdbcType=VARCHAR}) and (cbz = #{cbz,jdbcType=VARCHAR} or cbz = #{cz,jdbcType=VARCHAR}) order by chdate desc
+  </select>
+  <!--<select id="getHaveChat" parameterType="cn.psw.youwenbida.api.model.Chat" resultType="java.lang.String">-->
+    <!--select hcid-->
+    <!--from havechat-->
+    <!--where (chatone = #{cz,jdbcType=VARCHAR} or chatone = #{cbz,jdbcType=VARCHAR}) and (chattwo = #{cbz,jdbcType=VARCHAR} or chattwo = #{cz,jdbcType=VARCHAR})-->
+  <!--</select>-->
+  <!--<insert id="insertHaveChat" parameterType="cn.psw.youwenbida.api.model.Chat">-->
+    <!--insert into havechat (chid,chatone,chattwo)-->
+    <!--values (#{chid,jdbcType=INTEGER}, #{cz,jdbcType=VARCHAR}, #{cbz,jdbcType=VARCHAR})-->
+  <!--</insert>-->
+  <!--<update id="updateHaveChat" parameterType="cn.psw.youwenbida.api.model.Chat">-->
+    <!--update havechat-->
+    <!--set chid = #{chid,jdbcType=INTEGER},-->
+      <!-- hcnewdate = #{chdate,jdbcType=TIMESTAMP}-->
+    <!--where (chatone = #{cz,jdbcType=VARCHAR} or chatone = #{cbz,jdbcType=VARCHAR}) and (chattwo = #{cbz,jdbcType=VARCHAR} or chattwo = #{cz,jdbcType=VARCHAR})-->
+  <!--</update>-->
+</mapper>

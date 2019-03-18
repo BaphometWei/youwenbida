@@ -1,6 +1,8 @@
 package cn.psw.youwenbida.consumer.controller;
 
 import cn.psw.youwenbida.api.model.Answer;
+import cn.psw.youwenbida.api.model.Notice;
+import cn.psw.youwenbida.api.model.Problem;
 import cn.psw.youwenbida.api.model.User;
 import cn.psw.youwenbida.api.service.*;
 import cn.psw.youwenbida.api.utils.ResponseBo;
@@ -20,10 +22,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class AnswerController {
@@ -40,6 +39,8 @@ public class AnswerController {
     CommentService commentService;
     @Reference(timeout = 5000,retries = 0)
     TopicService topicService;
+    @Reference(timeout = 5000,retries = 0)
+    NoticeService noticeService;
 
 
     @RequestMapping("/getHotAnswer")
@@ -49,7 +50,21 @@ public class AnswerController {
         HttpSession session = request.getSession();
         String uid = (String)session.getAttribute("userid");
         for(Answer answer:answers){
-            User user = identityService.getUser(answer.getAhdz());
+            User user = new User();
+            if(answer.getNm().equals("t")) {
+                if(uid!=null&&answer.getAhd().equals(uid)) {
+                    user.setName("匿名用户(我)");
+                    user.setId("###");
+                    user.setImg("/img/niming.jpg");
+                }else{
+                    user.setName("匿名用户");
+                    user.setId("###");
+                    user.setImg("/img/niming.jpg");
+                }
+            }
+            if(answer.getNm().equals("f")) {
+                user = identityService.getUser(answer.getAhdz());
+            }
             if(user.getGxqm()==null)
                 user.setGxqm("");
             answer.setUser(user);
@@ -75,8 +90,17 @@ public class AnswerController {
         if(isfd.equals("true"))
             if((Integer)operationService.deleteop((String)session.getAttribute("userid"),aid,"6").get("code")!=0)
                 return ResponseBo.error();
-        if((Integer)operationService.op((String)session.getAttribute("userid"),aid,"1").get("code")==0)
+        if((Integer)operationService.op((String)session.getAttribute("userid"),aid,"1").get("code")==0){
+            Answer answer = answerService.getAns(Integer.parseInt(aid));
+            answer.setProblem(problemService.getPro(answer.getAhdwt()));
+            Notice notice = new Notice();
+            notice.setNlx("<i class='layui-icon layui-icon-praise'></i>");
+            notice.setNnr("<a target='_blank' href='/zhuye?id="+(String)session.getAttribute("userid")+"'> "+(String)session.getAttribute("username")+" </a>赞了你在 <a target='_blank' href='/pro?proid="+answer.getAhdwt()+"&aid="+answer.getAid()+"'>"+answer.getProblem().getPtitle()+"</a> 的回答");
+            notice.setNz(answer.getAhdz());
+            notice.setNdate(new Date());
+            noticeService.insertNotice(notice);
             return answerService.setScore(aid);
+        }
         return ResponseBo.error();
     }
 
@@ -114,7 +138,18 @@ public class AnswerController {
     @ResponseBody
     public ResponseBo scAnswer(HttpServletRequest request,@RequestBody @RequestParam("aid")String aid){
         HttpSession session = request.getSession();
-        return operationService.op((String)session.getAttribute("userid"),aid,"2");
+        if((Integer)operationService.op((String)session.getAttribute("userid"),aid,"2").get("code")==0){
+            Answer answer = answerService.getAns(Integer.parseInt(aid));
+            answer.setProblem(problemService.getPro(answer.getAhdwt()));
+            Notice notice = new Notice();
+            notice.setNlx("<i class='layui-icon layui-icon-star-fill'></i>");
+            notice.setNnr("<a target='_blank' href='/zhuye?id="+(String)session.getAttribute("userid")+"'> "+(String)session.getAttribute("username")+" </a>收藏了你在 <a target='_blank' href='/pro?proid="+answer.getAhdwt()+"&aid="+answer.getAid()+"'>"+answer.getProblem().getPtitle()+"</a> 的回答");
+            notice.setNz(answer.getAhdz());
+            notice.setNdate(new Date());
+            noticeService.insertNotice(notice);
+            return ResponseBo.ok();
+        }
+        return ResponseBo.error();
     }
 
     @RequestMapping("/deleteScAnswer")
@@ -135,7 +170,18 @@ public class AnswerController {
     public ResponseBo xiehuida(HttpServletRequest request,Answer answer){
         HttpSession session = request.getSession();
         answer.setAhdz((String)session.getAttribute("userid"));
-        return answerService.insAns(answer);
+        ResponseBo rb = answerService.insAns(answer);
+        if((Integer)rb.get("code") == 0){
+            answer = answerService.getAns((Integer)rb.get("aid"));
+            Problem problem = problemService.getPro(answer.getAhdwt());
+            Notice notice = new Notice();
+            notice.setNlx("<i class='layui-icon layui-icon-friends'></i>");
+            notice.setNnr("<a target='_blank' href='/zhuye?id="+(String)session.getAttribute("userid")+"'> "+(String)session.getAttribute("username")+" </a>回答了你提出的 <a target='_blank' href='/pro?proid="+problem.getPid()+"&aid="+answer.getAid()+"'>"+problem.getPtitle()+"</a> 问题");
+            notice.setNz(problem.getPtcz());
+            notice.setNdate(new Date());
+            noticeService.insertNotice(notice);
+        }
+        return rb;
     }
 
     @RequestMapping("/getAns")
@@ -144,7 +190,21 @@ public class AnswerController {
         Answer answer = answerService.getAns(Integer.parseInt(aid));
         HttpSession session = request.getSession();
         String uid = (String)session.getAttribute("userid");
-        User user = identityService.getUser(answer.getAhdz());
+        User user = new User();
+        if(answer.getNm().equals("t")) {
+            if(uid!=null&&answer.getAhd().equals(uid)) {
+                user.setName("匿名用户(我)");
+                user.setId("###");
+                user.setImg("/img/niming.jpg");
+            }else{
+                user.setName("匿名用户");
+                user.setId("###");
+                user.setImg("/img/niming.jpg");
+            }
+        }
+        if(answer.getNm().equals("f")) {
+            user = identityService.getUser(answer.getAhdz());
+        }
         if(user.getGxqm()==null)
             user.setGxqm("");
         answer.setUser(user);
@@ -214,7 +274,21 @@ public class AnswerController {
         HttpSession session = request.getSession();
         String uid = (String)session.getAttribute("userid");
         for(Answer answer:answers){
-            User user = identityService.getUser(answer.getAhdz());
+            User user = new User();
+            if(answer.getNm().equals("t")) {
+                if(uid!=null&&answer.getAhd().equals(uid)) {
+                    user.setName("匿名用户(我)");
+                    user.setId("###");
+                    user.setImg("/img/niming.jpg");
+                }else{
+                    user.setName("匿名用户");
+                    user.setId("###");
+                    user.setImg("/img/niming.jpg");
+                }
+            }
+            if(answer.getNm().equals("f")) {
+                user = identityService.getUser(answer.getAhdz());
+            }
             if(user.getGxqm()==null)
                 user.setGxqm("");
             answer.setUser(user);
@@ -231,7 +305,21 @@ public class AnswerController {
             answer.setAztsl(operationService.getOpConut(answer.getAid().toString(),"1"));
         }
         for(Answer answer:answersByAnsDate){
-            User user = identityService.getUser(answer.getAhdz());
+            User user = new User();
+            if(answer.getNm().equals("t")) {
+                if(uid!=null&&answer.getAhd().equals(uid)) {
+                    user.setName("匿名用户(我)");
+                    user.setId("###");
+                    user.setImg("/img/niming.jpg");
+                }else{
+                    user.setName("匿名用户");
+                    user.setId("###");
+                    user.setImg("/img/niming.jpg");
+                }
+            }
+            if(answer.getNm().equals("f")) {
+                user = identityService.getUser(answer.getAhdz());
+            }
             if(user.getGxqm()==null)
                 user.setGxqm("");
             answer.setUser(user);
@@ -258,7 +346,21 @@ public class AnswerController {
         HttpSession session = request.getSession();
         String uid = (String)session.getAttribute("userid");
         for(Answer answer:answers){
-            User user = identityService.getUser(answer.getAhdz());
+            User user = new User();
+            if(answer.getNm().equals("t")) {
+                if(uid!=null&&answer.getAhd().equals(uid)) {
+                    user.setName("匿名用户(我)");
+                    user.setId("###");
+                    user.setImg("/img/niming.jpg");
+                }else{
+                    user.setName("匿名用户");
+                    user.setId("###");
+                    user.setImg("/img/niming.jpg");
+                }
+            }
+            if(answer.getNm().equals("f")) {
+                user = identityService.getUser(answer.getAhdz());
+            }
             if(user.getGxqm()==null)
                 user.setGxqm("");
             answer.setUser(user);
@@ -277,6 +379,17 @@ public class AnswerController {
         return answers;
     }
 
+    @RequestMapping("/updateAns")
+    @ResponseBody
+    public ResponseBo updateAns(HttpServletRequest request,Answer answer){
+        return answerService.updateAns(answer);
+    }
+
+    @RequestMapping("/deleteAns")
+    @ResponseBody
+    public ResponseBo deleteAns(HttpServletRequest request,@RequestBody @RequestParam("aid")String aid){
+        return answerService.deleteAns(aid);
+    }
 
     public BufferedImage scaleImage(BufferedImage bufferedImage, double scale, int width, int height) {
         int imageWidth = bufferedImage.getWidth();
@@ -286,4 +399,5 @@ public class AnswerController {
 
         return bilinearScaleOp.filter(bufferedImage, new BufferedImage(width, height, bufferedImage.getType()));
     }
+
 }

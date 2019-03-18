@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 @Controller
@@ -22,7 +24,10 @@ public class SignupController {
     private final static Logger logger = LoggerFactory.getLogger(SignupController.class);
 
     @RequestMapping("/signup")
-    public String login(){
+    public String login(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if((String)session.getAttribute("userid")==null)
+            return "/pages/index.html";
         return "/pages/signup.html";
     }
 

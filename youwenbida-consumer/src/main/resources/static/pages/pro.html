@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>-有问必答-</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <style>
+        .main-top{
+            background: #ffffff;
+            width: 100%;
+            box-shadow: 0 1px 3px rgba(20, 20, 20, 0.1);
+            background-clip: content-box;
+        }
+        .main-footer{
+            width:970px;
+            margin: 0 auto;
+            padding-top: 5px;
+        }
+        .left{
+            float: left;
+            width:725px;
+        }
+        .right{
+            float:right;
+            width:231px;
+            text-align: right;
+        }
+        .main-footer h1{
+            font-size: 22px;
+            font-weight: 600;
+            font-synthesis: style;
+            line-height: 32px;
+            color: #1A1A1A;
+            padding-bottom: 10px;
+        }
+        .main {
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .main-xhd,.main-yzhd,.myhd,.main-left,.main-right{
+            margin-top: 10px;
+        }
+        .main-xhd,.main-yzhd,.myhd,.main-left{
+            background: #ffffff;
+            float: left;
+            width:740px;
+            box-shadow: 0 0 1px rgba(26, 26, 26, 0.1);
+            background-clip: content-box;
+        }
+        .main-left .bankuai,.yzbankuai{
+            border-bottom: 1px solid #F6F6F6;
+        }
+        .main-left .bankuai h4,.yzbankuai h4{
+            font-weight: 600;
+            padding:10px 20px;
+        }
+        .problem{
+            border-bottom: 1px solid #e7e9ee;
+        }
+        .problem-title{
+            font-size: 18px;
+            font-weight: 600;
+            font-synthesis: style;
+            line-height: 1.6;
+            color: #1A1A1A;
+            margin-top: -4px;
+            margin-bottom: -4px;
+            padding:10px 0;
+        }
+        .problem-footer{
+            padding:10px 0;
+        }
+        .problem-footer button{
+            line-height: 20px;
+            margin-right: 12px;
+            border: none;
+            border-radius: 5%;
+            background: #ffffff;
+            height: 25px;
+            color: #8590A6;
+        }
+        .problem-footer i{
+            vertical-align: middle;
+        }
+        .problem-footer span{
+            vertical-align: middle;
+        }
+        .answerqm{
+            vertical-align: middle;
+            color: #5a6271;
+        }
+        .answername{
+            color: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            vertical-align: middle;
+        }
+        .problem-fold{
+            width:700px;
+            word-wrap:break-word;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif;
+            font-size: 15px;
+            color: #1A1A1A;
+            -webkit-tap-highlight-color: rgba(26, 26, 26, 0);
+            padding-top: 15px;
+        }
+        .problem-fold a{
+            border-bottom: 1px solid #808080;
+        }
+        .problem-fold p{
+            padding-bottom: 15px;
+        }
+        .problem-answer,.problem-zan,.answer-time{
+            padding:4px 0;
+        }
+        .zantong,.problem-zan,.answer-time{
+            color: #8590A6;
+        }
+        .fold-button{
+            cursor:pointer;
+            color: #175199;
+        }
+        .main-right{
+            float:right;
+            width:246px;
+        }
+        .gzxx{
+            background: #ffffff;
+            font-size:0px;
+        }
+        .gzxx button{
+            padding: 0 20px;
+            border: none;
+            color:#8590A6;
+            background: #ffffff;
+            height:50px;
+            font-size:14px;
+            cursor:default;
+        }
+        .gzxx span{
+            font-size: 18px;
+            color: #1A1A1A;
+            font-weight: 600;
+            line-height: 30px;
+        }
+        .twztj{
+            font-size: 12px;
+            color: #9eacb6;
+            line-height: 12px;
+            padding-top: 5px;
+        }
+        .yzbtn i{
+            color:#FCC9C9;
+        }
+        .layui-layedit-iframe img{
+            text-align: center;
+        }
+        .pbq{
+            padding: 15px 0;
+        }
+        .pbq span{
+            background: rgba(252, 201, 201, 0.43);
+            padding: 7px 10px;
+            border-radius: 30px;
+            margin-right: 10px;
+            color: #646464;
+        }
+        .user-item{
+            color: #333;
+            font-size: 14px;
+            padding: 5px 8px;
+            border-top: 1px solid #F6F6F6;
+        }
+        .users .user-item{
+            padding: 10px 15px;
+            line-height: 30px;
+        }
+        .users{
+            padding: 20px 15px;
+            margin-right: 10px;
+        }
+        .user-item a{
+        }
+        .yquser{
+            float: right;
+            background: #0084FF;
+            color: #ffffff;
+            font-size: 13px;
+            padding: 0 5px;
+        }
+        .user-search {
+            float: left;
+            padding: 4px 0;
+            position: relative;
+            margin-left: 20px;
+        }
+        .user-search input {
+            width: 250px;
+            border-radius: 42px;
+            border: 1px solid #EBEBEB;
+            background: #F6F6F6;
+            transition: .3s linear;
+            float: right;
+            outline: none;
+            height: 30px;
+            padding-left: 13px;
+        }
+        .user-search button {
+            background: none;
+            top: -2px;
+            right: 0;
+            border: none;
+            outline: none;
+            height: 35px;
+            width: 35px;
+            cursor: pointer;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="main-top">
+    <div class="main-header"></div>
+    <div class="main-footer">
+
+    </div>
+</div>
+<div class="main">
+    <div class="main-xhd">
+    </div>
+    <div class="myhd">
+        <div class="main-problem"></div>
+    </div>
+    <div class="main-yzhd" style="display: none">
+        <div class="yzbankuai">
+            <h4>优质答案</h4>
+        </div>
+        <div class="main-problem"></div>
+    </div>
+    <div class="main-left" style="display: none">
+        <div class="bankuai">
+            <h4>0条回答</h4>
+        </div>
+        <div class="main-problem"></div>
+    </div>
+    <div class="main-right">
+    </div>
+    <div class="clearfix"></div>
+</div>
+<script src="/layui/layui.js"></script>
+<script src="/js/common.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ptcz = "";
+        $(".main-header").load("/pages/common/header.html");
+        $.ajax({
+            type: "GET",
+            url: "/getProblem",
+            data: {id:getQueryString("proid")},
+            async: false,
+            success: function (data) {
+                if(data.problem==null){
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.open({
+                            title: '提示',
+                            offset: '100px',
+                            btn: [],
+                            content: '该问题不存在或已被删除！',
+                            cancel: function (index, layero) {
+                                window.location.href = '/index';
+                            }
+                        })
+                    })
+                    return;
+                }
+                ptcz = data.problem.ptcz;
+                var bqs = data.problem.pbq.split(",");
+                var bq = "";
+                for(var j=0;j<bqs.length;j++){
+                    bq += "<span>"+ bqs[j] +"</span>";
+                }
+                var showhtml = "";
+                var myhtml = "";
+                showhtml += "<div class='left'><div class='pbq'>"+bq+"</div><h1>"+data.problem.ptitle+"</h1><div class='problem-fold'>"+data.problem.pms;
+                showhtml += "</div><div class='controlfold'></div><div class='problem-footer'>";
+                    if(data.isgz==false)
+                        showhtml += "<a id='guanzhu' style='padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #0084FF;color:#ffffff;' onclick='guanzhupro()'><i class='layui-icon layui-icon-add-1'></i>关注问题</a>";
+                    else
+                        showhtml += "<a id='guanzhu' style='padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #8590A6;color:#ffffff;' onclick='guanzhupro()'>取消关注</a>";
+                showhtml += "<a style='margin-left:15px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #0084FF;border: 1px solid #0084FF;' onclick='xiehuida(this)' alt='false'><i class='layui-icon layui-icon-edit'></i>写回答</a>";
+                showhtml += "<a style='margin-left:15px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;' onclick='yaoqing(this)' alt='false'><i class='layui-icon layui-icon-user'></i>邀请回答</a>";
+                showhtml += "<button class='problem-pinglun propl' style='margin-left:15px;' onclick='ckppl()'><i class='layui-icon layui-icon-reply-fill'></i> <span>"+data.problem.pplsl+"</span>条评论</button></div></div><div class='right'>";
+                showhtml += "<div class='gzxx'><button id='gzzsl' style='border-right: 1px solid #c6d5ec;'>关注者</br><span class='gzsl'>"+data.problem.pgzzsl+"</span></button>";
+                showhtml += "<button>被浏览</br><span class='bgzsl'>2,902,734</span></button></div></div><div class='clearfix'></div>";
+                $(".main-footer").append(showhtml);
+                commonAjax("/getProblemAnswer",callback,{pid: getQueryString("proid")});
+                function callback(data) {
+                    showhtml = "";
+                    if(data.yzans.length!=0){
+                        $(".main-yzhd").show();
+                        for (var k = 0; k < data.yzans.length; k++) {
+                            myhtml += "<div class='problem'><div class='problem-answer yzhdbz'><img width='20' height='20' src='/img/jiangzhang.png' /><span class='twztj'>本回答由提问者推介</span></div>";
+                            myhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.yzans[k].user.id + "' target='_blank'><img width='24' height='24' src='"+data.yzans[k].user.img+"' /><span class='answername'>  " + data.yzans[k].user.name + "</span>";
+                            myhtml += "<span class='answerqm'> " + data.yzans[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data.yzans[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data.yzans[k].ahd;
+                            myhtml += "</div><div class='controlfold'> </div><div class='data.yzanswer-time'>发布于  <span>" + data.yzans[k].ahdrq + "</span></div><div class='problem-footer'>";
+                            myhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data.yzans[k].dz + "' onclick='zantong(this)' alt='" + data.yzans[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data.yzans[k].aztsl + "</span></button>";
+                            myhtml += "<button class='problem-fandui' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isfd='" + data.yzans[k].fd + "' onclick='fandui(this)' alt='" + data.yzans[k].aid + "'><i class='layui-icon layui-icon-tread'></i> 踩</button>";
+                            myhtml += "<button class='problem-pinglun' alt='" + data.yzans[k].aid + "' onclick='chakanpl(this)'><i class='layui-icon layui-icon-reply-fill'></i> <span>" + data.yzans[k].aplsl + "</span>条评论</button>";
+                            myhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='" + data.yzans[k].sc + "' alt='" + data.yzans[k].aid + "'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button>";
+                            if(ptcz==data.userid){
+                                myhtml += "<button class='yzbtn' style='margin-left: 0px;' onclick='qxsetyzhd(this)' alt='" + data.yzans[k].aid + "'><i class='layui-icon layui-icon-ok-circle'></i> <span> 取消设为优质答案</span></button>";
+                            }
+                            myhtml += "</div><div class='pinglun'></div><div class='clearfix'></div></div>";
+                            if(data.yzans[k].aid==getQueryString("aid")){
+                                $(".myhd .main-problem").append(myhtml);
+                            }else{
+                                showhtml += myhtml;
+                            }
+                            myhtml = "";
+                        }
+                        $(".main-yzhd .main-problem").append(showhtml);
+                    }
+                    showhtml = "";
+                    if(data.ans.length == 0 && data.yzans.length == 0){
+                        $(".bankuai").find("h4").html("0条回答");
+                        $(".main-left").show();
+                        showhtml +="<div class='problem''>"
+                        showhtml +="<div class='ansnothing'><img width='710' height='300' src='/img/ansnothing.png' /></div>";
+                        showhtml +="</div>"
+                    }
+                    if(data.ans.length!=0){
+                        $(".main-left").show();
+                        $(".bankuai").find("h4").html(data.ans.length+"条回答");
+                        for (var k = 0; k < data.ans.length; k++) {
+                            myhtml += "<div class='problem'>";
+                            myhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.ans[k].user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+data.ans[k].user.img+"' /><span class='answername'>  " + data.ans[k].user.name + "</span>";
+                            myhtml += "<span class='answerqm'> " + data.ans[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data.ans[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data.ans[k].ahd;
+                            myhtml += "</div><div class='controlfold'> </div><div class='data.answer-time'>发布于  <span>" + data.ans[k].ahdrq + "</span></div><div class='problem-footer'>";
+                            myhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data.ans[k].dz + "' onclick='zantong(this)' alt='" + data.ans[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data.ans[k].aztsl + "</span></button>";
+                            myhtml += "<button class='problem-fandui' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isfd='" + data.ans[k].fd + "' onclick='fandui(this)' alt='" + data.ans[k].aid + "'><i class='layui-icon layui-icon-tread'></i> 踩</button>";
+                            myhtml += "<button class='problem-pinglun' alt='" + data.ans[k].aid + "' onclick='chakanpl(this)'><i class='layui-icon layui-icon-reply-fill'></i> <span>" + data.ans[k].aplsl + "</span>条评论</button>";
+                            myhtml += "<button class='problem-shoucang' style='margin-left: 0px;' onclick='shoucang(this)' issc='" + data.ans[k].sc + "' alt='" + data.ans[k].aid + "'><i class='layui-icon layui-icon-rate-solid'></i> <span>收藏</span></button>";
+                            if(ptcz==data.userid && Number(data.ans[k].score) >= 0.7112 && parseInt(data.ans[k].aztsl) > 50){
+                                myhtml += "<button class='yzbtn' style='margin-left: 0px;' onclick='setyzhd(this)' alt='" + data.ans[k].aid + "'><i class='layui-icon layui-icon-ok-circle'></i> <span> 设为优质答案</span></button>";
+                            }
+                            myhtml += "</div><div class='pinglun'></div><div class='clearfix'></div></div>";
+                            if(data.ans[k].aid==getQueryString("aid")){
+                                $(".myhd .main-problem").append(myhtml);
+                            }else{
+                                showhtml += myhtml;
+                            }
+                            myhtml = "";
+                        }
+                    }
+                    $(".main-left .main-problem").append(showhtml);
+                    if($(".myhd .main-problem").html()=="" && getQueryString("aid")!=null){
+                        ts("该回答不存在或已被删除!");
+                        return;
+                    }
+                    if(getQueryString("cid")!=null){
+                        url = "/getProblemCom";
+                        commonAjax(url,callback,{cid:getQueryString("cid"),pllx:getQueryString("pllx")});
+                        function callback(data) {
+                            if(data.comment==null){
+                                ts("该评论不存在或已被删除!");
+                                return;
+                            }
+                            layui.use('layer', function(){
+                                var showhtml = "";
+                                var myhtml = "";
+                                var flag1 = "";
+                                var flag2 = "";
+                                showhtml += "<div class='pler' style='margin-right: 10px;'><div class='pler-header'><a target='_blank' href='/zhuye?id="+data.comment.user.id+"'><img class='Avatar AuthorInfo-avatar' width='24' height='24' ";
+                                showhtml += "src='"+data.comment.user.img+"' /><span class='answername' >  "+data.comment.user.name+"</span></a><span class='pldate'>"+getIntervalTime(data.comment.cdate)+"</span></div><div class='pler-body'>";
+                                showhtml += data.comment.cpl+"</div><div class='pler-footer'>";
+                                showhtml += "</div></div>";
+                                showhtml += "<div class='hfsl'><h3><span>"+data.comment.replies.length+"</span> 条回复</h3></div>";
+                                for(var j=0;j<data.comment.replies.length;j++){
+                                    myhtml += "<div class='pler' style='margin-right: 10px;width: 670px;margin-left: 20px;'><div class='pler-header'><a target='_blank' href='/zhuye?id="+data.comment.replies[j].rzuser.id+"'><img class='Avatar AuthorInfo-avatar' width='24' height='24' ";
+                                    myhtml += "src='"+data.comment.replies[j].rzuser.img+"' /><span class='answername' >  "+data.comment.replies[j].rzuser.name+"</span></a> 回复 <a target='_blank' href='/zhuye?id="+data.comment.replies[j].rbzuser.id+"'><span class='answername' >"+data.comment.replies[j].rbzuser.name+"</span></a><span class='pldate'>"+getIntervalTime(data.comment.replies[j].rdate)+"</span></div><div class='pler-body'>";
+                                    myhtml += data.comment.replies[j].rr+"</div><div class='pler-footer'>";
+                                    myhtml += "<a class='pler-huifu' alt='hf"+data.comment.replies[j].rid+"' onclick='showhf(this)'><i class='layui-icon layui-icon-chat'> </i>回复</a>";
+                                    if(data.userid == data.comment.replies[j].rzuser.id)
+                                        myhtml += "<a class='pler-huifu' alt='"+data.comment.replies[j].rid+"' onclick='deleteop(this)' for='re'><i class='layui-icon layui-icon-delete'> </i>删除</a>";
+                                    myhtml += "</div><div id='hf"+data.comment.replies[j].rid+"' class='hf'><input class='hf-input layui-input' /><button class='hf-btn' alt='"+data.comment.cid+"' for='"+data.comment.replies[j].rid+"' lx='02' onclick='hf(this)'>回复</button></div></div>";
+                                    if(data.comment.replies[j].rid==getQueryString("rid")){
+                                        flag1 = myhtml;
+                                    }else{
+                                        flag2 += myhtml;
+                                    }
+                                    myhtml = "";
+                                }
+                                if(flag1==""&&getQueryString("rid")!=null){
+                                    ts("该回复不存在或已被删除!");
+                                    return;
+                                }
+                                var layer = layui.layer;
+                                layer.open({
+                                    title: '查看对话',
+                                    area: ['710px','600px'],
+                                    offset: '50px',
+                                    btn: [],
+                                    content: showhtml+flag1+flag2
+                                });
+                            });
+                        }
+                    }
+                }
+            }
+        });
+        init();
+        if($(".problem-fold img").length >0) {
+            var load = "true";
+            $(".problem-fold img").on('load', function () {
+                if (load == "true")
+                    show();
+                load = "false";
+            })
+        }else{
+            show();
+        }
+    })
+</script>
+</body>
+</html>

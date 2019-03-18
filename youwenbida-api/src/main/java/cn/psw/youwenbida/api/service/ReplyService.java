@@ -10,4 +10,8 @@ public interface ReplyService {
     public ResponseBo insComRe(Reply reply, String uid);
 
     public List<Reply> getRe(Integer cid);
+
+    Reply getReByRid(Integer rid);
+
+    ResponseBo deleteRe(String rid);
 }

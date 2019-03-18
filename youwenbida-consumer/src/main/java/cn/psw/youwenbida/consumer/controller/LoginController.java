@@ -23,7 +23,10 @@ public class LoginController {
     private final static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @RequestMapping("/login")
-    public String login(){
+    public String login(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if((String)session.getAttribute("userid")!=null)
+            return "/pages/index.html";
         return "/pages/login.html";
     }
 
@@ -45,11 +48,13 @@ public class LoginController {
 
     @RequestMapping("/dlzt")
     @ResponseBody
-    public String dlzt(HttpServletRequest request){
+    public ResponseBo dlzt(HttpServletRequest request){
         HttpSession session =request.getSession();
-        if(session.getAttribute("username")==null)
-            return "false";
-        return "true";
+        if(session.getAttribute("userid")!=null) {
+            User user = identityService.getUser((String) session.getAttribute("userid"));
+            return ResponseBo.ok().put("user", user);
+        }
+        return ResponseBo.error();
     }
 
 }

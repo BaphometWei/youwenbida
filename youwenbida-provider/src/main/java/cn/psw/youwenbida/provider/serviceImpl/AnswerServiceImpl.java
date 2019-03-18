@@ -127,4 +127,11 @@ public class AnswerServiceImpl implements AnswerService {
         map.put("bq",bq);
         return answerMapper.getTopicAnsByAnsDate(map);
     }
+
+    @Override
+    public ResponseBo deleteAns(String aid){
+        if(answerMapper.deleteByPrimaryKey(Integer.parseInt(aid))!=0)
+            return ResponseBo.ok();
+        return ResponseBo.error();
+    }
 }

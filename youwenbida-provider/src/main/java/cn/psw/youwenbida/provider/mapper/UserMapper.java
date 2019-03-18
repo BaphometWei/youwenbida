@@ -15,4 +15,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User validateByColumn(User user);
+
+    List<User> selectRand();
 }

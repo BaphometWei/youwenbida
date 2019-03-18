@@ -34,9 +34,9 @@
         </div>
         <div class="header-left">
             <ul class="header-nav">
-                <li class="nav-item"><a href="/index" target="_blank">首页</a></li>
+                <li class="nav-item"><a href="/index">首页</a></li>
                 <li class="nav-item">发现</li>
-                <li class="nav-item">话题</li>
+                <li class="nav-item"><a href="/topicsquare" target="_blank">话题</a></li>
             </ul>
             <div class="header-search">
                 <form action="/toSearch" onclick="return checksearchvalue()" method="get">
@@ -83,23 +83,20 @@
             <div class="show">
                 <ul class="header-nav">
                     <li class="nav-item" style="position: relative;">
-                        <a href="">登录</a>
+                        <a href="/login">登录</a>
                     </li>
                     <li class="nav-item" style="position: relative;">
-                        <a href="">注册</a>
+                        <a href="/signup">注册</a>
                     </li>
                 </ul>
             </div>
             <div class="hide">
                 <ul class="header-nav">
                     <li class="nav-item" style="position: relative;">
-                        <a href=""><i class="layui-icon layui-icon-notice"></i><span class="layui-badge" id="xiaoxi" style="border-radius: 50%;background: #f7c2c2;">9</span></a>
-                    </li>
-                    <li class="nav-item" style="position: relative;">
-                        <a href=""><i class="layui-icon layui-icon-dialogue"></i><span class="layui-badge" id="sixin" style="border-radius: 50%;background: #f7c2c2;">9</span></a>
+                        <a target="_blank" href="/tixing"><i class="layui-icon layui-icon-notice"></i><span class="layui-badge" id="xiaoxi" style="border-radius: 50%;background: #f7c2c2;">9</span></a>
                     </li>
                 </ul>
-                <img class="Avatar AuthorInfo-avatar" style="margin-left: 40px;cursor: pointer;" width="40" height="40" src="/img/touxiang.jpg" />
+                <a id="zhuye" target="_blank"><img class="Avatar AuthorInfo-avatar" style="margin-left: 40px;cursor: pointer;" width="40" height="40" src="/img/touxiang.jpg" /></a>
             </div>
         </div>
     </div>
@@ -110,6 +107,12 @@
 <script src="/js/fm.tagator.jquery.js"></script>
 <script type="text/javascript">
     $(function () {
+        commonAjax("/dlzt",callback,{});
+        function callback(data) {
+            if(data.code==0){
+                $("#zhuye img").attr("src",data.user.img);
+            }
+        }
         validateDlzt();
         if(getQueryString("q")!=null)
             $("#search-input").attr("value",getQueryString("q"));

@@ -2,90 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>话题广场</title>
+    <title>提醒-有问必答</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <link rel="stylesheet" href="/css/common.css">
     <script src="/js/jquery-3.3.1.min.js"></script>
     <style>
-        .main-top{
+        .main-top {
             background: #ffffff;
             width: 100%;
         }
-        .main-footer{
-            width:1000px;
+
+        .main-footer {
+            width: 1000px;
             margin: 2px auto;
         }
-        .main-left{
+
+        .main-left {
             float: left;
-            width:740px;
+            width: 740px;
             margin-top: 15px;
         }
-        .main-right{
-            float:right;
-            width:245px;
-            height:200px;
+
+        .main-right {
+            float: right;
+            width: 245px;
+            height: 200px;
             background: #0C0C0C;
             margin-top: 15px;
         }
-        .zm-topic-cat-title {
+
+        .zm-tixing-cat-title {
             border-bottom: 1px solid #ccc;
             padding-bottom: 10px;
-            padding-left: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
         }
-        .zm-topic-cat-title h2{
+
+        .zm-tixing-cat-title h2 {
             font-weight: 700;
             font-size: 16px;
             outline: 0;
             color: #666;
         }
-        .topic-list .item{
+
+        .tixing-list .item {
             display: block;
-            width: 340px;
-            height: 60px;
-            float: left;
-            border-bottom: 1px dotted #e5e5e5;
-            padding: 25px 15px;
+            width: 710px;
+            /*border-bottom: 1px dotted #e5e5e5;*/
+            padding: 7px 15px;
         }
-        .topic-list .item .topic-body{
-            display: block;
-            width: 270px;
-            float: right;
-            margin-left: 5px;
+
+        .tixing-time {
+            border-bottom: 1px solid #e5e5e5;
+            padding: 5px 0;
         }
-        .topic-img{
-            display: block;
-            width: 60px;
-            float: left;
-        }
-        .topic-img img{
-            border-radius: 3px;
-        }
-        .topic-img a{
-            display:block;
-            height: 60px;
-            width: 60px;
-        }
-        .topic-body a{
-            color: #259;
-            display: inline-block;
-            height: 1.5em;
-            word-wrap: normal;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .topic-body p{
-            font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+
+        .tixing-time span {
             font-size: 13px;
-            line-height: 1.7;
-            word-wrap: break-word;
-            color: #222;
-            margin-top: 7px;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            display:-webkit-box;
-            -webkit-box-orient:vertical;
-            -webkit-line-clamp:2;
+            font-weight: 700;
+        }
+        .tixing-item{
+            margin-top: -1px;
+            border-top: 1px dotted #e5e5e5;
+            padding: 8px 0;
+        }
+        .tixing-img{
+            color:#d8d8d8;
+            position: relative;
+            top: 2px;
+        }
+        .tixing-body{
+            font-size: 13px;
+            color: #222222;
+            width: 690px;
+            line-height: 25px;
+        }
+        .tixing-body a{
+            color: #259;
         }
     </style>
 </head>
@@ -94,55 +87,10 @@
     <div class="main-header"></div>
     <div class="main-footer">
         <div class="main-left">
-            <div class="zm-topic-cat-title">
-                <h2><i class="layui-icon layui-icon-app"> </i> 话题广场</h2>
+            <div class="zm-tixing-cat-title">
+                <h2><i class="layui-icon layui-icon-list"> </i> 全部消息</h2>
             </div>
-            <div class="topic-list">
-                <!--<div class="item">-->
-                    <!--<div class="topic-img">-->
-                        <!--<a target="_blank">-->
-                            <!--<img width='50' height='50' src="/img/topic/shenghuofangshi.jpg" alt="生活方式">-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="topic-body">-->
-                        <!--<a target="_blank" href="/topic/19555513">-->
-                            <!--<strong>生活方式</strong>-->
-                        <!--</a>-->
-                        <!--<br />-->
-                        <!--<p>生活方式不是「生活」。 &gt; 社会学中，生活型态（或生活风格、生…</p>-->
-
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="item">-->
-                    <!--<div class="topic-img">-->
-                        <!--<a target="_blank">-->
-                            <!--<img width='50' height='50' src="/img/topic/shenghuofangshi.jpg" alt="生活方式">-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="topic-body">-->
-                        <!--<a target="_blank" href="/topic/19555513">-->
-                            <!--<strong>生活方式</strong>-->
-                        <!--</a>-->
-                        <!--<br />-->
-                        <!--<p>生活方式不是「生活」。 &gt; 社会学中，生活型态（或生活风格、生…</p>-->
-
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="item">-->
-                    <!--<div class="topic-img">-->
-                        <!--<a target="_blank">-->
-                            <!--<img width='50' height='50' src="/img/topic/shenghuofangshi.jpg" alt="生活方式">-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="topic-body">-->
-                        <!--<a target="_blank" href="/topic/19555513">-->
-                            <!--<strong>生活方式</strong>-->
-                        <!--</a>-->
-                        <!--<br />-->
-                        <!--<p>生活方式不是「生活」。 &gt; 社会学中，生活型态（或生活风格、生…</p>-->
-
-                    <!--</div>-->
-                <!--</div>-->
+            <div class="tixing-list">
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -155,18 +103,19 @@
 <script type="text/javascript">
     $(function () {
         $(".main-header").load("/pages/common/header.html");
-        commonAjax("/getTopic",callback,{});
+        commonAjax("/getNotice",callback,{});
         function callback(data){
             var showhtml = "";
-            for (var k = 0; k < data.topics.length; k++) {
-                var topic = data.topics[k];
-                showhtml += "<div class='item'><div class='topic-img'>";
-                showhtml += "<a target='_blank'><img width='50' height='50' src='/img/topic/"+topic.timg+"' alt='"+topic.tname+"'>";
-                showhtml += "</a></div><div class='topic-body'><a target='_blank'>";
-                showhtml += "<strong>"+topic.tname+"</strong></a><br /><p>"+topic.tjj+"</p></div></div>";
-
+            for (var k = 0; k < data.groups.length; k++) {
+                var tixing = data.groups[k];
+                showhtml += "<div class='item'><div class='tixing-time'><span>"+tixing.ndate+"</span></div><div class='tixing-neirong'>";
+                for(var j=0; j < tixing.notices.length; j++) {
+                    var notice = tixing.notices[j];
+                    showhtml += "<div class='tixing-item'><span class='tixing-img'>"+notice.nlx+"</span><span class='tixing-body'>"+notice.nnr+"</span></div>";
+                }
+                showhtml += "</div></div>";
             }
-            $(".topic-list").prepend(showhtml);
+            $(".tixing-list").prepend(showhtml);
         }
     })
 </script>

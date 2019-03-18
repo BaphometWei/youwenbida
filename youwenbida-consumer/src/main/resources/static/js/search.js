@@ -12,7 +12,7 @@ function searchtw(obj) {
         }else {
             for (var k = 0; k < data.ans.length; k++) {
                 showhtml += "<div class='problem' style='background: #ffffff;margin: 10px 0;'><a target='_blank' href='/problem?proid="+data.ans[k].problem.pid+"'><h2 class='problem-topic'>" + data.ans[k].problem.ptitle + "</h2></a>";
-                showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.ans[k].user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + data.ans[k].user.name + "</span>";
+                showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.ans[k].user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+data.ans[k].user.img+"' /><span class='answername'>  " + data.ans[k].user.name + "</span>";
                 showhtml += "<span class='answerqm'> " + data.ans[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data.ans[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data.ans[k].ahd;
                 showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + data.ans[k].ahdrq + "</span></div><div class='problem-footer'>";
                 showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data.ans[k].dz + "' onclick='zantong(this)' alt='" + data.ans[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data.ans[k].aztsl + "</span></button>";
@@ -49,7 +49,7 @@ function searchhd(obj) {
         }else {
             for (var k = 0; k < data.ans.length; k++) {
                 showhtml += "<div class='problem' style='background: #ffffff;margin: 10px 0;'><a target='_blank' href='/problem?proid="+data.ans[k].problem.pid+"'><h2 class='problem-topic'>" + data.ans[k].problem.ptitle + "</h2></a>";
-                showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.ans[k].user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='/img/touxiang.jpg' /><span class='answername'>  " + data.ans[k].user.name + "</span>";
+                showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + data.ans[k].user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+data.ans[k].user.img+"' /><span class='answername'>  " + data.ans[k].user.name + "</span>";
                 showhtml += "<span class='answerqm'> " + data.ans[k].user.gxqm + "</span></a></div><div class='problem-zan'><span>" + data.ans[k].aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + data.ans[k].ahd;
                 showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + data.ans[k].ahdrq + "</span></div><div class='problem-footer'>";
                 showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + data.ans[k].dz + "' onclick='zantong(this)' alt='" + data.ans[k].aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + data.ans[k].aztsl + "</span></button>";
@@ -87,7 +87,7 @@ function searchuser(obj) {
             for (var k = 0; k < data.users.length; k++) {
                 var user = data.users[k];
                 showhtml += "<div class='problem' style='border-radius:5px;background: #ffffff;margin: 10px 0;padding:15px 15px'>";
-                showhtml += "<div class='uimg'><a href='zhuye?id="+user.id+"' target='_blank'><img width='80' height='80' src='/img/touxiang.jpg' /></a></div><div class='uxx'>";
+                showhtml += "<div class='uimg'><a href='zhuye?id="+user.id+"' target='_blank'><img width='80' height='80' src='"+user.img+"' /></a></div><div class='uxx'>";
                 showhtml += "<div class='uname'><a href='zhuye?id="+user.id+"' target='_blank'>"+user.name+"</a></div>";
                 if(user.gxqm!=null)
                     showhtml += "<div class='ugxqm'>"+user.gxqm+"</div>";

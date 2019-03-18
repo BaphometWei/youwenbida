@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>DIV弹出层</title>
+    <style> body {
+        margin: 0px auto;
+        font-size: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333333
+    }
+
+    #floor1 {
+        width: 200px;
+        margin: 30px
+    }
+
+    #title1 {
+        width: 200px;
+        height: 20px;
+        background-color: #FF6600;
+        margin: 0px;
+        color: #FFFFFF;
+        padding: 10px
+    }
+
+    .titlename {
+        width: 150px;
+        float: left;
+        height: 100%;
+        line-height: 20px
+    }
+
+    .icon {
+        margin-left: 12px;
+        float: left;
+        width: 30px;
+        text-align: right
+    }
+
+    .btn {
+        background-image: url(img/icon.gif);
+        border: 0px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer
+    }
+
+    .btn2 {
+        background-image: url(img/icon2.gif);
+        border: 0px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer
+    }
+
+    #hiddenDiv {
+        width: 218px;
+        font-size: 12px;
+        color: #333;
+        border: 1px solid #FF6600;
+        border-top: none;
+        margin: 0px;
+        position: relative
+    }
+
+    #hiddenDiv ul li {
+        width: 80px;
+        float: left;
+        line-height: 25px
+    } </style>
+</head>
+<body>
+<div id="floor1">
+    <div id="title1">
+        <div class="titlename">1F 日用百货</div>
+        <div class="icon"><input type="button" class="btn" id="btn"/></div>
+    </div>
+    <div id="hiddenDiv" style="display:none">
+        <ul>
+            <li><a href="#">运动</a></li>
+            <li><a href="#">钟表</a></li>
+            <li><a href="#">男装</a></li>
+            <li><a href="#">钻石饰品</a></li>
+            <li><a href="#">女装</a></li>
+            <li><a href="#">金银投资</a></li>
+        </ul>
+    </div>
+</div>
+<script> (function () {
+    var title = document.getElementById('title1');
+    var hiddenDiv = document.getElementById('hiddenDiv');
+    var timer = null;
+    hiddenDiv.onmouseover = title.onmouseover = function () {
+        if (timer) clearTimeout(timer)
+        hiddenDiv.style.display = 'block';
+    }
+    hiddenDiv.onmouseout = title.onmouseout = function () {
+        timer = setTimeout(function () {
+            hiddenDiv.style.display = 'none';
+        }, 400);
+    }
+})(); </script>
+</body>
+</html>
