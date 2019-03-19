@@ -4,9 +4,9 @@
 */
 
 (function($) {
-	$.searchuser = function (element, options) {
+	$.search = function (element, options) {
 		var defaults = {
-			prefix: 'searchuser',
+			prefix: 'search',
 			height: 'auto',
 			useDimmer: false,
 			showAllOptionsOnFocus: false,
@@ -456,9 +456,9 @@
 		// REMOVE PLUGIN AND REVERT INPUT ELEMENT TO ORIGINAL STATE
 		plugin.destroy = function () {
 			$(box_element).remove();
-			$.removeData(element, 'searchuser');
+			$.removeData(element, 'search');
 			$(element).show();
-			if ($('.searchuser').length === 0) {
+			if ($('.search').length === 0) {
 				$('#' + plugin.settings.prefix + 'dimmer').remove();
 			}
 		};
@@ -467,16 +467,16 @@
 		plugin.init();
 	};
 	
-	$.fn.searchuser = function() {
+	$.fn.search = function() {
 		var parameters = arguments[0] !== undefined ? arguments : [{}];
 		return this.each(function () {
 			if (typeof(parameters[0]) === 'object') {
-				if (undefined === $(this).data('searchuser')) {
+				if (undefined === $(this).data('search')) {
 					var plugin = new $.searchuser(this, parameters[0]);
-					$(this).data('searchuser', plugin);
+					$(this).data('search', plugin);
 				}
-			} else if ($(this).data('searchuser')[parameters[0]]) {
-				$(this).data('searchuser')[parameters[0]].apply(this, Array.prototype.slice.call(parameters, 1));
+			} else if ($(this).data('search')[parameters[0]]) {
+				$(this).data('search')[parameters[0]].apply(this, Array.prototype.slice.call(parameters, 1));
 			} else {
 				$.error('Method ' + parameters[0] + ' does not exist in $.searchuser');
 			}

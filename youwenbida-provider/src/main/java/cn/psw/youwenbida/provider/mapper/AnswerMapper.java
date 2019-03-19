@@ -1,6 +1,7 @@
 package cn.psw.youwenbida.provider.mapper;
 
 import cn.psw.youwenbida.api.model.Answer;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -31,5 +32,9 @@ public interface AnswerMapper {
     List<Answer> getTopicAnsByAnsDate(Map<String, Object> map);
 
     List<Answer> getTopicAnsByAnsScore(Map<String, Object> map);
+
+    Integer selectCountByUserAndDate(Map<String,Object> map);
+
+    List<Map<String,Object>> getUserByDate(@Param(value="date") String date);
 
 }

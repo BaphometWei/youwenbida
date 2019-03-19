@@ -40,6 +40,14 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
+    public Integer getCountUserAns(String uid,String date) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("uid",uid);
+        map.put("date",date);
+        return answerMapper.selectCountByUserAndDate(map);
+    }
+
+    @Override
     public Answer getAns(Integer aid) {
         return answerMapper.selectByPrimaryKey(aid);
     }
@@ -133,5 +141,10 @@ public class AnswerServiceImpl implements AnswerService {
         if(answerMapper.deleteByPrimaryKey(Integer.parseInt(aid))!=0)
             return ResponseBo.ok();
         return ResponseBo.error();
+    }
+
+    @Override
+    public List<Map<String,Object>> getUserByDate(String date){
+        return answerMapper.getUserByDate(date);
     }
 }

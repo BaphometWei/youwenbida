@@ -7,7 +7,9 @@ import cn.psw.youwenbida.provider.mapper.ProblemMapper;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProblemServiceImpl implements ProblemService {
@@ -53,5 +55,18 @@ public class ProblemServiceImpl implements ProblemService {
         if(problemMapper.deleteByPrimaryKey(Integer.parseInt(pid))!=0)
             return ResponseBo.ok();
         return ResponseBo.error();
+    }
+
+    @Override
+    public List<Map<String,Object>> getUserByDate(String date){
+        return problemMapper.getUserByDate(date);
+    }
+
+    @Override
+    public Integer getCountUserPro(String uid, String date) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("uid",uid);
+        map.put("date",date);
+        return problemMapper.selectCountByUserAndDate(map);
     }
 }

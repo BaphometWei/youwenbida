@@ -91,8 +91,17 @@
       <if test="ahdz != null">
           and ahdz = #{ahdz,jdbcType=VARCHAR}
       </if>
+      <if test="ahdrq != null">
+        and ahdrq = #{ahdrq,jdbcType=DATE}
+      </if>
     </where>
   </select>
+  <select id="selectCountByUserAndDate" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select count(1) as count from answer where DATE_SUB(CURDATE(), INTERVAL #{date} DAY) &lt;=ahdrq and ahdz = #{uid}
+  </select>
+  <select id="getUserByDate" parameterType="java.lang.String" resultType="java.util.Map">
+        select ahdz,count(1) as count from answer where DATE_SUB(CURDATE(), INTERVAL ${date} DAY) &lt;=ahdrq group by ahdz order by count desc
+    </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
     from answer

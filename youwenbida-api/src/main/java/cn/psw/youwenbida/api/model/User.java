@@ -41,6 +41,8 @@ public class User implements Serializable {
 
     private Integer hdsl;
 
+    private Integer gzsl;
+
     public String getId() {
         return id;
     }
@@ -167,5 +169,13 @@ public class User implements Serializable {
 
     public void setHdsl(Integer hdsl) {
         this.hdsl = hdsl;
+    }
+
+    public Integer getGzsl() {
+        return gzsl;
+    }
+
+    public void setGzsl(Integer gzsl) {
+        this.gzsl = gzsl;
     }
 }

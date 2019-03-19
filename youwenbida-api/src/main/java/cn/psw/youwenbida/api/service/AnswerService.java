@@ -4,6 +4,7 @@ import cn.psw.youwenbida.api.model.Answer;
 import cn.psw.youwenbida.api.utils.ResponseBo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AnswerService {
 
@@ -23,6 +24,8 @@ public interface AnswerService {
 
     Integer getCountUserAns(String uid);
 
+    Integer getCountUserAns(String uid, String date);
+
     ResponseBo setScore(String aid);
 
     ResponseBo updateAns(Answer answer);
@@ -36,4 +39,6 @@ public interface AnswerService {
     List<Answer> getTopicAnsByAnsDate(String bq);
 
     ResponseBo deleteAns(String aid);
+
+    List<Map<String,Object>> getUserByDate(String date);
 }

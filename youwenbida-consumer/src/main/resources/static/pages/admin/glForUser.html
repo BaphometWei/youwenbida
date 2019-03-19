@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/admin-res/res/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="/admin-res/res/css/admin.css"/>
+    <style>
+        select {
+            position: relative;
+            float: left;
+            margin-right: 15px;
+        }
+        th,td{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="admin-content-body">
+    <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">用户管理</strong>
+            <small></small>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <select id="op" lay-verify="required">
+                        <option value="1">提问</option>
+                        <option value="2">回答</option>
+                    </select>
+                    <select id="time" lay-verify="required">
+                        <option value="1">今天</option>
+                        <option value="3">3天内</option>
+                        <option value="7">一周内</option>
+                        <option value="30">一月内</option>
+                    </select>
+                    <button type="button" class="am-btn am-btn-default" onclick="searchuser()"><span
+                            class="am-icon-search"></span> 查询
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="am-u-sm-12 am-u-md-3">
+
+        </div>
+        <div class="am-u-sm-12 am-u-md-3">
+            <div class="am-input-group am-input-group-sm">
+                <input type="text" class="am-form-field" id="textOfUserName">
+                <span class="am-input-group-btn">
+            <button class="am-btn am-btn-default" type="button" onclick="searchuserByName()">搜索</button>
+          </span>
+            </div>
+        </div>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                    <tr>
+                        <th class="table-check"><input type="checkbox"></th>
+                        <th class="table-image"></th>
+                        <th class="table-id">ID</th>
+                        <th class="table-email">邮箱</th>
+                        <th class="table-name">Name</th>
+                        <th class="table-twsl">提问数量(个)</th>
+                        <th class="table-hdsl">回答数量(个)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div class="am-cf">
+                    <span id="jls"></span>
+                    <!--<div class="am-fr">-->
+                        <!--<ul class="am-pagination">-->
+                            <!--<li class="am-disabled">-->
+                                <!--<a href="#">«</a>-->
+                            <!--</li>-->
+                            <!--<li class="am-active">-->
+                                <!--<a href="#">1</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="#">2</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="#">3</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="#">4</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="#">5</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="#">»</a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                </div>
+                <hr>
+            </form>
+        </div>
+
+    </div>
+</div>
+<div class="hidden" style="display: none">
+    <input type="hidden" id="hid_op" value="1"/>
+    <input type="hidden" id="hid_time" value="30"/>
+</div>
+</body>
+<script type="text/javascript" src="/admin-res/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/admin-res/js/search.js"></script>
+<script>
+    $(function () {
+        searchuser();
+        $("#op").change(function () {
+            $("#hid_op").val($("#op").val());
+        })
+        $("#time").change(function () {
+            $("#hid_time").val($("#time").val());
+        })
+    })
+</script>
+</html>
