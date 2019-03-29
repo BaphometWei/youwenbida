@@ -23,4 +23,6 @@ public interface ProblemService {
     List<Map<String,Object>> getUserByDate(String date);
 
     Integer getCountUserPro(String uid, String date);
+
+    List<Map<String,Object>> getTwCountByMonth();
 }

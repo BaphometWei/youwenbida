@@ -34,6 +34,8 @@ public class Problem implements Serializable {
 
     private Boolean isgz = false;
 
+    private User user;
+
     public Integer getPid() {
         return pid;
     }
@@ -121,5 +123,13 @@ public class Problem implements Serializable {
 
     public void setPbq(String pbq) {
         this.pbq = pbq;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

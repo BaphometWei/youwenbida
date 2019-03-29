@@ -29,6 +29,42 @@ function searchuser() {
     }
 }
 
+function searchtw() {
+    commonAjax("/admin-getTw",callback,{op:$("#hid_op").val(),time:$("#hid_time").val()});
+    function callback(data) {
+        $("tbody").html("");
+        var showhtml = "";
+        for(var k=0;k<data.pros.length;k++){
+            showhtml += "<tr><td><input type='checkbox' /></td><td><a target='_blank' href='/pro?proid="+data.pros[k].pid+"'>"+data.pros[k].pid+"</a></td><td><a target='_blank' href='/pro?proid="+data.pros[k].pid+"'>"+data.pros[k].ptitle+"</a></td>";
+            showhtml += "<td><a target='_blank' href='/zhuye?id="+data.pros[k].user.id+"'>"+data.pros[k].user.name+"</a></td><td>"+data.pros[k].ptcrq+"</td><td>"+data.pros[k].pbq+"</td><td>"+data.pros[k].phdsl+"</td><td>"+data.pros[k].pgzzsl+"</td></tr>";
+        }
+        $("tbody").append(showhtml);
+        $("#hid_op").val(data.op);
+        $("#hid_time").val(data.time);
+        $("#op").val(data.op);
+        $("#time").val(data.time);
+        $("#jls").html("共 "+data.pros.length+" 条记录");
+    }
+}
+
+function searchhd() {
+    commonAjax("/admin-getHd",callback,{op:$("#hid_op").val(),time:$("#hid_time").val()});
+    function callback(data) {
+        $("tbody").html("");
+        var showhtml = "";
+        for(var k=0;k<data.answers.length;k++){
+            showhtml += "<tr><td><input type='checkbox' /></td><td><a target='_blank' href='/pro?proid="+data.answers[k].problem.pid+"&aid="+data.answers[k].aid+"'>"+data.answers[k].aid+"</a></td><td><a target='_blank' href='/pro?proid="+data.answers[k].problem.pid+"'>"+data.answers[k].problem.ptitle+"</a></td>";
+            showhtml += "<td><a target='_blank' href='/zhuye?id="+data.answers[k].user.id+"'>"+data.answers[k].user.name+"</a></td><td>"+data.answers[k].aztsl+"</td><td>"+data.answers[k].afdsl+"</td><td>"+data.answers[k].ascsl+"</td><td>"+data.answers[k].score+"</td><td>"+data.answers[k].ahdrq+"</td></tr>";
+        }
+        $("tbody").append(showhtml);
+        $("#hid_op").val(data.op);
+        $("#hid_time").val(data.time);
+        $("#op").val(data.op);
+        $("#time").val(data.time);
+        $("#jls").html("共 "+data.answers.length+" 条记录");
+    }
+}
+
 function searchuserByName() {
     commonAjax("/admin-searchUser",callback,{name:$("#textOfUserName").val()});
     function callback(data) {
@@ -40,5 +76,42 @@ function searchuserByName() {
         }
         $("tbody").append(showhtml);
         $("#jls").html("共 "+data.users.length+" 条记录");
+    }
+}
+
+function searchHdByName() {
+    commonAjax("/admin-searchHdByUser",callback,{name:$("#textOfUserName").val()});
+    function callback(data) {
+        $("tbody").html("");
+        var showhtml = "";
+        for(var k=0;k<data.answers.length;k++){
+            showhtml += "<tr><td><input type='checkbox' /></td><td><a target='_blank' href='/pro?proid="+data.answers[k].problem.pid+"&aid="+data.answers[k].aid+"'>"+data.answers[k].aid+"</a></td><td><a target='_blank' href='/pro?proid="+data.answers[k].problem.pid+"'>"+data.answers[k].problem.ptitle+"</a></td>";
+            showhtml += "<td><a target='_blank' href='/zhuye?id="+data.answers[k].user.id+"'>"+data.answers[k].user.name+"</a></td><td>"+data.answers[k].aztsl+"</td><td>"+data.answers[k].afdsl+"</td><td>"+data.answers[k].ascsl+"</td><td>"+data.answers[k].score+"</td><td>"+data.answers[k].ahdrq+"</td></tr>";
+        }
+        $("tbody").append(showhtml);
+        $("#jls").html("共 "+data.answers.length+" 条记录");
+    }
+}
+
+function searchtwBySsdx(){
+    var url;
+    if($("#ssdx").val()=="1")
+        url = "/admin-searchTw";
+    else
+        url = "/admin-searchUserTw";
+    commonAjax(url,callback,{name:$("#textOfUserName").val()});
+    function callback(data) {
+        $("tbody").html("");
+        var showhtml = "";
+        for(var k=0;k<data.pros.length;k++){
+            showhtml += "<tr><td><input type='checkbox' /></td><td><a target='_blank' href='/pro?proid="+data.pros[k].pid+"'>"+data.pros[k].pid+"</a></td><td><a target='_blank' href='/pro?proid="+data.pros[k].pid+"'>"+data.pros[k].ptitle+"</a></td>";
+            showhtml += "<td><a target='_blank' href='/zhuye?id="+data.pros[k].user.id+"'>"+data.pros[k].user.name+"</a></td><td>"+data.pros[k].ptcrq+"</td><td>"+data.pros[k].pbq+"</td><td>"+data.pros[k].phdsl+"</td><td>"+data.pros[k].pgzzsl+"</td></tr>";
+        }
+        $("tbody").append(showhtml);
+        $("#hid_op").val(data.op);
+        $("#hid_time").val(data.time);
+        $("#op").val(data.op);
+        $("#time").val(data.time);
+        $("#jls").html("共 "+data.pros.length+" 条记录");
     }
 }

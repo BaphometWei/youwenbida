@@ -26,7 +26,7 @@ public class SignupController {
     @RequestMapping("/signup")
     public String login(HttpServletRequest request){
         HttpSession session = request.getSession();
-        if((String)session.getAttribute("userid")==null)
+        if((String)session.getAttribute("userid")!=null)
             return "/pages/index.html";
         return "/pages/signup.html";
     }

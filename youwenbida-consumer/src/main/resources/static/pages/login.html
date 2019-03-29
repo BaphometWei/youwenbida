@@ -147,7 +147,11 @@
 							setCookie('user',$("#email").val(),7); //保存帐号到cookie，有效期7天
 							setCookie('pswd',$("#password").val(),7); //保存密码到cookie，有效期7天
 						}
-						window.location.href = "/index";
+						// if($("#email").val()=="admin"){
+						// 	window.location.href = "/admin-index";
+						// }else{
+							window.location.href = "/index";
+						// }
 					}
 					else{
 						layui.use('layer', function(){

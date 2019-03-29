@@ -2,6 +2,7 @@ package cn.psw.youwenbida.provider.mapper;
 
 import cn.psw.youwenbida.api.model.Comment;
 import java.util.List;
+import java.util.Map;
 
 public interface CommentMapper {
     int deleteByPrimaryKey(Integer cid);
@@ -17,4 +18,6 @@ public interface CommentMapper {
     List<Comment> selectAll();
 
     int updateByPrimaryKey(Comment record);
+
+    List<Map<String,Object>> getPlCountByMonth();
 }

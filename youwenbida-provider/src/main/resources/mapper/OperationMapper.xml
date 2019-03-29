@@ -119,4 +119,17 @@
   <select id="getAnsDzAndCai" parameterType="java.lang.String" resultType="java.util.HashMap">
     select dz.dzsl,cai.caisl from (select count(1) dzsl from operation where obo = #{0} and olx = '1') dz,(select count(1) caisl from operation where obo = #{0} and olx = '6') cai
   </select>
+  <select id="getHdZanByDate" parameterType="java.lang.String" resultType="java.util.Map">
+    select obo,count(1) as count from operation where DATE_SUB(CURDATE(), INTERVAL ${date} DAY) &lt;=odate and olx='1' group by obo order by count desc
+  </select>
+  <select id="getHdCaiByDate" parameterType="java.lang.String" resultType="java.util.Map">
+    select obo,count(1) as count from operation where DATE_SUB(CURDATE(), INTERVAL ${date} DAY) &lt;=odate and olx='2' group by obo order by count desc
+  </select>
+  <select id="getHdScByDate" parameterType="java.lang.String" resultType="java.util.Map">
+    select obo,count(1) as count from operation where DATE_SUB(CURDATE(), INTERVAL ${date} DAY) &lt;=odate and olx='6' group by obo order by count desc
+  </select>
+  <select id="getProGzByDate" parameterType="java.lang.String" resultType="java.util.Map">
+    select obo,count(1) as count from operation where DATE_SUB(CURDATE(), INTERVAL ${date} DAY) &lt;=odate and olx='3' group by obo order by count desc
+  </select>
+
 </mapper>

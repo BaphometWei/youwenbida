@@ -21,6 +21,10 @@ public class Answer implements Serializable {
 
     private Integer aztsl;
 
+    private Integer ascsl;
+
+    private Integer afdsl;
+
     private Integer aplsl = 0;
 
     private Date ahdrq;
@@ -172,5 +176,21 @@ public class Answer implements Serializable {
 
     public void setNm(String nm) {
         this.nm = nm;
+    }
+
+    public Integer getAscsl() {
+        return ascsl;
+    }
+
+    public void setAscsl(Integer ascsl) {
+        this.ascsl = ascsl;
+    }
+
+    public Integer getAfdsl() {
+        return afdsl;
+    }
+
+    public void setAfdsl(Integer afdsl) {
+        this.afdsl = afdsl;
     }
 }

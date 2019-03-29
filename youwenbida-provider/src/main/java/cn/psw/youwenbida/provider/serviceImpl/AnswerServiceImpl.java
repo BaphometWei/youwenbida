@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service(timeout = 5000,retries = 0)
+@Service(timeout = 5000, retries = 0)
 public class AnswerServiceImpl implements AnswerService {
 
     @Autowired
@@ -40,10 +40,10 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public Integer getCountUserAns(String uid,String date) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("uid",uid);
-        map.put("date",date);
+    public Integer getCountUserAns(String uid, String date) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("uid", uid);
+        map.put("date", date);
         return answerMapper.selectCountByUserAndDate(map);
     }
 
@@ -53,30 +53,30 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public List<Answer> getUserAns(String uid){
+    public List<Answer> getUserAns(String uid) {
         Answer answer = new Answer();
         answer.setAhdz(uid);
         return answerMapper.selectListByPrimaryKey(answer);
     }
 
     @Override
-    public List<Answer> getProAns(Integer pid){
+    public List<Answer> getProAns(Integer pid) {
         Map<String, Object> map = new HashMap<>();
-        map.put("pid",pid);
+        map.put("pid", pid);
         return answerMapper.getProAns(map);
     }
 
     @Override
-    public List<Answer> getProYzAns(Integer pid){
+    public List<Answer> getProYzAns(Integer pid) {
         Map<String, Object> map = new HashMap<>();
-        map.put("pid",pid);
+        map.put("pid", pid);
         return answerMapper.getProYzAns(map);
     }
 
     @Override
-    public List<Answer> getTopicAns(String bq){
+    public List<Answer> getTopicAns(String bq) {
         Map<String, Object> map = new HashMap<>();
-        map.put("bq",bq);
+        map.put("bq", bq);
         return answerMapper.getTopicAnsByOpDate(map);
     }
 
@@ -86,23 +86,23 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public ResponseBo setScore(String aid){
+    public ResponseBo setScore(String aid) {
         double p_z = 1.96;
-        Map<String,Object> map = operationMapper.getAnsDzAndCai(aid);
-        long  dz = (long) map.get("dzsl");
-        long  cai = (long ) map.get("caisl");
-        double total = dz+cai;
-        if(total>0){
+        Map<String, Object> map = operationMapper.getAnsDzAndCai(aid);
+        long dz = (long) map.get("dzsl");
+        long cai = (long) map.get("caisl");
+        double total = dz + cai;
+        if (total > 0) {
             double pos_rat = dz * 1 / total * 1;  // 正例比率
-            double score = (pos_rat + (Math.pow(p_z,2) / (2. * total))
-                    - ((p_z / (2 * total)) * Math.sqrt(4 * total * (1 - pos_rat) * pos_rat + Math.pow(p_z,2)))) /
-                    (1 + Math.pow(p_z,2) / total);
+            double score = (pos_rat + (Math.pow(p_z, 2) / (2. * total))
+                    - ((p_z / (2 * total)) * Math.sqrt(4 * total * (1 - pos_rat) * pos_rat + Math.pow(p_z, 2)))) /
+                    (1 + Math.pow(p_z, 2) / total);
             Answer answer = new Answer();
             answer.setAid(Integer.parseInt(aid));
             answer.setScore(score);
 //            if(score>0.7112 && dz >50)
 //                answer.setYzhd("t");
-            if(answerMapper.updateByPrimaryKey(answer)==0)
+            if (answerMapper.updateByPrimaryKey(answer) == 0)
                 return ResponseBo.error();
         }
         return ResponseBo.ok();
@@ -110,41 +110,51 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public ResponseBo updateAns(Answer answer) {
-        if(answerMapper.updateByPrimaryKey(answer)!=0)
+        if (answerMapper.updateByPrimaryKey(answer) != 0)
             return ResponseBo.ok();
         return ResponseBo.error();
     }
 
     @Override
     public ResponseBo insAns(Answer answer) {
-        if(answerMapper.insert(answer)!=0)
-            return ResponseBo.ok().put("msg","回答成功").put("aid",answer.getAid());
+        if (answerMapper.insert(answer) != 0)
+            return ResponseBo.ok().put("msg", "回答成功").put("aid", answer.getAid());
         return ResponseBo.error();
     }
 
     @Override
     public List<Answer> getTopicAnsByAnsScore(String bq) {
         Map<String, Object> map = new HashMap<>();
-        map.put("bq",bq);
+        map.put("bq", bq);
         return answerMapper.getTopicAnsByAnsScore(map);
     }
 
     @Override
     public List<Answer> getTopicAnsByAnsDate(String bq) {
         Map<String, Object> map = new HashMap<>();
-        map.put("bq",bq);
+        map.put("bq", bq);
         return answerMapper.getTopicAnsByAnsDate(map);
     }
 
     @Override
-    public ResponseBo deleteAns(String aid){
-        if(answerMapper.deleteByPrimaryKey(Integer.parseInt(aid))!=0)
+    public ResponseBo deleteAns(String aid) {
+        if (answerMapper.deleteByPrimaryKey(Integer.parseInt(aid)) != 0)
             return ResponseBo.ok();
         return ResponseBo.error();
     }
 
     @Override
-    public List<Map<String,Object>> getUserByDate(String date){
+    public List<Map<String, Object>> getUserByDate(String date) {
         return answerMapper.getUserByDate(date);
+    }
+
+    @Override
+    public List<Map<String, Object>> getTwHdByDate(String date) {
+        return answerMapper.getTwHdByDate(date);
+    }
+
+    @Override
+    public List<Map<String,Object>> getHdCountByMonth(){
+        return answerMapper.getHdCountByMonth();
     }
 }

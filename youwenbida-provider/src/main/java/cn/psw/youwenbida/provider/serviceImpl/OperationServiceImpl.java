@@ -8,6 +8,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OperationServiceImpl implements OperationService {
@@ -77,5 +78,25 @@ public class OperationServiceImpl implements OperationService {
             return ResponseBo.ok();
         else
             return ResponseBo.error();
+    }
+
+    @Override
+    public List<Map<String,Object>> getProGzByDate(String date){
+        return operationMapper.getProGzByDate(date);
+    }
+
+    @Override
+    public List<Map<String,Object>> getHdZanByDate(String date){
+        return operationMapper.getHdZanByDate(date);
+    }
+
+    @Override
+    public List<Map<String,Object>> getHdCaiByDate(String date){
+        return operationMapper.getHdCaiByDate(date);
+    }
+
+    @Override
+    public List<Map<String,Object>> getHdScByDate(String date){
+        return operationMapper.getHdScByDate(date);
     }
 }

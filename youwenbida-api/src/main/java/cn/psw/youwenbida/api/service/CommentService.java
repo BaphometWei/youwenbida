@@ -4,6 +4,7 @@ import cn.psw.youwenbida.api.model.Comment;
 import cn.psw.youwenbida.api.utils.ResponseBo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CommentService {
 
@@ -22,4 +23,6 @@ public interface CommentService {
     public ResponseBo insertProCom(Comment comment);
 
     ResponseBo deleteCom(String cid);
+
+    List<Map<String,Object>> getPlCountByMonth();
 }

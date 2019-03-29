@@ -4,10 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>该页面不存在</title>
 
-<link rel="stylesheet" href="res/css/reset.css"/>
-<link rel="stylesheet" href="res/css/404.css">
+<link rel="stylesheet" href="/admin-res/res/css/reset.css"/>
+<link rel="stylesheet" href="/admin-res/res/css/404.css">
 
-<script src="js/jquery.min.js"></script>
+	<script src="/js/jquery-3.3.1.min.js"></script>
 
 </head>
 <body>
@@ -18,7 +18,7 @@
 			<h4>很抱歉！没有找到您要访问的页面！</h4>
 			<p><span id="num">5</span> 秒后将自动跳转到首页</p>
 			<div>
-				<a href="role.html" title="返回首页">返回首页</a>
+				<a href="/index" title="返回首页">返回首页</a>
 				<a href="javascript:;" title="上一步" id="reload-btn">上一步</a>
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 		$_num.html(num);
 		if(num===0){
 			//跳转地址写在这里
-			window.location.href="http://www.17sucai.com";
+			window.location.href="/index";
 		}
 	},1000);
 	//返回按钮单击事件

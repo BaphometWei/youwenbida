@@ -74,4 +74,19 @@
     <select id="selectCountByUserAndDate" parameterType="java.util.Map" resultType="java.lang.Integer">
     select count(1) as count from problem where DATE_SUB(CURDATE(), INTERVAL #{date} DAY) &lt;= ptcrq and ptcz = #{uid}
   </select>
+    <select id="getTwCountByMonth" resultType="java.util.Map">
+  select v.month,count(pid) as count from (
+SELECT DATE_FORMAT(CURDATE(), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 1 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 2 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 3 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 4 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 5 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 6 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 7 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 8 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 9 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 10 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 11 MONTH), '%Y-%m') AS `month`) v left join problem on DATE_FORMAT(problem.ptcrq, '%Y-%m') = v.month group by v.month
+  </select>
 </mapper>

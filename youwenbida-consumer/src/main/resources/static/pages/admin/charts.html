@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" type="text/css" href="/admin-res/res/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin-res/res/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin-res/res/css/Hui-iconfont/1.0.8/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin-res/skin/default/skin.css" id="skin"/>
+    <link rel="stylesheet" type="text/css" href="/admin-res/res/css/style.css"/>
+
+    <title>报表</title>
+</head>
+
+<body>
+
+<div class="page-container">
+    <div id="container" style="min-width:700px;height:400px"></div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/admin-res/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/admin-res/res/layui/lay/modules/layer.js"></script>
+<script type="text/javascript" src="/admin-res/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin-res/js/H-ui.admin.js"></script>
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin-res/js/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
+<script type="text/javascript" src="/admin-res/js/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            type: 'GET',
+            url: "/admin-getChart",
+            data: {},
+            async: false,
+            success: function (data) {
+                Highcharts.chart('container', {
+                    title: {
+                        text: '问题/回答/评论近12个月统计',
+                        x: -20 //center
+                    },
+                    subtitle: {
+                        text: '',
+                        x: -20
+                    },
+                    xAxis: {
+                        categories: data.date
+                    },
+                    yAxis: {
+                        title: {
+                            text: '数(个)'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        valueSuffix: '个'
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        borderWidth: 0
+                    },
+                    series: [{
+                        name: '问题',
+                        data: data.tw
+                    },  {
+                        name: '评论',
+                        data: data.pl
+                    },  {
+                        name: '回答',
+                        data: data.hd
+                    }]
+                });
+            }
+        })
+    });
+</script>
+</body>
+
+</html>

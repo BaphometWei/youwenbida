@@ -24,7 +24,6 @@
             float:right;
             width:245px;
             height:200px;
-            background: #0C0C0C;
             margin-top: 15px;
         }
         .zm-topic-cat-title {
@@ -98,55 +97,24 @@
                 <h2><i class="layui-icon layui-icon-app"> </i> 话题广场</h2>
             </div>
             <div class="topic-list">
-                <!--<div class="item">-->
-                    <!--<div class="topic-img">-->
-                        <!--<a target="_blank">-->
-                            <!--<img width='50' height='50' src="/img/topic/shenghuofangshi.jpg" alt="生活方式">-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="topic-body">-->
-                        <!--<a target="_blank" href="/topic/19555513">-->
-                            <!--<strong>生活方式</strong>-->
-                        <!--</a>-->
-                        <!--<br />-->
-                        <!--<p>生活方式不是「生活」。 &gt; 社会学中，生活型态（或生活风格、生…</p>-->
-
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="item">-->
-                    <!--<div class="topic-img">-->
-                        <!--<a target="_blank">-->
-                            <!--<img width='50' height='50' src="/img/topic/shenghuofangshi.jpg" alt="生活方式">-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="topic-body">-->
-                        <!--<a target="_blank" href="/topic/19555513">-->
-                            <!--<strong>生活方式</strong>-->
-                        <!--</a>-->
-                        <!--<br />-->
-                        <!--<p>生活方式不是「生活」。 &gt; 社会学中，生活型态（或生活风格、生…</p>-->
-
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="item">-->
-                    <!--<div class="topic-img">-->
-                        <!--<a target="_blank">-->
-                            <!--<img width='50' height='50' src="/img/topic/shenghuofangshi.jpg" alt="生活方式">-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="topic-body">-->
-                        <!--<a target="_blank" href="/topic/19555513">-->
-                            <!--<strong>生活方式</strong>-->
-                        <!--</a>-->
-                        <!--<br />-->
-                        <!--<p>生活方式不是「生活」。 &gt; 社会学中，生活型态（或生活风格、生…</p>-->
-
-                    <!--</div>-->
-                <!--</div>-->
                 <div class="clearfix"></div>
             </div>
         </div>
-        <div class="main-right"></div>
+        <div class="main-right">
+            <div class="hp_right" style="width: 270px;">
+                <div class="right_3" style="padding: 10px 20px; font-size: 13px; line-height: 2; color: #8590a6;">
+                    <table>
+                        <tr><td>指南 | 协议 | 隐私政策</td></tr>
+                        <tr><td>侵权举报 | 网上有害信息举报专区</td></tr>
+                        <tr><td>违法和不良信息举报：010-0000000</td></tr>
+                        <tr><td>儿童色情信息举报专区</td></tr>
+                        <tr><td>电信与服务业务经营许可证</td></tr>
+                        <tr><td>网络文化经营许可证</td></tr>
+                        <tr><td>联系我们 © 2018 有问必答</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="clearfix"></div>
     </div>
 </div>
@@ -161,8 +129,8 @@
             for (var k = 0; k < data.topics.length; k++) {
                 var topic = data.topics[k];
                 showhtml += "<div class='item'><div class='topic-img'>";
-                showhtml += "<a target='_blank'><img width='50' height='50' src='/img/topic/"+topic.timg+"' alt='"+topic.tname+"'>";
-                showhtml += "</a></div><div class='topic-body'><a target='_blank'>";
+                showhtml += "<a target='_blank' href='/topic?tid="+topic.tid+"'><img width='50' height='50' src='/img/topic/"+topic.timg+"' alt='"+topic.tname+"'>";
+                showhtml += "</a></div><div class='topic-body'><a target='_blank' href='/topic?tid="+topic.tid+"'>";
                 showhtml += "<strong>"+topic.tname+"</strong></a><br /><p>"+topic.tjj+"</p></div></div>";
 
             }

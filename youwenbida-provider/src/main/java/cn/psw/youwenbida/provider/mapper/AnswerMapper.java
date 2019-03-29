@@ -37,4 +37,8 @@ public interface AnswerMapper {
 
     List<Map<String,Object>> getUserByDate(@Param(value="date") String date);
 
+    List<Map<String,Object>> getTwHdByDate(@Param(value="date") String date);
+
+    List<Map<String,Object>> getHdCountByMonth();
+
 }

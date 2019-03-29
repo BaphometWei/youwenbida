@@ -1,112 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.psw.youwenbida.provider.mapper.AnswerMapper">
-  <resultMap id="BaseResultMap" type="cn.psw.youwenbida.api.model.Answer">
-    <id column="aid" jdbcType="INTEGER" property="aid" />
-    <result column="ahdz" jdbcType="VARCHAR" property="ahdz" />
-    <result column="ahd" jdbcType="VARCHAR" property="ahd" />
-    <result column="ahdrq" jdbcType="DATE" property="ahdrq" />
-    <result column="ahdwt" jdbcType="INTEGER" property="ahdwt" />
-    <result column="score" jdbcType="DOUBLE" property="score" />
-    <result column="yzhd" jdbcType="VARCHAR" property="yzhd" />
-    <result column="nm" jdbcType="VARCHAR" property="nm" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <resultMap id="BaseResultMap" type="cn.psw.youwenbida.api.model.Answer">
+        <id column="aid" jdbcType="INTEGER" property="aid"/>
+        <result column="ahdz" jdbcType="VARCHAR" property="ahdz"/>
+        <result column="ahd" jdbcType="VARCHAR" property="ahd"/>
+        <result column="ahdrq" jdbcType="DATE" property="ahdrq"/>
+        <result column="ahdwt" jdbcType="INTEGER" property="ahdwt"/>
+        <result column="score" jdbcType="DOUBLE" property="score"/>
+        <result column="yzhd" jdbcType="VARCHAR" property="yzhd"/>
+        <result column="nm" jdbcType="VARCHAR" property="nm"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from answer
     where aid = #{aid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Answer" useGeneratedKeys="true" keyProperty="aid">
-    insert into answer (ahdz, ahd, ahdwt
-    <if test="nm!=null">,nm</if>
-    )
-    values (#{ahdz,jdbcType=VARCHAR}, #{ahd,jdbcType=VARCHAR},#{ahdwt,jdbcType=INTEGER}
-    <if test="nm!=null">,#{nm,jdbcType=VARCHAR}</if>
-    )
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer">
-    update answer
-      <set>
-        <if test="ahdz!=null">ahdz = #{ahdz,jdbcType=VARCHAR},</if>
-        <if test="ahd!=null">ahd = #{ahd,jdbcType=VARCHAR},</if>
-        <if test="ahdrq!=null">ahdrq = #{ahdrq,jdbcType=DATE},</if>
-        <if test="ahdwt!=null">ahdwt = #{ahdwt,jdbcType=INTEGER}</if>
-        <if test="score!=null">score = #{score,jdbcType=DOUBLE}</if>
-        <if test="yzhd!=null">yzhd = #{yzhd,jdbcType=VARCHAR},</if>
-        <if test="nm!=null">nm = #{nm,jdbcType=VARCHAR},</if>
-      </set>
-    where aid = #{aid,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <insert id="insert" parameterType="cn.psw.youwenbida.api.model.Answer" useGeneratedKeys="true" keyProperty="aid">
+        insert into answer (ahdz, ahd, ahdwt
+        <if test="nm!=null">,nm</if>
+        )
+        values (#{ahdz,jdbcType=VARCHAR}, #{ahd,jdbcType=VARCHAR},#{ahdwt,jdbcType=INTEGER}
+        <if test="nm!=null">,#{nm,jdbcType=VARCHAR}</if>
+        )
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer">
+        update answer
+        <set>
+            <if test="ahdz!=null">ahdz = #{ahdz,jdbcType=VARCHAR},</if>
+            <if test="ahd!=null">ahd = #{ahd,jdbcType=VARCHAR},</if>
+            <if test="ahdrq!=null">ahdrq = #{ahdrq,jdbcType=DATE},</if>
+            <if test="ahdwt!=null">ahdwt = #{ahdwt,jdbcType=INTEGER}</if>
+            <if test="score!=null">score = #{score,jdbcType=DOUBLE}</if>
+            <if test="yzhd!=null">yzhd = #{yzhd,jdbcType=VARCHAR},</if>
+            <if test="nm!=null">nm = #{nm,jdbcType=VARCHAR},</if>
+        </set>
+        where aid = #{aid,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
     from answer
     where aid = #{aid,jdbcType=INTEGER}
   </select>
-  <select id="selectListByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer" resultMap="BaseResultMap">
-    select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
-    from answer
-    <where>
-      <if test="aid != null">
-        and aid = #{aid,jdbcType=INTEGER}
-      </if>
-      <if test="ahdwt != null">
-        and ahdwt = #{ahdwt,jdbcType=INTEGER}
-      </if>
-      <if test="ahdz != null">
-        and ahdz = #{ahdz,jdbcType=VARCHAR}
-      </if>
-    </where>
-    order by score desc
-  </select>
-  <select id="getProAns" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="selectListByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer" resultMap="BaseResultMap">
+        select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
+        from answer
+        <where>
+            <if test="aid != null">
+                and aid = #{aid,jdbcType=INTEGER}
+            </if>
+            <if test="ahdwt != null">
+                and ahdwt = #{ahdwt,jdbcType=INTEGER}
+            </if>
+            <if test="ahdz != null">
+                and ahdz = #{ahdz,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by score desc
+    </select>
+    <select id="getProAns" parameterType="java.util.Map" resultMap="BaseResultMap">
     select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
     from answer
     where ahdwt = #{pid} and yzhd = 'f'
     order by score desc
   </select>
-  <select id="getProYzAns" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="getProYzAns" parameterType="java.util.Map" resultMap="BaseResultMap">
     select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
     from answer
     where ahdwt = #{pid} and yzhd = 't'
     order by score desc
   </select>
-  <select id="getTopicAnsByOpDate" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="getTopicAnsByOpDate" parameterType="java.util.Map" resultMap="BaseResultMap">
     select ans.* from answer ans inner join (select obo,MAX(odate) date from operation where obo in (select aid from answer where ahdwt in (select pid from problem where pbq like concat('%',#{bq},'%'))) and (olx = '1' or olx = '2' or olx = '6') group by obo order by date desc) op on ans.aid = op.obo
   </select>
-  <select id="getTopicAnsByAnsDate" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="getTopicAnsByAnsDate" parameterType="java.util.Map" resultMap="BaseResultMap">
     select * from answer where ahdwt in (select pid from problem where pbq like concat('%',#{bq},'%')) and aid not in(select obo from operation where obo in (select aid from answer where ahdwt in (select pid from problem where pbq like concat('%',#{bq},'%'))) and (olx = '1' or olx = '2' or olx = '6') group by obo)
   </select>
-  <select id="getTopicAnsByAnsScore" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="getTopicAnsByAnsScore" parameterType="java.util.Map" resultMap="BaseResultMap">
     select * from answer where ahdwt in (select pid from problem where pbq like concat('%',#{bq},'%')) order by score desc
   </select>
-  <select id="selectCountByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer" resultType="java.lang.Integer">
-    select count(1)
-    from answer
-    <where>
-      <if test="aid != null">
-        and aid = #{aid,jdbcType=INTEGER}
-      </if>
-      <if test="ahdwt !=null">
-        and ahdwt = #{ahdwt,jdbcType=INTEGER}
-      </if>
-      <if test="ahdz != null">
-          and ahdz = #{ahdz,jdbcType=VARCHAR}
-      </if>
-      <if test="ahdrq != null">
-        and ahdrq = #{ahdrq,jdbcType=DATE}
-      </if>
-    </where>
-  </select>
-  <select id="selectCountByUserAndDate" parameterType="java.util.Map" resultType="java.lang.Integer">
+    <select id="selectCountByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.Answer"
+            resultType="java.lang.Integer">
+        select count(1)
+        from answer
+        <where>
+            <if test="aid != null">
+                and aid = #{aid,jdbcType=INTEGER}
+            </if>
+            <if test="ahdwt !=null">
+                and ahdwt = #{ahdwt,jdbcType=INTEGER}
+            </if>
+            <if test="ahdz != null">
+                and ahdz = #{ahdz,jdbcType=VARCHAR}
+            </if>
+            <if test="ahdrq != null">
+                and ahdrq = #{ahdrq,jdbcType=DATE}
+            </if>
+        </where>
+    </select>
+    <select id="selectCountByUserAndDate" parameterType="java.util.Map" resultType="java.lang.Integer">
     select count(1) as count from answer where DATE_SUB(CURDATE(), INTERVAL #{date} DAY) &lt;=ahdrq and ahdz = #{uid}
   </select>
-  <select id="getUserByDate" parameterType="java.lang.String" resultType="java.util.Map">
+    <select id="getUserByDate" parameterType="java.lang.String" resultType="java.util.Map">
         select ahdz,count(1) as count from answer where DATE_SUB(CURDATE(), INTERVAL ${date} DAY) &lt;=ahdrq group by ahdz order by count desc
     </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="BaseResultMap">
     select aid, ahdz, ahd, ahdrq, ahdwt, score, yzhd, nm
     from answer
   </select>
-  <select id="searchProAns" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="searchProAns" parameterType="java.lang.Integer" resultType="java.lang.Integer">
       select cbpl from comment where cbpl in (select aid from answer where ahdwt = #{0}) and cpllx = '2' group by cbpl order by count(cbpl) desc limit 1
+  </select>
+    <select id="getTwHdByDate" parameterType="java.lang.String" resultType="java.util.Map">
+    select ahdwt,count(1) as count from answer where DATE_SUB(CURDATE(), INTERVAL ${date} DAY) &lt;=ahdrq group by ahdwt order by count desc
+  </select>
+    <select id="getHdCountByMonth" resultType="java.util.Map">
+    select v.month,count(aid) as count from (
+SELECT DATE_FORMAT(CURDATE(), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 1 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 2 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 3 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 4 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 5 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 6 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 7 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 8 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 9 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 10 MONTH), '%Y-%m') AS `month`
+UNION SELECT DATE_FORMAT((CURDATE() - INTERVAL 11 MONTH), '%Y-%m') AS `month`) v left join answer on DATE_FORMAT(answer.ahdrq, '%Y-%m') = v.month group by v.month
   </select>
 </mapper>

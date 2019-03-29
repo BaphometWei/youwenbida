@@ -49,7 +49,7 @@ public class UserController {
     public String updatexx(HttpServletRequest request){
         HttpSession session = request.getSession();
         if((String)session.getAttribute("userid")==null)
-            return "/pages/error.html";
+            return "/pages/admin/404.html";
         return "/pages/user/updatexx.html";
     }
 
@@ -322,7 +322,7 @@ public class UserController {
     public String tixing(HttpServletRequest request){
         HttpSession session = request.getSession();
         if((String)session.getAttribute("userid")==null)
-            return "/pages/error.html";
+            return "/pages/admin/404.html";
         return "/pages/tixing.html";
     }
 
@@ -330,7 +330,7 @@ public class UserController {
     public String xiesixin(HttpServletRequest request){
         HttpSession session = request.getSession();
         if((String)session.getAttribute("userid")==null)
-            return "/pages/error.html";
+            return "/pages/admin/404.html";
         return "/pages/chat.html";
     }
 

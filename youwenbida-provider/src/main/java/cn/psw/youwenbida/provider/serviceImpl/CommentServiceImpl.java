@@ -8,6 +8,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 @Service(timeout = 5000,retries = 1)
 public class CommentServiceImpl implements CommentService {
@@ -76,6 +77,11 @@ public class CommentServiceImpl implements CommentService {
         if(commentMapper.deleteByPrimaryKey(Integer.parseInt(cid))!=0)
             return ResponseBo.ok();
         return ResponseBo.error();
+    }
+
+    @Override
+    public List<Map<String,Object>> getPlCountByMonth(){
+        return commentMapper.getPlCountByMonth();
     }
 
 }

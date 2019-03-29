@@ -24,4 +24,6 @@ public interface ProblemMapper {
     List<Map<String,Object>> getUserByDate(@Param(value="date") String date);
 
     Integer selectCountByUserAndDate(Map<String,Object> map);
+
+    List<Map<String,Object>> getTwCountByMonth();
 }

@@ -41,4 +41,8 @@ public interface AnswerService {
     ResponseBo deleteAns(String aid);
 
     List<Map<String,Object>> getUserByDate(String date);
+
+    List<Map<String,Object>> getTwHdByDate(String date);
+
+    List<Map<String,Object>> getHdCountByMonth();
 }

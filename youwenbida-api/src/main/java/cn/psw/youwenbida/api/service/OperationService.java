@@ -4,6 +4,7 @@ import cn.psw.youwenbida.api.model.Operation;
 import cn.psw.youwenbida.api.utils.ResponseBo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OperationService {
 
@@ -20,4 +21,13 @@ public interface OperationService {
     public ResponseBo op(String uid,String id,String op);
 
     public ResponseBo deleteop(String uid,String id,String op);
+
+    List<Map<String,Object>> getProGzByDate(String date);
+
+    List<Map<String,Object>> getHdZanByDate(String date);
+
+    List<Map<String,Object>> getHdCaiByDate(String date);
+
+    List<Map<String,Object>> getHdScByDate(String date);
+
 }

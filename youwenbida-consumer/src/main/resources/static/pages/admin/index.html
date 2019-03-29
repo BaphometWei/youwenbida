@@ -6,9 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <link rel="stylesheet" href="/layui/css/layui.css">
     <link rel="stylesheet" href="/admin-res/res/layui/css/layui.css">
     <link rel="stylesheet" href="/admin-res/res/css/global.css">
     <script src="/admin-res/res/layui/layui.js"></script>
+    <style>
+        a{
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="header">
@@ -39,22 +45,14 @@
 
 <div class="main fly-user-main layui-clear">
     <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
-        <li class="layui-nav-item layui-this"><a href="index.html"> <i
-                class="layui-icon">&#xe609;</i> 用户管理 </a></li>
-        <li class="layui-nav-item "><a href="role.html" target="right"> <i
-                class="layui-icon">&#xe612;</i> 角色管理</a></li>
-        <li class="layui-nav-item "><a href="user.html" target="right"> <i
-                class="layui-icon">&#xe612;</i> 用户管理</a></li>
-        <li class="layui-nav-item"><a href="glForUser.html" target="right"> <i
-                class="layui-icon">&#xe611;</i> 新闻分类 </a></li>
-        <li class="layui-nav-item "><a href="news.html" target="right"> <i
-                class="layui-icon">&#xe611;</i> 新闻管理</a></li>
-        <li class="layui-nav-item  "><a href="javascript:void(0)" onclick="updatePwd('修改密码',2)"> <i
-                class="layui-icon">&#xe620;</i> 修改密码 </a></li>
-        <li class="layui-nav-item "><a href="charts-1.html" target="right"> <i
-                class="layui-icon">&#xe61a;</i> 报表统计 </a></li>
-        <li class="layui-nav-item "><a href="404.html" target="right"> <i
-                class="layui-icon">&#xe61a;</i> 404错误页面 </a></li>
+        <li class="layui-nav-item layui-this"><a onclick="touser()"> <i
+                class="layui-icon layui-icon-list"></i> 用户管理 </a></li>
+        <li class="layui-nav-item "><a onclick="totw()" target="right"> <i
+                class="layui-icon layui-icon-list"></i> 问题管理</a></li>
+        <li class="layui-nav-item "><a onclick="tohd()" target="right"> <i
+                class="layui-icon layui-icon-list"></i> 回答管理</a></li>
+        <li class="layui-nav-item "><a onclick="toch()" target="right"> <i
+                class="layui-icon layui-icon-chart-screen"></i> 报表统计 </a></li>
     </ul>
 
     <div class="site-tree-mobile layui-hide">
@@ -104,8 +102,20 @@
             title: title,
             iframeWidth: 500,
             iframeHeight: 300,
-            url: "/static/pages/admin/updatePwd.html"
+            url: "/pages/admin/updatePwd.html"
         });
+    }
+    function touser(){
+        $("iframe").attr("src","/pages/admin/glForUser.html");
+    }
+    function totw(){
+        $("iframe").attr("src","/pages/admin/glForTw.html");
+    }
+    function tohd(){
+        $("iframe").attr("src","/pages/admin/glForHd.html");
+    }
+    function toch(){
+        $("iframe").attr("src","/pages/admin/charts.html");
     }
 </script>
 </body>

@@ -69,4 +69,9 @@ public class ProblemServiceImpl implements ProblemService {
         map.put("date",date);
         return problemMapper.selectCountByUserAndDate(map);
     }
+
+    @Override
+    public List<Map<String,Object>> getTwCountByMonth(){
+        return problemMapper.getTwCountByMonth();
+    }
 }
