@@ -92,12 +92,12 @@
 						</div>
 						<h2>登 录</h2>
 						<div class="form-group">
-							<label for="email" class="sr-only">邮箱</label>
-							<input type="text" class="form-control" id="email" name="emil" placeholder="邮箱" autocomplete="off">
+							<label for="email" class="sr-only">管理员账号</label>
+							<input type="text" class="form-control" id="adminname" name="adminname" placeholder="管理员账号" autocomplete="off">
 						</div>
 						<div class="form-group">
 							<label for="password" class="sr-only">密码</label>
-							<input type="password" class="form-control" id="password" name="password" placeholder="密码" autocomplete="off">
+							<input type="password" class="form-control" id="adminpassword" name="adminpassword" placeholder="密码" autocomplete="off">
 						</div>
 						<div class="form-group">
 							<label for="remember"><input type="checkbox" id="remember"> 记住我</label>
@@ -138,15 +138,15 @@
 		$("input[type='button']").click(function () {
 			$.ajax({
 				type: "GET",
-				url: "/doLogin",
-				data: {email: $("#email").val(),password:$("#password").val()},
+				url: "/admin-doLogin",
+				data: {adminname: $("#adminname").val(),adminpassword:$("#adminpassword").val()},
 				success: function (data) {
 					if(data.code==0) {
 						if($("#remember").is(':checked')){
-							setCookie('user',$("#email").val(),7); //保存帐号到cookie，有效期7天
-							setCookie('pswd',$("#password").val(),7); //保存密码到cookie，有效期7天
+							setCookie('adminuser',$("#adminname").val(),7); //保存帐号到cookie，有效期7天
+							setCookie('adminpswd',$("#adminpassword").val(),7); //保存密码到cookie，有效期7天
 						}
-						window.location.href = "/index";
+						window.location.href = "/admin-index";
 					}
 					else{
 						layui.use('layer', function(){
@@ -164,13 +164,13 @@
 		$(function () {
 			$("#remember").change (function(){
 				if(!this.checked){
-					delCookie('user');
-					delCookie('pswd');
+					delCookie('adminuser');
+					delCookie('adminpswd');
 				}
 			});
-			if(getCookie('user') && getCookie('pswd')){
-				$("#email").val(getCookie('user'));
-				$("#password").val(getCookie('pswd'));
+			if(getCookie('adminuser') && getCookie('adminpswd')){
+				$("#adminname").val(getCookie('adminuser'));
+				$("#adminpassword").val(getCookie('adminpswd'));
 				$("#remember").attr("checked", 'checked');
 			}
 		})

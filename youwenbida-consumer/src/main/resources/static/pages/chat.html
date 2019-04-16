@@ -150,7 +150,7 @@
             var showhtml = "";
             for(var k=0; k<data.chat.length; k++){
                 if(data.chat[k].cz != data.user.id)
-                    showhtml+="<div class='item'><a href='/zhuye?id="+data.chatuser.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='50' height='50' src='"+data.chatuser.user.img+"'></a><div class='sixin-body'><div class='sixin-text'><a href='/zhuye?id="+data.chatuser.id+"' target='_blank'>"+data.chatuser.name+"</a>： ";
+                    showhtml+="<div class='item'><a href='/zhuye?id="+data.chatuser.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='50' height='50' src='"+data.chatuser.img+"'></a><div class='sixin-body'><div class='sixin-text'><a href='/zhuye?id="+data.chatuser.id+"' target='_blank'>"+data.chatuser.name+"</a>： ";
                 else
                     showhtml+="<div class='item'><a href='/zhuye?id="+data.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='50' height='50' src='"+data.user.img+"'></a><div class='sixin-body'><div class='sixin-text'>我： ";
                 showhtml+=data.chat[k].ctext+"</div><div class='sixin-foot'>";

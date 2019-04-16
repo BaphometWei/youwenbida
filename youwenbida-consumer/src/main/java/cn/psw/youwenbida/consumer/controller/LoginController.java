@@ -1,5 +1,6 @@
 package cn.psw.youwenbida.consumer.controller;
 
+import cn.psw.youwenbida.api.model.Admin;
 import cn.psw.youwenbida.api.model.User;
 import cn.psw.youwenbida.api.service.IdentityService;
 import cn.psw.youwenbida.api.utils.AesUtil;
@@ -39,6 +40,22 @@ public class LoginController {
             //把用户数据保存在session域对象中
             session.setAttribute("username", identityService.doLogin(user).getName());
             session.setAttribute("userid", identityService.doLogin(user).getId());
+            return ResponseBo.ok();
+        }
+        else {
+            return new ResponseBo().put("code","1").put("msg","用户名或密码错误");
+        }
+    }
+    
+    @RequestMapping("/admin-doLogin")
+    @ResponseBody
+    public ResponseBo admindoLogin(HttpServletRequest request, Admin admin) throws Exception{
+        HttpSession session = request.getSession();
+        admin.setAdminpassword(AesUtil.encrypt(admin.getAdminpassword()));
+        if(identityService.doLogin(admin)!=null) {
+            //把用户数据保存在session域对象中
+            session.setAttribute("adminname", identityService.doLogin(admin).getAdminname());
+            session.setAttribute("adminid", identityService.doLogin(admin).getId());
             return ResponseBo.ok();
         }
         else {

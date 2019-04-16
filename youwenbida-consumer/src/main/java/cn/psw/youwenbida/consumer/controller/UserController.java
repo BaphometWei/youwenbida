@@ -103,6 +103,7 @@ public class UserController {
     public ResponseBo getUserOp(HttpServletRequest request, @RequestBody @RequestParam("uid") String uid) {
         HttpSession session = request.getSession();
         List<Operation> operations = operationService.getUserOp(uid, null, "('1','2','3')");
+        List<Operation> operationsed = new ArrayList<Operation>();
         uid = (String) session.getAttribute("userid");
         for (Operation operation : operations) {
             if (operation.getOlx().equals("1") || operation.getOlx().equals("2")) {
@@ -138,13 +139,18 @@ public class UserController {
                     answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
                     answer.setAztsl(operationService.getOpConut(answer.getAid().toString(), "1"));
                     operation.setAnswer(answer);
+                    operationsed.add(operation);
                 }
             }
             if (operation.getOlx().equals("3")) {
-                operation.setProblem(problemService.getPro(Integer.parseInt(operation.getObo())));
+            	Problem problem= problemService.getPro(Integer.parseInt(operation.getObo()));
+            	if(problem!=null) {
+            		operation.setProblem(problemService.getPro(Integer.parseInt(operation.getObo())));
+            		operationsed.add(operation);
+            	}
             }
         }
-        return ResponseBo.ok().put("ops", operations);
+        return ResponseBo.ok().put("ops", operationsed);
     }
 
     @RequestMapping("/getUserAns")
@@ -189,10 +195,12 @@ public class UserController {
     @ResponseBody
     public ResponseBo getUserSc(HttpServletRequest request, @RequestBody @RequestParam("uid") String uid) {
         List<Operation> operations = operationService.getOpList(uid, null, "2");
+        List<Operation> operationsed = new ArrayList<Operation>();
         HttpSession session = request.getSession();
         uid = (String) session.getAttribute("userid");
         for (Operation operation : operations) {
             Answer answer = answerService.getAns(Integer.parseInt(operation.getObo()));
+            if(answer!=null) {
             User user = new User();
             if(answer.getNm().equals("t")) {
                 if(uid!=null&&answer.getAhd().equals(uid)) {
@@ -223,8 +231,10 @@ public class UserController {
             answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
             answer.setAztsl(operationService.getOpConut(answer.getAid().toString(),"1"));
             operation.setAnswer(answer);
+            operationsed.add(operation);
         }
-        return ResponseBo.ok().put("ops", operations);
+        }
+        return ResponseBo.ok().put("ops", operationsed);
     }
 
     @RequestMapping("/getUserPro")
@@ -292,9 +302,11 @@ public class UserController {
         uid = (String) session.getAttribute("userid");
         for(Operation operation:operations){
             Problem problem = problemService.getPro(Integer.parseInt(operation.getObo()));
+            if(problem!=null) {
             problem.setPgzzsl(operationService.getOpConut(problem.getPid().toString(),"3"));
             problem.setPhdsl(answerService.getCountAns(problem.getPid()));
             pros.add(problem);
+            }
         }
         return ResponseBo.ok().put("pros",pros);
     }
@@ -420,7 +432,7 @@ public class UserController {
     @ResponseBody
     public Map<String,Object> imgupload(HttpServletRequest request,@RequestBody @RequestParam("image") String image) throws Exception{
         String base64 = image.substring(image.indexOf(",") + 1);
-        String path = System.getProperty("user.dir")+"/youwenbida-consumer/src/main/resources/image/user/";
+        String path = "G:/eclipseproject/youwenbida/youwenbida-consumer/src/main/resources/image/user/";
         String imgName = UUID.randomUUID() + ".png";
         FileOutputStream write = new FileOutputStream(new File(path + imgName));
         byte[] decoderBytes = Base64.getDecoder().decode(base64);

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Service
+@Service(timeout = 5000, retries = 0)
 public class TopicServiceImpl implements TopicService {
 
     @Autowired

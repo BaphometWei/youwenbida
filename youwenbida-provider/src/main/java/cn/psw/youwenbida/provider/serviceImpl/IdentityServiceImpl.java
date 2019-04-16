@@ -1,8 +1,10 @@
 package cn.psw.youwenbida.provider.serviceImpl;
 
+import cn.psw.youwenbida.api.model.Admin;
 import cn.psw.youwenbida.api.model.User;
 import cn.psw.youwenbida.api.service.IdentityService;
 import cn.psw.youwenbida.api.utils.ResponseBo;
+import cn.psw.youwenbida.provider.mapper.AdminMapper;
 import cn.psw.youwenbida.provider.mapper.UserMapper;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
@@ -11,11 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Service
+@Service(timeout = 5000, retries = 0)
 public class IdentityServiceImpl implements IdentityService {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    AdminMapper adminMapper;
 
     private final static Logger logger = LoggerFactory.getLogger(IdentityServiceImpl.class);
 
@@ -64,6 +68,11 @@ public class IdentityServiceImpl implements IdentityService {
         if(users!=null)
             return ResponseBo.ok().put("users",users);
         return ResponseBo.error();
+    }
+    
+    @Override
+    public Admin doLogin(Admin admin) {
+    	return adminMapper.admindl(admin);
     }
 
 }

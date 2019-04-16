@@ -85,6 +85,7 @@ public class AnswerServiceImpl implements AnswerService {
         return answerMapper.selectByPrimaryKey(answerMapper.searchProAns(Integer.parseInt(pid)));
     }
 
+    
     @Override
     public ResponseBo setScore(String aid) {
         double p_z = 1.96;

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service(timeout = 5000, retries = 0)
 public class ProblemServiceImpl implements ProblemService {
 
     @Autowired

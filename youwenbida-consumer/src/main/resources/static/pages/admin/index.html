@@ -51,6 +51,8 @@
                 class="layui-icon layui-icon-list"></i> 问题管理</a></li>
         <li class="layui-nav-item "><a onclick="tohd()" target="right"> <i
                 class="layui-icon layui-icon-list"></i> 回答管理</a></li>
+        <li class="layui-nav-item "><a onclick="totopic()" target="right"> <i
+                class="layui-icon layui-icon-list"></i> 话题管理</a></li>
         <li class="layui-nav-item "><a onclick="toch()" target="right"> <i
                 class="layui-icon layui-icon-chart-screen"></i> 报表统计 </a></li>
     </ul>
@@ -116,6 +118,9 @@
     }
     function toch(){
         $("iframe").attr("src","/pages/admin/charts.html");
+    }
+    function totopic(){
+        $("iframe").attr("src","/pages/admin/glForTopic.html");
     }
 </script>
 </body>

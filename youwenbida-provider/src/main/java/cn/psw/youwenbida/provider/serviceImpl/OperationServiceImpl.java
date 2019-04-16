@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service(timeout = 5000, retries = 0)
 public class OperationServiceImpl implements OperationService {
 
     @Autowired

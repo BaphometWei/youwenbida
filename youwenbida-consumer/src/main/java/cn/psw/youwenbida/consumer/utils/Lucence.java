@@ -29,7 +29,7 @@ public class Lucence {
     private static Statement stmt = null;
     private static ResultSet rs = null;
     // 索引保存目录
-    private static String indexDir = System.getProperty("user.dir")+"/youwenbida-consumer/src/main/resources/lucence/";
+    private static String indexDir = "G:/eclipseproject/youwenbida/youwenbida-consumer/src/main/resources/lucence/";
 
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/youwenbida?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false";
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";

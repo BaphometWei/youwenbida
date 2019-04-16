@@ -11,7 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Service
+@Service(timeout = 5000, retries = 0)
 public class NoticeServiceImpl implements NoticeService {
 
     @Autowired
