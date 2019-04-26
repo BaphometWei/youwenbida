@@ -1117,7 +1117,7 @@ function yaoqing(obj) {
         dlts();
     else {
         var showhtml = "<div class='header-search' style='padding-top: 15px'><input style='width: 300px' type='text' oninput='OnInput(event)' id='ceshi' autocomplete='off'/>";
-        showhtml += "<button style='top:10px;'></button>";
+        showhtml += "<i class='layui-icon layui-icon-search' style='position:relative;top:10px;left:300px'></i>";
         showhtml += "<dl class='layui-nav-child searchuser1' id='ssjg' style='min-width: 240px;padding-top: 0px;padding-bottom: 0px;'> <div class='resou'>";
         showhtml += "</div></dl></div><div class='clearfix'></div><div class='users'></div><div><a style='float: right;margin-right: 32px' onclick='huanyquser()'>-换一批-</a></div>";
         layui.use('layer', function () {

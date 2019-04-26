@@ -28,7 +28,7 @@ td button {
 	<div class="admin-content-body">
 		<div class="am-cf am-padding am-padding-bottom-0">
 			<div class="am-fl am-cf">
-				<strong class="am-text-primary am-text-lg">问题管理</strong> <small></small>
+				<strong class="am-text-primary am-text-lg">话题管理</strong> <small></small>
 			</div>
 		</div>
 
@@ -38,10 +38,10 @@ td button {
 			<div class="am-u-sm-12 am-u-md-6">
 				<div class="am-btn-toolbar">
 					<div class="am-btn-group am-btn-group-xs">
-						<button type="button" class="am-btn am-btn-default"
-							onclick="searchtw()">
+						<a class="am-btn am-btn-default"
+							href="/admin-addTopic">
 							<span class="am-icon-plus"></span> 新增
-						</button>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -64,9 +64,8 @@ td button {
 							<tr>
 								<th class="table-check"><input type="checkbox"></th>
 								<th class="table-id">ID</th>
-								<th class="table-image"></th>
+								<th class="table-image">话题图片</th>
 								<th class="table-tname">话题名</th>
-								<th class="table-tjj">话题简介</th>
 								<th class="table-op">操作</th>
 							</tr>
 						</thead>

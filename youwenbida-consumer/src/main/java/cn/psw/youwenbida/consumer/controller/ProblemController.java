@@ -47,6 +47,7 @@ public class ProblemController {
     @ResponseBody
     public Problem getPro(HttpServletRequest request, @RequestBody @RequestParam("id")String id){
         Problem problem = problemService.getPro(Integer.parseInt(id));
+        problem.setUser(identityService.getUser(problem.getPtcz()));
         problem.setPplsl(commentService.getProComCount(Integer.parseInt(id)));
         HttpSession session = request.getSession();
         if((String)session.getAttribute("userid")!=null)
@@ -63,6 +64,7 @@ public class ProblemController {
         Problem problem = problemService.getPro(Integer.parseInt(id));
         if(problem != null) {
             problem.setPplsl(commentService.getProComCount(Integer.parseInt(id)));
+            problem.setUser(identityService.getUser(problem.getPtcz()));
             HttpSession session = request.getSession();
             if ((String) session.getAttribute("userid") != null)
                 if (operationService.getOp((String) session.getAttribute("userid"), problem.getPid().toString(), "3") != null)
@@ -257,6 +259,8 @@ public class ProblemController {
             answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
             answer.setAztsl(60);
             answer.setScore(0.8548);
+//            answer.setAztsl(operationService.getOpConut(answer.getAid().toString(),"1"));
+//            answer.setScore(answer.getScore());
         }
         for(Answer answer:yzanswers){
             User user = new User();
@@ -338,6 +342,8 @@ public class ProblemController {
             answer.setAplsl(commentService.getAnsComCount(answer.getAid()));
             answer.setAztsl(60);
             answer.setScore(0.8548);
+//            answer.setAztsl(operationService.getOpConut(answer.getAid().toString(),"1"));
+//            answer.setScore(answer.getScore());
         }
         for(Answer answer:yzanswers){
             User user = new User();

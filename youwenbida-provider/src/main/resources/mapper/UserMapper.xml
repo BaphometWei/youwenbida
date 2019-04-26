@@ -23,12 +23,12 @@
     insert into user (id, name, password, 
       gxqm, sex, location, 
       industry, gs, education,
-      email, introduction, img
+      email, introduction
       )
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{gxqm,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
       #{industry,jdbcType=VARCHAR}, #{gs,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR},
-      #{email,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}
+      #{email,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.psw.youwenbida.api.model.User">

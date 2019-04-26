@@ -26,8 +26,6 @@
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
 	<link rel="stylesheet" href="/layui/css/layui.css">
-
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/animate.css">
@@ -143,12 +141,11 @@
 				success: function (data) {
 					if(data.code==0) {
 						if($("#remember").is(':checked')){
-							setCookie('user',$("#email").val(),7); //保存帐号到cookie，有效期7天
-							setCookie('pswd',$("#password").val(),7); //保存密码到cookie，有效期7天
+							setCookie('useremail',$("#email").val(),7); //保存帐号到cookie，有效期7天
+							setCookie('userpswd',$("#password").val(),7); //保存密码到cookie，有效期7天
 						}
 						window.location.href = "/index";
-					}
-					else{
+					}else{
 						layui.use('layer', function(){
 							var layer = layui.layer;
 							layer.open({
@@ -162,15 +159,15 @@
 			});
 		})
 		$(function () {
-			$("#remember").change (function(){
+			$("#remember").change(function(){
 				if(!this.checked){
-					delCookie('user');
-					delCookie('pswd');
+					delCookie('useremail');
+					delCookie('userpswd');
 				}
 			});
-			if(getCookie('user') && getCookie('pswd')){
-				$("#email").val(getCookie('user'));
-				$("#password").val(getCookie('pswd'));
+			if(getCookie('useremail') && getCookie('userpswd')){
+				$("#email").val(getCookie('useremail'));
+				$("#password").val(getCookie('userpswd'));
 				$("#remember").attr("checked", 'checked');
 			}
 		})

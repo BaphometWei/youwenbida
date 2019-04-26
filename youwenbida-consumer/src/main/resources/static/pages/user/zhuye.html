@@ -175,6 +175,7 @@
         .main-right{
             float:right;
             width:246px;
+            background: #ffffff; box-shadow: 0 0 1px rgba(26, 26, 26, 0.1); background-clip: content-box;
         }
         .gzxx{
             background: #ffffff;
@@ -260,9 +261,18 @@
         <div class="clearfix"></div>
     </div>
     <div class="main-right">
-        <div class="gzxx">
-            <button style="border-right: 1px solid #c6d5ec;">关注了</br><span class="gzsl">0</span></button>
-            <button>关注者</br><span class="bgzsl">0</span></button>
+        <div class="hp_right" style="width: 270px;">
+            <div class="right_3" style="padding: 10px 20px; font-size: 13px; line-height: 2; color: #8590a6;">
+                <table>
+                    <tr><td>指南 | 协议 | 隐私政策</td></tr>
+                    <tr><td>侵权举报 | 网上有害信息举报专区</td></tr>
+                    <tr><td>违法和不良信息举报：010-0000000</td></tr>
+                    <tr><td>儿童色情信息举报专区</td></tr>
+                    <tr><td>电信与服务业务经营许可证</td></tr>
+                    <tr><td>网络文化经营许可证</td></tr>
+                    <tr><td>联系我们 © 2018 有问必答</td></tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -273,76 +283,77 @@
 
     $(function () {
         $("header").load("/pages/common/header.html");
+        if(getQueryString("id")!=""){
         $.ajax({
             type: "GET",
             url: "/getUser",
-            data: {uid:getQueryString("id")},
+            data: {uid: getQueryString("id")},
             async: false,
             success: function (data) {
-                $(".touxiang img").attr("src",data.user.img);
+                $(".touxiang img").attr("src", data.user.img);
                 var showhtml = "";
                 showhtml += "<div class='userxx'><div class='userxx-header'><h1>";
-                showhtml += "<span class='username'>"+data.user.name+"</span>";
-                if(data.user.gxqm!=null)
-                    showhtml += "<span style='margin-left: 7px' class='qm'>"+data.user.gxqm+"</stylespan>";
-                if(data.user.sex=="m")
+                showhtml += "<span class='username'>" + data.user.name + "</span>";
+                if (data.user.gxqm != null)
+                    showhtml += "<span style='margin-left: 7px' class='qm'>" + data.user.gxqm + "</stylespan>";
+                if (data.user.sex == "m")
                     showhtml += "<span class='userxx-sex'><i class='layui-icon layui-icon-male' style='color: #8590A6;'></i></span>";
                 else
                     showhtml += "<span class='userxx-sex'><i class='layui-icon layui-icon-female' style='color: #8590A6;'></i></span>";
                 showhtml += "</h1></div><div class='userxx-body'></div><div class='userxx-body1' style='display: none'>";
-                if(data.user.industry!=null)
-                    showhtml += "<div class='item suozaihangye'><i class='layui-icon layui-icon-tabs'></i><span>"+data.user.industry+"</span></div>";
-                if(data.user.gs!=null)
-                    showhtml += "<div class='item jiaoyujingli' style='margin-top: 15px;'><i class='layui-icon layui-icon-template-1'></i><span>"+data.user.gs+"</span></div>";
+                if (data.user.industry != null)
+                    showhtml += "<div class='item suozaihangye'><i class='layui-icon layui-icon-tabs'></i><span>" + data.user.industry + "</span></div>";
+                if (data.user.gs != null)
+                    showhtml += "<div class='item jiaoyujingli' style='margin-top: 15px;'><i class='layui-icon layui-icon-template-1'></i><span>" + data.user.gs + "</span></div>";
                 showhtml += "</div><div class='userxx-body2'  style='display: none'>";
-                if(data.user.location!=null)
-                    showhtml += "<div class='item juzhudi'><div class='label'>居住地</div><div class='value'>"+data.user.location+"</div></div>";
-                if(data.user.industry!=null)
-                    showhtml += "<div class='item suozaihangye'><div class='label'>所在行业</div><div class='value'>"+data.user.industry+"</div></div>";
-                if(data.user.gs!=null)
-                    showhtml += "<div class='item jiaoyujingli'><div class='label'>毕业学校</div><div class='value'>"+data.user.gs+"</div></div>";
-                if(data.user.education!=null)
-                    showhtml += "<div class='item xueli'><div class='label'>学历</div><div class='value'>"+data.user.education+"</div></div>";
-                if(data.user.introduction!=null)
-                    showhtml += "<div class='item gerenjingli'><div class='label'>个人简介</div><div class='value'>"+data.user.introduction+"</div></div>";
+                if (data.user.location != null)
+                    showhtml += "<div class='item juzhudi'><div class='label'>居住地</div><div class='value'>" + data.user.location + "</div></div>";
+                if (data.user.industry != null)
+                    showhtml += "<div class='item suozaihangye'><div class='label'>所在行业</div><div class='value'>" + data.user.industry + "</div></div>";
+                if (data.user.gs != null)
+                    showhtml += "<div class='item jiaoyujingli'><div class='label'>毕业学校</div><div class='value'>" + data.user.gs + "</div></div>";
+                if (data.user.education != null)
+                    showhtml += "<div class='item xueli'><div class='label'>学历</div><div class='value'>" + data.user.education + "</div></div>";
+                if (data.user.introduction != null)
+                    showhtml += "<div class='item gerenjingli'><div class='label'>个人简介</div><div class='value'>" + data.user.introduction + "</div></div>";
                 showhtml += "</div></div><div class='userxx-footer'>";
-                if(data.show1 == "true" && data.show2 == "true")
+                if (data.show1 == "true" && data.show2 == "true")
                     showhtml += "<a onclick='zhanshi()'><i class='layui-icon layui-icon-down'></i> <span id='chakan'> 查看详细资料</span></a>";
-                if(data.br == "true")
-                    showhtml += "<div class='userxxop'><a target='_blank' href='/updatexx?id="+data.user.id+"' style='margin-right:30px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #0084FF;border: 1px solid #0084FF;'><i class='layui-icon layui-icon-dialogue'></i>编辑个人资料</a></div>";
-                else{
-                    if(data.user.isgz==false)
-                        showhtml += "<div class='userxxop'><a id='guanzhu' style='margin-right:20px;padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #0084FF;color:#ffffff;' onclick='guanzhu(this)' alt='"+data.user.id+"'><i class='layui-icon layui-icon-add-1'></i>关 注</a>";
+                if (data.br == "true")
+                    showhtml += "<div class='userxxop'><a target='_blank' href='/updatexx?id=" + data.user.id + "' style='margin-right:30px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #0084FF;border: 1px solid #0084FF;'><i class='layui-icon layui-icon-dialogue'></i>编辑个人资料</a></div>";
+                else {
+                    if (data.user.isgz == false)
+                        showhtml += "<div class='userxxop'><a id='guanzhu' style='margin-right:20px;padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #0084FF;color:#ffffff;' onclick='guanzhu(this)' alt='" + data.user.id + "'><i class='layui-icon layui-icon-add-1'></i>关 注</a>";
                     else
-                        showhtml += "<div class='userxxop'><a id='guanzhu' style='margin-right:20px;padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #8590A6;color:#ffffff;' onclick='guanzhu(this)' alt='"+data.user.id+"'>取消关注</a>";
-                    showhtml += "<a target='_blank' href='/xiesixin?uid="+getQueryString("id")+"' style='margin-right:20px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;'><i class='layui-icon layui-icon-dialogue'></i>发私信</a></div>";
+                        showhtml += "<div class='userxxop'><a id='guanzhu' style='margin-right:20px;padding:7px 10px;border-radius:5%;font-size:16px;font-weight:600;background: #8590A6;color:#ffffff;' onclick='guanzhu(this)' alt='" + data.user.id + "'>取消关注</a>";
+                    showhtml += "<a target='_blank' href='/xiesixin?uid=" + getQueryString("id") + "' style='margin-right:20px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;'><i class='layui-icon layui-icon-dialogue'></i>发私信</a></div>";
                 }
                 showhtml += "</div></div>";
                 $(".main-top").append(showhtml);
-                if(data.show1=="false" && data.show2=="true")
+                if (data.show1 == "false" && data.show2 == "true")
                     $(".userxx-body").html($(".userxx-body2").html());
                 else {
                     $(".userxx-body").html($(".userxx-body1").html());
                 }
-                if(data.br=="false")
+                if (data.br == "false")
                     $(".bankuai").find("h4").html("他的动态");
                 $.ajax({
                     type: "GET",
                     url: "/getUserOp",
-                    data: {uid:getQueryString("id")},
+                    data: {uid: getQueryString("id")},
                     async: false,
                     success: function (data) {
                         $(".main-problem").html("");
                         if (data.ops.length == 0) {
                             $(".main-problem").html("<img style='margin-left: 220px' width='300' height='230' src='/img/nothing.png' />");
-                        }else {
+                        } else {
                             for (var i = 0; i < data.ops.length; i++) {
                                 var op = data.ops[i];
                                 var showhtml = "";
                                 if (op.olx == "3") {
                                     showhtml += "<div class='problem'>";
                                     showhtml += "<div class='problem-zan'>关注了该问题 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
-                                    showhtml += "<a target='_blank' href='/problem?proid="+op.problem.pid+"'><h2 class='problem-title'>" + op.problem.ptitle + "</h2></a>";
+                                    showhtml += "<a target='_blank' href='/problem?proid=" + op.problem.pid + "'><h2 class='problem-title'>" + op.problem.ptitle + "</h2></a>";
                                     showhtml += "</div>";
                                     $(".main-problem").append(showhtml);
                                 } else {
@@ -351,8 +362,8 @@
                                         showhtml += "<div class='problem-zan'>赞同了该回答 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
                                     else
                                         showhtml += "<div class='problem-zan'>收藏了该回答 <span class='odate'>" + getIntervalTime(op.odate) + "</span></div>";
-                                    showhtml += "<a target='_blank' href='/problem?proid="+op.answer.problem.pid+"'><h2 class='problem-title'>" + op.answer.problem.ptitle + "</h2></a>";
-                                    showhtml += "<div class='problem-answer'><a href='/zhuye?id="+op.answer.user.id+"' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='"+op.answer.user.img+"' /><span class='answername'>  " + op.answer.user.name + "</span>";
+                                    showhtml += "<a target='_blank' href='/problem?proid=" + op.answer.problem.pid + "'><h2 class='problem-title'>" + op.answer.problem.ptitle + "</h2></a>";
+                                    showhtml += "<div class='problem-answer'><a href='/zhuye?id=" + op.answer.user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='24' height='24' src='" + op.answer.user.img + "' /><span class='answername'>  " + op.answer.user.name + "</span>";
                                     showhtml += "<span class='answerqm'> " + op.answer.user.gxqm + "</span></a></div><div class='problem-zan'><span>" + op.answer.aztsl + "</span>人赞同了该回答</div><div class='problem-fold'>" + op.answer.ahd;
                                     showhtml += "</div><div class='controlfold'> </div><div class='answer-time'>发布于  <span>" + op.answer.ahdrq + "</span></div><div class='problem-footer'>";
                                     showhtml += "<button class='problem-dianzan' style='background: #FCC9C9;color:#ffffff;padding: 0 12px;' isdz='" + op.answer.dz + "' onclick='zantong(this)' alt='" + op.answer.aid + "'><i class='layui-icon layui-icon-praise'></i> <span>" + op.answer.aztsl + "</span></button>";
@@ -368,6 +379,9 @@
 
             }
         });
+    }else{
+            $(".main-problem").html("<img style='margin-left: 220px' width='300' height='230' src='/img/nothing.png' />");
+        }
         init();
         if($(".problem-fold img").length >0) {
             var load = "true";

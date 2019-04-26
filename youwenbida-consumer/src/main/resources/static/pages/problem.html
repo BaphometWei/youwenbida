@@ -26,7 +26,6 @@
         .right{
             float:right;
             width:231px;
-            text-align: right;
         }
         .main-footer h1{
             font-size: 22px;
@@ -244,21 +243,6 @@
         </div>
         <div class="main-problem"></div>
     </div>
-    <div class="main-right">
-        <div class="hp_right" style="width: 270px;">
-            <div class="right_3" style="padding: 10px 20px; font-size: 13px; line-height: 2; color: #8590a6;">
-                <table>
-                    <tr><td>指南 | 协议 | 隐私政策</td></tr>
-                    <tr><td>侵权举报 | 网上有害信息举报专区</td></tr>
-                    <tr><td>违法和不良信息举报：010-0000000</td></tr>
-                    <tr><td>儿童色情信息举报专区</td></tr>
-                    <tr><td>电信与服务业务经营许可证</td></tr>
-                    <tr><td>网络文化经营许可证</td></tr>
-                    <tr><td>联系我们 © 2018 有问必答</td></tr>
-                </table>
-            </div>
-        </div>
-    </div>
     <div class="clearfix"></div>
 </div>
 <script src="/layui/layui.js"></script>
@@ -290,8 +274,10 @@
                 showhtml += "<a style='margin-left:15px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #0084FF;border: 1px solid #0084FF;' onclick='xiehuida(this)' alt='false'><i class='layui-icon layui-icon-edit'></i>写回答</a>";
                 showhtml += "<a style='margin-left:15px;padding:7px 10px;border-radius:5%;font-size:16px;background: #ffffff;color: #8590A6;border: 1px solid #8590A6;' onclick='yaoqing(this)' alt='false'><i class='layui-icon layui-icon-user'></i>邀请回答</a>";
                 showhtml += "<button class='problem-pinglun propl' style='margin-left:15px;' onclick='ckppl()'><i class='layui-icon layui-icon-reply-fill'></i> <span>"+data.pplsl+"</span>条评论</button></div></div><div class='right'>";
-                showhtml += "<div class='gzxx'><button id='gzzsl' style='border-right: 1px solid #c6d5ec;'>关注者</br><span class='gzsl'>"+data.pgzzsl+"</span></button>";
-                showhtml += "<button>被浏览</br><span class='bgzsl'>2,902,734</span></button></div></div><div class='clearfix'></div>";
+                showhtml += "<div style='height: 50px; padding: 0 20px;display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between; -webkit-box-align: center; -ms-flex-align: center; align-items: center;border-bottom: 1px solid #f6f6f6; -webkit-box-sizing: border-box; box-sizing: border-box;'><span style='font-size: 15px; color: #1a1a1a;overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600;'>关于作者</span></div>";
+                showhtml += "<div style='padding: 20px 20px;'>";
+                showhtml += "<a href='/zhuye?id=" + data.user.id + "' target='_blank'><img class='Avatar AuthorInfo-avatar' width='30' height='30' src='"+data.user.img+"' /><span class='answername' style='font-size: 20px; font-weight: 600; font-synthesis: style; line-height: 30px; color: #1a1a1a;'>  " + data.user.name + "</span></a>";
+                showhtml += "</div></div><div class='clearfix'></div>";
                 $(".main-footer").append(showhtml);
                 commonAjax("/getProAnswer",callback,{pid: getQueryString("proid")});
                 function callback(data) {

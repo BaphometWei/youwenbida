@@ -225,7 +225,7 @@ public class AnswerController {
     @RequestMapping("/imgupload")
     @ResponseBody
     public Map<String,Object> imgupload(@RequestParam("file") MultipartFile file) throws Exception{
-        String path = "G:/eclipseproject/youwenbida/youwenbida-consumer/src/main/resources/image/";
+        String path = System.getProperty("user.dir")+"/youwenbida-consumer/src/main/resources/image/";
         String entryName = file.getOriginalFilename();
         String indexName=entryName.substring(entryName.lastIndexOf("."));
         String fileName = String.valueOf(UUID.randomUUID());
@@ -239,7 +239,7 @@ public class AnswerController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        BufferedImage img = ImageIO.read(new File("G:/eclipseproject/youwenbida/youwenbida-consumer/src/main/resources/image/"+fileName + indexName));
+        BufferedImage img = ImageIO.read(new File(System.getProperty("user.dir")+"/youwenbida-consumer/src/main/resources/image/"+fileName + indexName));
         if(img.getWidth()>=550){
             int imageWidth = img.getWidth();
             int imageHeight = img.getHeight();
@@ -251,7 +251,7 @@ public class AnswerController {
             int newHeight = (int) (imageHeight * scale);
             BufferedImage newImage = scaleImage(img, scale, newWidth, newHeight);
 
-            File file_out = new File("G:/eclipseproject/youwenbida/youwenbida-consumer/src/main/resources/image/"+fileName + indexName);
+            File file_out = new File(System.getProperty("user.dir")+"/youwenbida-consumer/src/main/resources/image/"+fileName + indexName);
             ImageIO.write(newImage, "jpg", file_out);
         }
         String fileurl = "/images/"+fileName + indexName;

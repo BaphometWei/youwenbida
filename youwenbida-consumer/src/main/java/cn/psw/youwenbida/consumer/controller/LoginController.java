@@ -74,4 +74,12 @@ public class LoginController {
         return ResponseBo.error();
     }
 
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session =request.getSession();
+        session.removeAttribute("userid");
+        session.removeAttribute("username");
+        return "/pages/login.html";
+    }
+
 }

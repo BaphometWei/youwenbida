@@ -1,13 +1,20 @@
 package cn.psw.youwenbida.consumer.controller;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import cn.psw.youwenbida.api.model.Topic;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +35,7 @@ import cn.psw.youwenbida.api.service.ProblemService;
 import cn.psw.youwenbida.api.service.TopicService;
 import cn.psw.youwenbida.api.utils.ResponseBo;
 import cn.psw.youwenbida.consumer.utils.Lucence;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class AdminController {
@@ -61,6 +69,11 @@ public class AdminController {
         if((String)session.getAttribute("adminid")!=null)
             return "/pages/admin/index.html";
 		return "/pages/admin/login.html";
+	}
+
+	@RequestMapping("/admin-addTopic")
+	public String adminaddTopic(HttpServletRequest request){
+		return "/pages/admin/addTopic.html";
 	}
 
 	@RequestMapping("/admin-getUserOp")
@@ -270,6 +283,9 @@ public class AdminController {
 		if(lx.equals("tw")) {
 			code =(Integer) problemService.deletePro(alt).get("code");
 		}
+		if(lx.equals("topic")) {
+			code =(Integer) topicService.delete(Integer.parseInt(alt)).get("code");
+		}
 		if(code==0)
 			return ResponseBo.ok().put("msg","删除成功");
 		return ResponseBo.error().put("msg", "删除失败");
@@ -279,5 +295,62 @@ public class AdminController {
 	@ResponseBody
 	public ResponseBo admingetTopic(HttpServletRequest request) {
 		return ResponseBo.ok().put("topics", topicService.getAllTopic());
+	}
+
+	@RequestMapping("/addTopic")
+	@ResponseBody
+	public ResponseBo addTopic(Topic topic){
+		int insert = topicService.insertTopic(topic);
+		if(insert==0){
+			return ResponseBo.error();
+		}
+		return ResponseBo.ok();
+	}
+
+	//资源上传
+	@RequestMapping("/topic_upload")
+	@ResponseBody
+	public ResponseBo res_upload(HttpServletRequest request, @RequestBody @RequestParam("file") MultipartFile file) throws Exception{
+		String path = System.getProperty("user.dir")+"/youwenbida-consumer/src/main/resources/image/topic/";
+		String entryName = file.getOriginalFilename();
+		String indexName=entryName.substring(entryName.lastIndexOf("."));
+		String fileName = String.valueOf(UUID.randomUUID());
+		String fileurl ="";
+		File targetFile = new File(path + "/" + fileName + indexName);
+		if (!targetFile.getParentFile().exists()) {
+			targetFile.getParentFile().mkdirs();
+		}
+		// 保存
+		try {
+			file.transferTo(targetFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		BufferedImage img = ImageIO.read(new File(System.getProperty("user.dir")+"/youwenbida-consumer/src/main/resources/image/topic/"+fileName + indexName));
+		if(img.getWidth()>=550){
+			int imageWidth = img.getWidth();
+			int imageHeight = img.getHeight();
+
+			double scale = (double) 600 / imageWidth;
+
+			//计算等比例压缩之后的狂傲
+			int newWidth = (int) (imageWidth * scale);
+			int newHeight = (int) (imageHeight * scale);
+			BufferedImage newImage = scaleImage(img, scale, newWidth, newHeight);
+
+			File file_out = new File(System.getProperty("user.dir")+"/youwenbida-consumer/src/main/resources/image/topic/"+fileName + indexName);
+			ImageIO.write(newImage, "jpg", file_out);
+			fileurl = "/images/topic/"+fileName + indexName;
+		}
+		return ResponseBo.ok().put("file",fileName + indexName);
+	}
+
+	public BufferedImage scaleImage(BufferedImage bufferedImage, double scale, int width, int height) {
+		int imageWidth = bufferedImage.getWidth();
+		int imageHeight = bufferedImage.getHeight();
+		AffineTransform scaleTransform = AffineTransform.getScaleInstance(scale, scale);
+		AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
+
+		return bilinearScaleOp.filter(bufferedImage, new BufferedImage(width, height, bufferedImage.getType()));
 	}
 }

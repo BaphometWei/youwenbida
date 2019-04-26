@@ -5,7 +5,7 @@ server:
     max-http-post-size: 1000MB
 
 springbootdo:
-  imagePath: file:///G:/ideaproject/youwenbida/youwenbida-consumer/src/main/resources/image/
+  imagePath: file:///G:/17.02/youwenbida-consumer/src/main/resources/image/
 
 spring:
   servlet:

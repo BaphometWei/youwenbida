@@ -249,26 +249,18 @@ function admindelete(obj) {
 	};
 	commonAjax('/admin-delete', callback, data);
 	function callback(result) {
-		layui.use('layer', function() {
-			var layer = layui.layer;
-			layer.open({
-				title : '提示',
-				offset : '100px',
-				btn : [],
-				content : result.msg
-			})
-		})
+		alert(result.msg);
 	}
 }
 
 function getTopic(){
-	commonAjax('admin-getTopic', callback, {});
+	commonAjax('/admin-getTopic', callback, {});
 	function callback(data) {
 		$("tbody").html("");
 		var showhtml = "";
 		for (var k = 0; k < data.topics.length; k++) {
-			showhtml += "<tr><td><input type='checkbox' /></td><td><a target='_blank' href='/topic?tid="+data.topics[k].tid+"'>"+data.topics[k].tid+"</a></td><td><a target='_blank' href='/topic?tid="+data.topics[k].tid+"'><img width='24' height='24' src='"+data.topics[k].timg+"' /></a></td>";
-			showhtml += "<td><a target='_blank' href='/topic?tid="+data.topics[k].tid+"'>"+data.topics[k].tname+"</a></td><td>"+data.topics[k].tjj+"</td><td><button class='am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only' dlx='topic' alt='"+ data.topics[k].tid+ "' onclick='admindelete(this)'><span class='am-icon-trash-o'></span> 删除</button></td>";
+			showhtml += "<tr><td><input type='checkbox' /></td><td><a target='_blank' href='/topic?tid="+data.topics[k].tid+"'>"+data.topics[k].tid+"</a></td><td><a target='_blank' href='/topic?tid="+data.topics[k].tid+"'><img width='24' height='24' src='/images/topic/"+data.topics[k].timg+"' /></a></td>";
+			showhtml += "<td><a target='_blank' href='/topic?tid="+data.topics[k].tid+"'>"+data.topics[k].tname+"</a></td><td><button class='am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only' dlx='topic' alt='"+ data.topics[k].tid+ "' onclick='admindelete(this)'><span class='am-icon-trash-o'></span> 删除</button></td>";
 		}
 		$("tbody").append(showhtml);
 		$("#jls").html("共 " + data.topics.length + " 条记录");

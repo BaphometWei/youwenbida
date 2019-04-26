@@ -313,8 +313,7 @@ public class UserController {
 
     @RequestMapping("/updateuserxx")
     @ResponseBody
-    public ResponseBo updateuserxx(HttpServletRequest request){
-        User user = new User();
+    public ResponseBo updateuserxx(HttpServletRequest request,User user){
         HttpSession session = request.getSession();
         user.setId((String) session.getAttribute("userid"));
         return identityService.updateUserXx(user);
@@ -432,7 +431,7 @@ public class UserController {
     @ResponseBody
     public Map<String,Object> imgupload(HttpServletRequest request,@RequestBody @RequestParam("image") String image) throws Exception{
         String base64 = image.substring(image.indexOf(",") + 1);
-        String path = "G:/eclipseproject/youwenbida/youwenbida-consumer/src/main/resources/image/user/";
+        String path = System.getProperty("user.dir")+"/youwenbida-consumer/src/main/resources/image/user/";
         String imgName = UUID.randomUUID() + ".png";
         FileOutputStream write = new FileOutputStream(new File(path + imgName));
         byte[] decoderBytes = Base64.getDecoder().decode(base64);

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+        <title>话题新增</title>
+
+        <link rel="stylesheet" type="text/css" href="/admin-res/topic/css/base.css">
+        <link rel="stylesheet" type="text/css" href="/admin-res/topic/css/home.css">
+		
+    </head>
+    <body>
+        <section class="aui-content">
+            <div style="height:20px;"></div>
+            <div class="aui-content-up">
+                <form id="topicform" name="form" method="post" enctype="multipart/form-data">
+                    <div class="aui-content-up-form">
+                        <h2>话题新增</h2>
+                    </div>
+                    <div class="aui-form-group clear">
+                        <label class="aui-label-control">
+                            话题名
+                        </label>
+                        <div class="aui-form-input">
+                            <input type="text" class="aui-form-control-two" id="tname" name="tname" required placeholder="">
+                        </div>
+                    </div>
+                    <div class="aui-form-group clear">
+                        <label class="aui-label-control">
+                            话题简介
+                        </label>
+                        <div class="aui-form-input">
+                            <textarea class="aui-form-control" name="tjj" id="tjj" minlength="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="aui-form-group clear">
+                        <label class="aui-label-control">
+                            话题图片
+                            <span>小于5M</span>
+                        </label>
+                        <div class="aui-form-input">
+                            <div class="aui-content-img-box aui-content-full">
+                                <div class="aui-photo aui-up-img clear">
+                                    <section class="aui-file-up fl">
+                                        <img src="/admin-res/topic/img/up.png" class="add-img">
+                                        <input type="file" name="file" id="file" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple/>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="aui-btn-default">
+                <button class="aui-btn aui-btn-account" onclick="save()">保存</button>
+            </div>
+        </section>
+        <!-- mask begin -->
+        <div class="aui-mask aui-works-mask">
+            <div class="aui-mask-content">
+                <p class="aui-delete-text">确定要删除图片？</p>
+                <p class="aui-check-text">
+                    <span class="aui-delete aui-accept-ok">确定</span>
+                    <span class="aui-accept-no">取消</span>
+                </p>
+            </div>
+        </div>
+        <input type="hidden" id="hid_imgname" value=""/>
+        <!-- mask end -->
+        <script type="text/javascript" src="/admin-res/topic/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/admin-res/topic/js/up.js"></script>
+        <script type="text/javascript">
+            function save() {
+                $.ajax({
+                    type : 'GET',
+                    url: "/addTopic",
+                    data:{'tname':$("#tname").val(),'tjj':$("#tjj").val(),'timg':$("#hid_imgname").val()},
+                    async : false,
+                    success : function(data) {
+                        alert(data.msg);
+                    }
+                })
+            }
+        </script>
+    </body>
+</html>
